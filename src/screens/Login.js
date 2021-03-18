@@ -8,6 +8,7 @@ const { width, height } = Dimensions.get('window');
 const Login = props => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [buttonTitle, setButtonTitle] = useState('USER LOGIN');
 
     const inputHandler = (type, value) => {
         if (type === 'email') {
@@ -24,7 +25,7 @@ const Login = props => {
 
     return (
         <TouchableOpacity style={styles.screen} activeOpacity={1} onPress={screenTouchHandler}>
-            
+
             <View style={styles.loginLabel}>
                 <Text style={styles.label}>
                     LOGIN
@@ -50,12 +51,22 @@ const Login = props => {
             </View>
             <View style={styles.buttonContainer}>
                 <Button icon="person" mode="contained" style={styles.button} onPress={() => console.log('Pressed')}>
-                    LOGIN
+                    {buttonTitle}
                 </Button>
             </View>
-            {/* <View style={styles.}>
+            <View style={styles.lastRow}>
+                <TouchableOpacity onPress={() => {console.log('Create Account Pressed')}}>
+                    <Text style={styles.lastRowText}>
+                        Create Account
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => {console.log('Create Account Pressed')}}>
+                    <Text style={styles.lastRowText}>
+                        Forget Password?
+                    </Text>
+                </TouchableOpacity>
+            </View>
 
-            </View> */}
 
         </TouchableOpacity>
     );
@@ -71,20 +82,35 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         paddingBottom: 110
     },
+
     loginLabel: {
         marginBottom: 40
     },
+
     label: {
         fontFamily: 'headings',
         fontSize: 25
     },
+
     inputContainer: {
         width: width - 35,
         marginBottom: 20
     },
+
     buttonContainer: {
         backgroundColor: 'green',
         width: width - 35
     },
+
+    lastRow: {
+        marginTop: 5,
+        width: width - 35,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+
+    lastRowText: {
+        color: 'blue'
+    }
 
 });
