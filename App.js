@@ -7,15 +7,15 @@ import { Ionicons } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
 
 export default function App() {
-  // const [loaded] = useFonts({
-  //   headings: require('./assets/fonts/main-headings.ttf'),
-  //   Montserrat: require('./assets/fonts/sub-headings.ttf'),
-  //   joining: require('./assets/fonts/stylish.ttf')
-  // });
+  const [loaded] = useFonts({
+    headings: require('./assets/fonts/main-headings.ttf'),
+    Montserrat: require('./assets/fonts/sub-headings.ttf'),
+    joining: require('./assets/fonts/stylish.ttf')
+  });
 
-  // if (!loaded) {
-  //   return <ActivityIndicator color={'blue'} size={50}/>;
-  // }
+  if (!loaded) {
+    return <ActivityIndicator color={'blue'} size={50}/>;
+  }
 
   return (
     <PaperProvider
