@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Keyboard } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Keyboard, ImageBackground } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 // import { Ionicons } from '@expo/vector-icons';
 
@@ -24,51 +24,54 @@ const Login = props => {
     }
 
     return (
-        <TouchableOpacity style={styles.screen} activeOpacity={1} onPress={screenTouchHandler}>
 
-            <View style={styles.loginLabel}>
-                <Text style={styles.label}>
-                    LOGIN
+        <ImageBackground source={require('../../assets/images/login-background.jpg')} style={styles.backgroundImage}>
+            <TouchableOpacity style={styles.screen} activeOpacity={1} onPress={screenTouchHandler}>
+
+                <View style={styles.loginLabel}>
+                    <Text style={styles.label}>
+                        LOGIN
                 </Text>
-            </View>
-            <View style={styles.inputContainer}>
-                <TextInput
-                    label="Email"
-                    mode="outlined"
-                    value={email}
-                    // left={() => <Text style={{ color: 'black' }}>hello</Text>}
-                    onChangeText={inputHandler.bind(null, 'email')}
-                    left={<TextInput.Icon name="mail" size={25} color={'blue'} />}
-                />
-                <TextInput
-                    label="Password"
-                    mode="outlined"
-                    secureTextEntry={true}
-                    value={password}
-                    onChangeText={inputHandler.bind(null, 'password')}
-                    left={<TextInput.Icon name="lock-closed" size={25} color={'blue'} />}
-                />
-            </View>
-            <View style={styles.buttonContainer}>
-                <Button icon="person" mode="contained" style={styles.button} onPress={() => console.log('Pressed')}>
-                    {buttonTitle}
-                </Button>
-            </View>
-            <View style={styles.lastRow}>
-                <TouchableOpacity onPress={() => {console.log('Create Account Pressed')}}>
-                    <Text style={styles.lastRowText}>
-                        Create Account
+                </View>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        label="Email"
+                        mode="outlined"
+                        value={email}
+                        // left={() => <Text style={{ color: 'black' }}>hello</Text>}
+                        onChangeText={inputHandler.bind(null, 'email')}
+                        left={<TextInput.Icon name="mail" size={25} color={'blue'} />}
+                    />
+                    <TextInput
+                        label="Password"
+                        mode="outlined"
+                        secureTextEntry={true}
+                        value={password}
+                        onChangeText={inputHandler.bind(null, 'password')}
+                        left={<TextInput.Icon name="lock-closed" size={25} color={'blue'} />}
+                    />
+                </View>
+                <View style={styles.buttonContainer}>
+                    <Button icon="person" mode="contained" style={styles.button} onPress={() => console.log('Pressed')}>
+                        {buttonTitle}
+                    </Button>
+                </View>
+                <View style={styles.lastRow}>
+                    <TouchableOpacity onPress={() => { console.log('Create Account Pressed') }}>
+                        <Text style={styles.lastRowText}>
+                            Create Account
                     </Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => {console.log('Create Account Pressed')}}>
-                    <Text style={styles.lastRowText}>
-                        Forget Password?
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => { console.log('Create Account Pressed') }}>
+                        <Text style={styles.lastRowText}>
+                            Forget Password?
                     </Text>
-                </TouchableOpacity>
-            </View>
+                    </TouchableOpacity>
+                </View>
 
 
-        </TouchableOpacity>
+            </TouchableOpacity>
+        </ImageBackground>
     );
 }
 
@@ -79,7 +82,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff',
         paddingBottom: 110
     },
 
@@ -89,7 +91,8 @@ const styles = StyleSheet.create({
 
     label: {
         fontFamily: 'headings',
-        fontSize: 25
+        fontSize: 25,
+        color: 'white'
     },
 
     inputContainer: {
@@ -110,7 +113,12 @@ const styles = StyleSheet.create({
     },
 
     lastRowText: {
-        color: 'blue'
+        color: 'white'
+    },
+
+    backgroundImage: {
+        width: '100%', 
+        height: '100%'
     }
 
 });
