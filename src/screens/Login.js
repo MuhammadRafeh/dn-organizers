@@ -34,17 +34,20 @@ const Login = props => {
                 </Text>
                 </View>
                 <View style={styles.inputContainer}>
-                    <TextInput
-                        label="Email"
-                        mode="outlined"
-                        value={email}
-                        // left={() => <Text style={{ color: 'black' }}>hello</Text>}
-                        onChangeText={inputHandler.bind(null, 'email')}
-                        left={<TextInput.Icon name="mail" size={25} color={'blue'} />}
-                    />
+                    <View style={styles.textInput}>
+                        <TextInput
+                            label="Email"
+                            // mode="outlined"
+                            value={email}
+                            // left={() => <Text style={{ color: 'black' }}>hello</Text>}
+                            onChangeText={inputHandler.bind(null, 'email')}
+                            left={<TextInput.Icon name="mail" size={25} color={'blue'} />}
+                        />
+                    </View>
+
                     <TextInput
                         label="Password"
-                        mode="outlined"
+                        // mode="outlined"
                         secureTextEntry={true}
                         value={password}
                         onChangeText={inputHandler.bind(null, 'password')}
@@ -101,8 +104,9 @@ const styles = StyleSheet.create({
     },
 
     buttonContainer: {
-        backgroundColor: 'green',
-        width: width - 35
+        backgroundColor: 'blue',
+        width: width - 35,
+        borderRadius: 4
     },
 
     lastRow: {
@@ -117,8 +121,12 @@ const styles = StyleSheet.create({
     },
 
     backgroundImage: {
-        width: '100%', 
+        width: '100%',
         height: '100%'
+    },
+
+    textInput: {
+        marginBottom: 1
     }
 
 });
