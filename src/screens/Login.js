@@ -24,10 +24,11 @@ const Login = props => {
 
     return (
         <TouchableOpacity style={styles.screen} activeOpacity={1} onPress={screenTouchHandler}>
-            <View>
+            
+            <View style={styles.loginLabel}>
                 <Text>
                     LOGIN
-                    </Text>
+                </Text>
             </View>
             <View style={styles.inputContainer}>
                 <TextInput
@@ -50,8 +51,12 @@ const Login = props => {
             <View style={styles.buttonContainer}>
                 <Button icon="person" mode="contained" style={styles.button} onPress={() => console.log('Pressed')}>
                     Press me
-                    </Button>
+                </Button>
             </View>
+            {/* <View style={styles.}>
+
+            </View> */}
+
         </TouchableOpacity>
     );
 }
@@ -65,6 +70,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff',
         paddingBottom: 110
+    },
+    loginLabel: {
+        marginBottom: 30
     },
     inputContainer: {
         width: width - 35,
