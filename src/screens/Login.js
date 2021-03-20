@@ -22,7 +22,7 @@ function validateEmail(email) {
 
 const Login = (props) => {
     let headerHeight = useHeaderHeight();
-    const loginBy = props.route.params?.loginBy;
+    const loginBy = props.route.params?.loginBy; //value can be user or admin
     const isSignup = props.route.params?.signup === 'signup';
 
     useEffect(() => {
@@ -58,9 +58,17 @@ const Login = (props) => {
         // forget (user and admin)
     }
 
-    const screenTouchHandler = () => {
-        Keyboard.dismiss();
-    };
+    const buttonHandler = () => {
+        if (isSignup) {
+            //here we are creating the user
+        }
+        else if (loginBy === 'user') {
+            //here we are signing the user
+        }
+        else if (loginBy === 'admin') {
+            //here we are signing the admin
+        }
+    }
 
     return (
         <View style={{ flex: 1 }}>
@@ -103,7 +111,7 @@ const Login = (props) => {
                         icon="person"
                         mode="contained"
                         style={styles.button}
-                        onPress={() => console.log("Pressed")}
+                        onPress={buttonHandler}
                     >
                         {loginBy === 'user' ? 'USER LOGIN' : (loginBy === 'admin' ? 'ADMIN LOGIN': 'USER SIGNUP')}
                     </Button>
