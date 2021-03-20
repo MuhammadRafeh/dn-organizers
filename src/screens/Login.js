@@ -1,37 +1,54 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Keyboard, ImageBackground } from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
+import React, { useState, useEffect } from "react";
+import {
+    View,
+    Text,
+    StyleSheet,
+    Dimensions,
+    TouchableOpacity,
+    Keyboard,
+    ImageBackground,
+    ScrollView,
+} from "react-native";
+import { TextInput, Button } from "react-native-paper";
 // import { Ionicons } from '@expo/vector-icons';
+import { useHeaderHeight } from "@react-navigation/stack";
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
-const Login = props => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [buttonTitle, setButtonTitle] = useState('USER LOGIN');
+const Login = (props) => {
+    let headerHeight = useHeaderHeight();
+    useEffect(() => {
+        props.navigation.setOptions({
+            headerShown: true,
+            headerTransparent: true,
+            headerTitle: "",
+            // headerTintColor: 'white'
+        });
+    }, []);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [buttonTitle, setButtonTitle] = useState("USER LOGIN");
 
     const inputHandler = (type, value) => {
-        if (type === 'email') {
+        if (type === "email") {
             setEmail(value);
-        }
-        else if (type === 'password') {
+        } else if (type === "password") {
             setPassword(value);
         }
-    }
+    };
 
     const screenTouchHandler = () => {
         Keyboard.dismiss();
-    }
+    };
 
     return (
-
-        <ImageBackground source={require('../../assets/images/login-background.jpg')} style={styles.backgroundImage}>
-            <TouchableOpacity style={styles.screen} activeOpacity={1} onPress={screenTouchHandler}>
-
+        <View style={{ flex: 1 }}>
+            <ScrollView
+                style={{ backgroundColor: "transparent" }}
+                contentContainerStyle={styles.screen}
+            >
                 <View style={styles.loginLabel}>
-                    <Text style={styles.label}>
-                        LOGIN
-                </Text>
+                    <Text style={styles.label}>LOGIN</Text>
                 </View>
                 <View style={styles.inputContainer}>
                     <View style={styles.textInput}>
@@ -39,9 +56,11 @@ const Login = props => {
                             label="Email"
                             // mode="outlined"
                             value={email}
+                            // placeholder={'Enter your email'}
+
                             // left={() => <Text style={{ color: 'black' }}>hello</Text>}
-                            onChangeText={inputHandler.bind(null, 'email')}
-                            left={<TextInput.Icon name="mail" size={25} color={'blue'} />}
+                            onChangeText={inputHandler.bind(null, "email")}
+                            left={<TextInput.Icon name="mail" size={25} color={"blue"} />}
                         />
                     </View>
 
@@ -49,84 +68,106 @@ const Login = props => {
                         label="Password"
                         // mode="outlined"
                         secureTextEntry={true}
+                        // placeholder={'Enter your password'}
                         value={password}
-                        onChangeText={inputHandler.bind(null, 'password')}
-                        left={<TextInput.Icon name="lock-closed" size={25} color={'blue'} />}
+                        onChangeText={inputHandler.bind(null, "password")}
+                        left={
+                            <TextInput.Icon name="lock-closed" size={25} color={"blue"} />
+                        }
                     />
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button icon="person" mode="contained" style={styles.button} onPress={() => console.log('Pressed')}>
+                    <Button
+                        icon="person"
+                        mode="contained"
+                        style={styles.button}
+                        onPress={() => console.log("Pressed")}
+                    >
                         {buttonTitle}
                     </Button>
                 </View>
                 <View style={styles.lastRow}>
-                    <TouchableOpacity onPress={() => { console.log('Create Account Pressed') }}>
-                        <Text style={styles.lastRowText}>
-                            Create Account
-                    </Text>
+                    <TouchableOpacity
+                        onPress={() => {
+                            console.log("Create Account Pressed");
+                        }}
+                    >
+                        <Text style={styles.lastRowText}>Create Account</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { console.log('Create Account Pressed') }}>
-                        <Text style={styles.lastRowText}>
-                            Forget Password?
-                    </Text>
+                    <TouchableOpacity
+                        onPress={() => {
+                            console.log("Create Account Pressed");
+                        }}
+                    >
+                        <Text style={styles.lastRowText}>Forget Password?</Text>
                     </TouchableOpacity>
                 </View>
-
-
-            </TouchableOpacity>
-        </ImageBackground>
+            </ScrollView>
+            <ImageBackground
+                source={require("../../assets/images/login-background.jpg")}
+                style={[
+                    styles.backgroundImage,
+                    { height: Dimensions.get("window").height + headerHeight },
+                    { zIndex: -1 },
+                ]}
+            />
+        </View>
     );
-}
+};
 
 export default Login;
 
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingBottom: 110
+        justifyContent: "center",
+        alignItems: "center",
+        paddingBottom: 110,
     },
 
     loginLabel: {
-        marginBottom: 40
+        marginBottom: 40,
     },
 
     label: {
-        fontFamily: 'headings',
+        fontFamily: "headings",
         fontSize: 25,
-        color: 'white'
+        color: "white",
     },
 
     inputContainer: {
         width: width - 35,
-        marginBottom: 20
+        marginBottom: 20,
     },
 
     buttonContainer: {
-        backgroundColor: 'blue',
+        backgroundColor: "blue",
         width: width - 35,
-        borderRadius: 4
+        borderRadius: 4,
     },
 
     lastRow: {
         marginTop: 5,
         width: width - 35,
-        flexDirection: 'row',
-        justifyContent: 'space-between'
+        flexDirection: "row",
+        justifyContent: "space-between",
     },
 
     lastRowText: {
-        color: 'white'
+        color: "white",
     },
 
     backgroundImage: {
-        width: '100%',
-        height: '100%'
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: Dimensions.get("window").width, //for full screen
+        // height: Dimensions.get("window").height  //for full screen
     },
 
     textInput: {
-        marginBottom: 1
-    }
-
+        marginBottom: 1,
+    },
 });
