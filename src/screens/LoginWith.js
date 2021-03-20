@@ -18,24 +18,24 @@ const LoginWith = props => {
         });
     }, [])
 
-    // const handleLogin = (type) => {
-    //     if (type === 'user') {
-    //         props.navigation.navigate('')
-    //     }
-    //     if (type === 'admin') {
-    //         props.navigation.navigate('')
-    //     }
-    // }
+    const handleLogin = (type) => {
+        if (type === 'user') {
+            props.navigation.navigate('login', {loginBy: 'user'})
+        }
+        if (type === 'admin') {
+            props.navigation.navigate('login', {loginBy: 'admin'})
+        }
+    }
     
     return (
         <View style={styles.container}>
             <View style={{marginBottom: 20}}>
-                <Button icon="people" color='white' mode="outlined" onPress={() => {}}>
+                <Button icon="people" color='white' mode="outlined" onPress={handleLogin.bind(null, 'user')}>
                     User Login
                 </Button>
             </View>
             <View>
-                <Button icon="md-person-circle" color='white' mode="outlined" onPress={() => {}} >
+                <Button icon="md-person-circle" color='white' mode="outlined" onPress={handleLogin.bind(null, 'admin')}>
                     Admin Login
                 </Button>
             </View>
