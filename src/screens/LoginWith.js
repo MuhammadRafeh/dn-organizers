@@ -29,12 +29,12 @@ const LoginWith = props => {
     
     return (
         <View style={styles.container}>
-            <View style={{marginBottom: 20}}>
+            <View style={{marginBottom: 20, width: 150}}>
                 <Button icon="people" color='white' mode="outlined" onPress={handleLogin.bind(null, 'user')}>
                     User Login
                 </Button>
             </View>
-            <View>
+            <View style={{width: 150}}>
                 <Button icon="md-person-circle" color='white' mode="outlined" onPress={handleLogin.bind(null, 'admin')}>
                     Admin Login
                 </Button>
