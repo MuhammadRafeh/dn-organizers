@@ -15,30 +15,47 @@ import BackgroundImage from "../components/BackgroundImage";
 
 const { width, height } = Dimensions.get("window");
 
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+
 const Login = (props) => {
     let headerHeight = useHeaderHeight();
     const loginBy = props.route.params.loginBy;
-    
+
     useEffect(() => {
         props.navigation.setOptions({
             headerShown: true,
             headerTransparent: true,
             headerTitle: "",
             headerTintColor: 'white',
-            headerBackTitleStyle: {color: 'white'}
+            headerBackTitleStyle: {
+                color: 'white'
+            }
         });
     }, []);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isEmailValid, setIsEmailValid] = useState(false);
+    const [isEmailPressed, setIsEmailPressed] = useState(false);
     // const [buttonTitle, setButtonTitle] = useState("USER LOGIN");
 
     const inputHandler = (type, value) => {
         if (type === "email") {
             setEmail(value);
+            setIsEmailValid(validateEmail(value))
         } else if (type === "password") {
             setPassword(value);
         }
     };
+
+    const handleLastRowButton = (type) => {
+        if (type === 'create') {
+            props.navigation.navigate('signup') //only user can create
+        }
+        // forget (user and admin)
+    }
 
     const screenTouchHandler = () => {
         Keyboard.dismiss();
@@ -60,7 +77,8 @@ const Login = (props) => {
                             // mode="outlined"
                             value={email}
                             // placeholder={'Enter your email'}
-
+                            error={isEmailPressed ? (isEmailValid ? false: true): false}
+                            onEndEditing={setIsEmailPressed.bind(null, true)}
                             // left={() => <Text style={{ color: 'black' }}>hello</Text>}
                             onChangeText={inputHandler.bind(null, "email")}
                             left={<TextInput.Icon name="mail" size={25} color={"blue"} />}
@@ -86,23 +104,19 @@ const Login = (props) => {
                         style={styles.button}
                         onPress={() => console.log("Pressed")}
                     >
-                        {loginBy === 'user' ? 'USER LOGIN': 'ADMIN LOGIN'}
+                        {loginBy === 'user' ? 'USER LOGIN' : 'ADMIN LOGIN'}
                     </Button>
                 </View>
                 <View style={styles.lastRow}>
                     {loginBy === 'user' ? (<TouchableOpacity
-                        onPress={() => {
-                            console.log("Create Account Pressed");
-                        }}
+                        onPress={handleLastRowButton.bind(null, 'create')}
                     >
                         <Text style={styles.lastRowText}>Create Account</Text>
                     </TouchableOpacity>) : (
-                        <View />
-                    )}
+                            <View />
+                        )}
                     <TouchableOpacity
-                        onPress={() => {
-                            console.log("Create Account Pressed");
-                        }}
+                        onPress={handleLastRowButton.bind(null, 'forget')}
                     >
                         <Text style={styles.lastRowText}>Forget Password?</Text>
                     </TouchableOpacity>
