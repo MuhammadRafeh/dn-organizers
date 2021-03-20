@@ -2,12 +2,15 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
-import Login from './src/screens/Login';
+import UserLogin from './src/screens/Login';
 import { Ionicons } from '@expo/vector-icons';
 // import { useFonts } from 'expo-font';
 import * as Font from 'expo-font';
 import { Asset } from 'expo-asset';
 import AppLoading from 'expo-app-loading';
+import Login from './src/screens/LoginWith';
+import MainNavigator from './src/navigators/MainNavigator';
+import { NavigationContainer } from '@react-navigation/native';
 
 function cacheImages(images) {
   return images.map(image => {
@@ -24,7 +27,8 @@ export default function App() {
 
   const _loadAssetsAsync = async () => {
     const imageAssets = cacheImages([
-      require('./assets/images/login-background.jpg')
+      require('./assets/images/login-background.jpg'),
+      require('./assets/images/bg.jpg')
     ]);
 
     await Promise.all([...imageAssets]);
@@ -44,27 +48,15 @@ export default function App() {
     );
   }
 
-  // const [loaded] = useFonts({
-  // headings: require('./assets/fonts/main-headings.ttf'),
-  // Montserrat: require('./assets/fonts/sub-headings.ttf'),
-  // joining: require('./assets/fonts/stylish.ttf')
-  // });
-
-  // if (!loaded) {
-  //   return <ActivityIndicator color={'blue'} size={50}/>;
-  // }
-
   return (
     <PaperProvider
       settings={{
         icon: props => <Ionicons {...props} />,
       }}
     >
-      {/* <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <StatusBar style="auto" />
-      </View> */}
-      <Login />
+      <NavigationContainer>
+        <MainNavigator />
+      </NavigationContainer>
     </PaperProvider>
   );
 }
