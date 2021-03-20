@@ -1,10 +1,14 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, ImageBackground } from 'react-native';
+import BackgroundImage from '../components/BackgroundImage';
+import { useHeaderHeight } from "@react-navigation/stack";
+import { Button } from 'react-native-paper';
 
 const { width, height } = Dimensions.get('window');
 
 const LoginWith = props => {
+    const headerHeight = useHeaderHeight();
     useEffect(() => {
         props.navigation.setOptions({
             headerShown: true,
@@ -13,22 +17,33 @@ const LoginWith = props => {
             // headerTintColor: 'white'
         });
     }, [])
+
+    // const handleLogin = (type) => {
+    //     if (type === 'user') {
+    //         props.navigation.navigate('')
+    //     }
+    //     if (type === 'admin') {
+    //         props.navigation.navigate('')
+    //     }
+    // }
+    
     return (
-        <ImageBackground source={require('../../assets/images/login-background.jpg')} style={styles.backgroundImage}>
         <View style={styles.container}>
-            {/* <LinearGradient
-                // Background Linear Gradient
-                colors={['rgba(0,0,255, 0.6)', 'transparent']}
-                style={styles.background}
-            /> */}
-            <Text style={styles.label}>
-                Login As User
-                </Text>
-            <Text style={styles.label}>
-                Login As Admin
-                </Text>
+            <View style={{marginBottom: 20}}>
+                <Button icon="people" color='white' mode="outlined" onPress={() => {}}>
+                    User Login
+                </Button>
+            </View>
+            <View>
+                <Button icon="md-person-circle" color='white' mode="outlined" onPress={() => {}} >
+                    Admin Login
+                </Button>
+            </View>
+            <BackgroundImage
+                source={require('../../assets/images/bg3.jpg')}
+                headerHeight={headerHeight}
+            />
         </View>
-        </ImageBackground>
     );
 }
 
@@ -52,7 +67,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         // backgroundColor: 'blue',
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
         alignItems: 'center'
     },
     label: {
