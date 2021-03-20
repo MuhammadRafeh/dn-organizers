@@ -17,17 +17,20 @@ const { width, height } = Dimensions.get("window");
 
 const Login = (props) => {
     let headerHeight = useHeaderHeight();
+    const loginBy = props.route.params.loginBy;
+    
     useEffect(() => {
         props.navigation.setOptions({
             headerShown: true,
             headerTransparent: true,
             headerTitle: "",
-            // headerTintColor: 'white'
+            headerTintColor: 'white',
+            headerBackTitleStyle: {color: 'white'}
         });
     }, []);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [buttonTitle, setButtonTitle] = useState("USER LOGIN");
+    // const [buttonTitle, setButtonTitle] = useState("USER LOGIN");
 
     const inputHandler = (type, value) => {
         if (type === "email") {
@@ -83,17 +86,19 @@ const Login = (props) => {
                         style={styles.button}
                         onPress={() => console.log("Pressed")}
                     >
-                        {buttonTitle}
+                        {loginBy === 'user' ? 'USER LOGIN': 'ADMIN LOGIN'}
                     </Button>
                 </View>
                 <View style={styles.lastRow}>
-                    <TouchableOpacity
+                    {loginBy === 'user' ? (<TouchableOpacity
                         onPress={() => {
                             console.log("Create Account Pressed");
                         }}
                     >
                         <Text style={styles.lastRowText}>Create Account</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity>) : (
+                        <View />
+                    )}
                     <TouchableOpacity
                         onPress={() => {
                             console.log("Create Account Pressed");
