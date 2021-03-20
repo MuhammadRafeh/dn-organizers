@@ -6,12 +6,12 @@ import {
     Dimensions,
     TouchableOpacity,
     Keyboard,
-    ImageBackground,
     ScrollView,
 } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 // import { Ionicons } from '@expo/vector-icons';
 import { useHeaderHeight } from "@react-navigation/stack";
+import BackgroundImage from "../components/BackgroundImage";
 
 const { width, height } = Dimensions.get("window");
 
@@ -103,13 +103,9 @@ const Login = (props) => {
                     </TouchableOpacity>
                 </View>
             </ScrollView>
-            <ImageBackground
+            <BackgroundImage
                 source={require("../../assets/images/login-background.jpg")}
-                style={[
-                    styles.backgroundImage,
-                    { height: Dimensions.get("window").height + headerHeight },
-                    { zIndex: -1 },
-                ]}
+                headerHeight={headerHeight}
             />
         </View>
     );
@@ -155,16 +151,6 @@ const styles = StyleSheet.create({
 
     lastRowText: {
         color: "white",
-    },
-
-    backgroundImage: {
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        width: Dimensions.get("window").width, //for full screen
-        // height: Dimensions.get("window").height  //for full screen
     },
 
     textInput: {
