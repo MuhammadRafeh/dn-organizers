@@ -22,7 +22,8 @@ function validateEmail(email) {
 
 const Login = (props) => {
     let headerHeight = useHeaderHeight();
-    const loginBy = props.route.params.loginBy;
+    const loginBy = props.route.params?.loginBy;
+    const isSignup = props.route.params?.signup === 'signup';
 
     useEffect(() => {
         props.navigation.setOptions({
@@ -52,7 +53,7 @@ const Login = (props) => {
 
     const handleLastRowButton = (type) => {
         if (type === 'create') {
-            props.navigation.navigate('signup') //only user can create
+            props.navigation.push('login', { signup: 'signup' }) //only user can create
         }
         // forget (user and admin)
     }
@@ -68,7 +69,7 @@ const Login = (props) => {
                 contentContainerStyle={styles.screen}
             >
                 <View style={styles.loginLabel}>
-                    <Text style={styles.label}>LOGIN</Text>
+                    <Text style={styles.label}>{isSignup ? 'SIGN UP' : 'LOGIN'}</Text>
                 </View>
                 <View style={styles.inputContainer}>
                     <View style={styles.textInput}>
@@ -77,7 +78,7 @@ const Login = (props) => {
                             // mode="outlined"
                             value={email}
                             // placeholder={'Enter your email'}
-                            error={isEmailPressed ? (isEmailValid ? false: true): false}
+                            error={isEmailPressed ? (isEmailValid ? false : true) : false}
                             onEndEditing={setIsEmailPressed.bind(null, true)}
                             // left={() => <Text style={{ color: 'black' }}>hello</Text>}
                             onChangeText={inputHandler.bind(null, "email")}
@@ -104,23 +105,25 @@ const Login = (props) => {
                         style={styles.button}
                         onPress={() => console.log("Pressed")}
                     >
-                        {loginBy === 'user' ? 'USER LOGIN' : 'ADMIN LOGIN'}
+                        {loginBy === 'user' ? 'USER LOGIN' : (loginBy === 'admin' ? 'ADMIN LOGIN': 'USER SIGNUP')}
                     </Button>
                 </View>
-                <View style={styles.lastRow}>
-                    {loginBy === 'user' ? (<TouchableOpacity
-                        onPress={handleLastRowButton.bind(null, 'create')}
-                    >
-                        <Text style={styles.lastRowText}>Create Account</Text>
-                    </TouchableOpacity>) : (
-                            <View />
-                        )}
-                    <TouchableOpacity
-                        onPress={handleLastRowButton.bind(null, 'forget')}
-                    >
-                        <Text style={styles.lastRowText}>Forget Password?</Text>
-                    </TouchableOpacity>
-                </View>
+                {!isSignup &&
+                    <View style={styles.lastRow}>
+                        {loginBy === 'user' ? (<TouchableOpacity
+                            onPress={handleLastRowButton.bind(null, 'create')}
+                        >
+                            <Text style={styles.lastRowText}>Create Account</Text>
+                        </TouchableOpacity>) : (
+                                <View />
+                            )}
+                        <TouchableOpacity
+                            onPress={handleLastRowButton.bind(null, 'forget')}
+                        >
+                            <Text style={styles.lastRowText}>Forget Password?</Text>
+                        </TouchableOpacity>
+                    </View>
+                }
             </ScrollView>
             <BackgroundImage
                 source={require("../../assets/images/login-background.jpg")}
