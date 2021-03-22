@@ -38,6 +38,7 @@ const Login = (props) => {
     }, []);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [isEmailValid, setIsEmailValid] = useState(false);
     const [isEmailPressed, setIsEmailPressed] = useState(false);
     // const [buttonTitle, setButtonTitle] = useState("USER LOGIN");
@@ -48,6 +49,8 @@ const Login = (props) => {
             setIsEmailValid(validateEmail(value))
         } else if (type === "password") {
             setPassword(value);
+        } else if (type === "confirmPassword") {
+            setConfirmPassword(value)
         }
     };
 
@@ -85,7 +88,7 @@ const Login = (props) => {
                             label="Email"
                             // mode="outlined"
                             value={email}
-                            // placeholder={'Enter your email'}
+                            placeholder={'Enter your email'}
                             error={isEmailPressed ? (isEmailValid ? false : true) : false}
                             onEndEditing={setIsEmailPressed.bind(null, true)}
                             // left={() => <Text style={{ color: 'black' }}>hello</Text>}
@@ -98,13 +101,27 @@ const Login = (props) => {
                         label="Password"
                         // mode="outlined"
                         secureTextEntry={true}
-                        // placeholder={'Enter your password'}
+                        placeholder={'Enter your password'}
                         value={password}
                         onChangeText={inputHandler.bind(null, "password")}
                         left={
                             <TextInput.Icon name="lock-closed" size={25} color={"blue"} />
                         }
                     />
+                    {isSignup && (<View style={styles.confirmPassword}>
+                        <TextInput
+                            label="Password"
+                            // mode="outlined"
+                            secureTextEntry={true}
+                            placeholder={'Confirm your password'}
+                            value={confirmPassword}
+                            onChangeText={inputHandler.bind(null, "confirmPassword")}
+                            left={
+                                <TextInput.Icon name="lock-closed" size={25} color={"blue"} />
+                            }
+                        />
+                    </View>)
+                    }
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button
@@ -113,7 +130,7 @@ const Login = (props) => {
                         style={styles.button}
                         onPress={buttonHandler}
                     >
-                        {loginBy === 'user' ? 'USER LOGIN' : (loginBy === 'admin' ? 'ADMIN LOGIN': 'USER SIGNUP')}
+                        {loginBy === 'user' ? 'USER LOGIN' : (loginBy === 'admin' ? 'ADMIN LOGIN' : 'USER SIGNUP')}
                     </Button>
                 </View>
                 {!isSignup &&
@@ -184,6 +201,10 @@ const styles = StyleSheet.create({
     },
 
     textInput: {
-        marginBottom: 1,
+        marginBottom: 2,
     },
+
+    confirmPassword: {
+        marginTop: 2
+    }
 });
