@@ -40,7 +40,7 @@ const LoginWith = props => {
                 </Button>
             </View>
             <BackgroundImage
-                source={require('../../assets/images/bg3.jpg')}
+                source={require('../../assets/images/login-background.jpg')}
                 headerHeight={headerHeight}
             />
         </View>
