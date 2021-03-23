@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Carousel from '../components/Carousel';
-import dummydata from '../data/Data';
+import { dummyData } from '../data/Data';
 
 const Home = props => {
     return (
-        <Carousel  />
+        <Carousel data={dummyData} />
     );
 }
 

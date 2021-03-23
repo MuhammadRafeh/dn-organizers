@@ -10,7 +10,7 @@ function infiniteScroll(dataList){
     const numberOfData = dataList.length
     let scrollValue = 0, scrolled = 0
 
-    setInterval(function() {
+    const interval = setInterval(function() {
         scrolled ++
         if(scrolled < numberOfData)
         scrollValue = scrollValue + width
@@ -23,6 +23,7 @@ function infiniteScroll(dataList){
         this.flatList.scrollToOffset({ animated: true, offset: scrollValue})
         
     }, 3000)
+    return interval;
 }
 
 
@@ -33,7 +34,10 @@ const Carousel = ({ data }) => {
 
     useEffect(()=> {
         setDataList(data)
-        infiniteScroll(dataList)
+        const interval = infiniteScroll(dataList)
+        return () => {
+            clearInterval(interval);
+        }
     })
 
     const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)

@@ -3,16 +3,17 @@ import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginWith from '../screens/LoginWith';
 import Login from '../screens/Login';
+import Home from '../screens/Home';
 
 const Stack = createStackNavigator();
 
 function MainNavigator() {
-    const isLoggedIn = false;
+    const isLoggedIn = true;
     return (
         <Stack.Navigator>
             {isLoggedIn ? (
                 <>
-                    <Stack.Screen name="home" component={Login} />
+                    <Stack.Screen name="home" component={Home} />
                     {/* <Stack.Screen name="Settings" component={SettingsScreen} /> */}
                 </>
             ) : (
