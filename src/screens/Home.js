@@ -19,24 +19,27 @@ const Home = props => {
                 color: 'white'
             },
             headerTitleStyle: {
-                alignSelf: 'center'
+                alignSelf: 'center',
+                fontFamily: 'headings',
+                fontSize: 30
             },
-            headerStyle: {
-                backgroundColor: 'blue',
-            },
-            headerBackground: () => (
-                <LinearGradient
-                    colors={['#a13388', '#10356c']}
-                    style={{ flex: 1 }}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}
-                />
-            ),
+            headerTransparent: true
+            // headerStyle: {
+            //     backgroundColor: 'blue',
+            // },
+            // headerBackground: () => (
+            //     <LinearGradient
+            //         colors={['#a13388', '#10356c']}
+            //         style={{ flex: 1 }}
+            //         start={{ x: 0, y: 0 }}
+            //         end={{ x: 1, y: 0 }}
+            //     />
+            // ),
         });
     }, []);
     return (
         <>
-            <ScrollView>
+            <ScrollView contentContainerStyle={{marginTop: headerHeight}}>
                 <Carousel data={dummyData} />
                 <View style={styles.cardContainer}>
                     <Card
@@ -56,7 +59,7 @@ const Home = props => {
                     paragraph={'Awesome React Native Card'}
                 />
             </ScrollView>
-            <BackgroundImage source={require('../../assets/images/login-background.jpg')} headerHeight={headerHeight}/>
+            <BackgroundImage source={require('../../assets/images/login-background.jpg')} headerHeight={headerHeight} />
         </>
     );
 }

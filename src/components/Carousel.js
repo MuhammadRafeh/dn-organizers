@@ -74,6 +74,7 @@ const Carousel = ({ data }) => {
                             <Animated.View
                                 key={i}
                                 style={{ opacity, height: 10, width: 10, backgroundColor: '#595959', margin: 8, borderRadius: 5 }}
+                                // #595959
                             />
                         )
                     })}
