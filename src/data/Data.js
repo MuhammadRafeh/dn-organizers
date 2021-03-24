@@ -14,4 +14,10 @@ export const dummyData =
                 title: 'Vegatable Salad', url: 'https://i.ibb.co/JxykVBt/flat-lay-photography-of-vegetable-salad-on-plate-1640777.jpg',
                 description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                 id: 3
-        }]
+        },
+        {
+                title: 'Shikari', url: 'https://i.ibb.co/hYjK44F/anise-aroma-art-bazaar-277253.jpg',
+                description: "Dakh tera baap aaya, Shikari.",
+                id: 3
+        }
+]
