@@ -8,7 +8,7 @@ import propTypes from 'prop-types';
 const Cards = props => {
     return (
         <View style={styles.cardContainer}>
-            <Card>
+            <Card onPress={() => {console.log(23)}}>
                 {/* <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} /> */}
                 {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
                 <Card.Cover source={props.source} />
