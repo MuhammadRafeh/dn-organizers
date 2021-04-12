@@ -11,6 +11,7 @@ const BackgroundImage = props => {
                     styles.backgroundImage,
                     { height: Dimensions.get("window").height },
                     { zIndex: -1 },
+                    // {opacity: 0.5}
                 ]}
             />
         );
@@ -22,6 +23,7 @@ const BackgroundImage = props => {
                 styles.backgroundImage,
                 { height: Dimensions.get("window").height + props.headerHeight },
                 { zIndex: -1 },
+                // {opacity: 0.5}
             ]}
         />
     );
