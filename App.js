@@ -35,7 +35,8 @@ export default function App() {
     await Font.loadAsync({
       headings: require('./assets/fonts/main-headings.ttf'),
       subHeadings: require('./assets/fonts/sub-headings.ttf'),
-      joining: require('./assets/fonts/stylish.ttf')
+      joining: require('./assets/fonts/stylish.ttf'),
+      webfont: require('./assets/fonts/Sacramento-Regular.ttf')
     });
   }
   if (!isReady) {

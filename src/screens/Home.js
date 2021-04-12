@@ -1,11 +1,12 @@
 import { useHeaderHeight } from '@react-navigation/stack';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, FlatList } from 'react-native';
 import BackgroundImage from '../components/BackgroundImage';
-import Card from '../components/Card';
+import Card from '../components/EventsItem';
 import Carousel from '../components/Carousel';
-import { dummyData } from '../data/Data';
+import { dummyData, events } from '../data/Data';
+import EventsItem from '../components/EventsItem';
 
 
 const Home = props => {
@@ -40,29 +41,19 @@ const Home = props => {
     return (
         <>
             <ScrollView>
-            {/* <ScrollView contentContainerStyle={{marginTop: headerHeight}}> */}
+                {/* <ScrollView contentContainerStyle={{marginTop: headerHeight}}> */}
                 <Carousel data={dummyData} />
-                <View style={styles.cardContainer}>
-                    <Card
-                        source={require('../../assets/images/wedding.jpeg')}
-                        title={"Wedding"}
-                        paragraph={'We provide Destination Weddings and make your precious days one to never forget. Best services, cattering, Photoshoot and many more. '}
-                    />
+                <View style={styles.servicesContainer}>
+                    <Text style={styles.label}>Top Demanding Events</Text>
                 </View>
-                <View style={styles.cardContainer}>
-                    <Card
-                        source={require('../../assets/images/birthday.jpeg')}
-                        title={"Birthday"}
-                        paragraph={'Make your new days as you desire. We provide best services and all new & Astonishing themes to make your special days more special & memorable'}
+                {events.map((event => (
+                    <EventsItem
+                        onSelect={() => { }}
+                        image={event.source}
+                        title={event.title}
+                        description={event.desc}
                     />
-                </View>
-                <View style={styles.cardContainer}>
-                    <Card
-                        source={require('../../assets/images/corporate1.jpeg')}
-                        title={"Corporate"}
-                        paragraph={'We provide Destination Coorporate and make your precious days one to never forget. Best services, cattering, Photoshoot and many more. '}
-                    />
-                </View>
+                )))}
 
             </ScrollView>
             <BackgroundImage source={require('../../assets/images/home_background.jpg')} headerHeight={headerHeight} />
@@ -74,6 +65,20 @@ export default Home;
 
 const styles = StyleSheet.create({
     cardContainer: {
-        marginBottom: 5
+        marginBottom: 15
+    },
+    servicesContainer: {
+        alignItems: 'center',
+        marginBottom: 10,
+        marginTop: 20
+    },
+    label: {
+        color: 'white',
+        fontFamily: 'subHeadings',
+        fontSize: 35,
+        // fontWeight: 40,
+        // textDecorationLine: 'underline',
+        textShadowColor: 'white',
+        fontFamily: 'webfont'
     }
 });

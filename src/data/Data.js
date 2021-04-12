@@ -21,3 +21,22 @@ export const dummyData =
                 id: 3
         }
 ]
+
+export const events = [
+        {
+                source: require('../../assets/images/wedding.jpeg'),
+                title: 'Wedding',
+                desc: 'We provide Destination Weddings and make your precious days one to never forget. Best services, cattering, Photoshoot and many more.'
+
+        },
+        {
+                source: require('../../assets/images/birthday.jpeg'),
+                title: 'Birthday',
+                desc: 'Make your new days as you desire. We provide best services and all new & Astonishing themes to make your special days more special & memorable'       
+        },
+        {
+                source: require('../../assets/images/corporate1.jpeg'),
+                title: 'Corporate',
+                desc: 'We provide Destination Coorporate and make your precious days one to never forget. Best services, cattering, Photoshoot and many more. '      
+        }
+]
