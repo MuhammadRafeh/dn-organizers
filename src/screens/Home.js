@@ -58,6 +58,7 @@ const Home = props => {
                     title={"Corperate Events"}
                     paragraph={'Awesome React Native Card'}
                 />
+                
             </ScrollView>
             <BackgroundImage source={require('../../assets/images/login-background.jpg')} headerHeight={headerHeight} />
         </>
