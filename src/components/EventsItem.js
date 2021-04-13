@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 18,
+        fontWeight: "900",
         color: 'black',
         // fontFamily: 'open-sans-bold'
     },

@@ -7,7 +7,8 @@ import Card from '../components/EventsItem';
 import Carousel from '../components/Carousel';
 import { dummyData, events } from '../data/Data';
 import EventsItem from '../components/EventsItem';
-
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import CustomHeaderButton from '../components/HeaderButton';
 
 const Home = props => {
     const headerHeight = useHeaderHeight();
@@ -24,6 +25,15 @@ const Home = props => {
                 fontFamily: 'headings',
                 fontSize: 30
             },
+            headerLeft: () => <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+                <Item
+                    title="Menu"
+                    iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
+                    onPress={() => {
+                        props.navigation.toggleDrawer();
+                    }}
+                />
+            </HeaderButtons>,
             // headerTransparent: true
             // headerStyle: {
             //     backgroundColor: 'blue',
