@@ -46,15 +46,15 @@ const Home = props => {
                 <View style={styles.servicesContainer}>
                     <Text style={styles.label}>Top Demanding Events</Text>
                 </View>
-                {events.map((event => (
+                {events.map((event, key) => (
                     <EventsItem
+                        key={key.toString()}
                         onSelect={() => { }}
                         image={event.source}
                         title={event.title}
                         description={event.desc}
                     />
-                )))}
-
+                ))}
             </ScrollView>
             <BackgroundImage source={require('../../assets/images/home_background.jpg')} headerHeight={headerHeight} />
         </>
