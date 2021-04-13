@@ -26,8 +26,8 @@ const EventsItem = props => {
                         <Text style={styles.price}>${props.price}</Text>
                     </View> */}
                     <View style={styles.contentContainer}>
-                        <Text>{props.title}</Text>
-                        <Text>{props.description}</Text>
+                        <Text style={styles.title}>{props.title}</Text>
+                        <Text style={styles.description}>{props.description}</Text>
                     </View>
                 </View>
             </TouchableCmp>
@@ -66,17 +66,12 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         color: 'black',
-        fontFamily: 'open-sans-bold'
+        // fontFamily: 'open-sans-bold'
     },
-    price: {
-        fontSize: 14,
-        color: '#888',
-        fontFamily: 'open-sans'
+    description: {
+        marginTop: 3,
+        fontFamily: 'joining'
     },
-    // details: {
-    //     alignItems: 'center',
-    //     height: '15%',
-    // },
     contentContainer: {
         flexDirection: 'column',
         justifyContent: 'space-evenly',

@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     },
     servicesContainer: {
         alignItems: 'center',
-        marginBottom: 10,
+        // marginBottom: 5,
         marginTop: 20
     },
     label: {
