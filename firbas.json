@@ -1,0 +1,56 @@
+{
+    "admin": {
+        "email": "hello@gmail.com",
+        "password": "hello"
+    },
+    "events": {
+        "wedding": {
+            "items": {
+                "theme": {
+
+                },
+                "menu": {
+
+                },
+                "venu": {
+
+                }
+            },
+            "packages": {
+
+            }
+        },
+        "birthday": {
+            "items": {
+                "theme": {
+
+                },
+                "menu": {
+
+                },
+                "venu": {
+                    
+                }
+            },
+            "packages": {
+
+            }
+        },
+        "coorperate": {
+            "items": {
+                "theme": {
+
+                },
+                "menu": {
+
+                },
+                "venu": {
+                    
+                }
+            },
+            "packages": {
+
+            }
+        }
+    }
+}

@@ -1,30 +1,45 @@
 import { useHeaderHeight } from '@react-navigation/stack';
-import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, FlatList } from 'react-native';
 import BackgroundImage from '../components/BackgroundImage';
-import Card from '../components/EventsItem';
+// import Card from '../components/EventsItem';
 import Carousel from '../components/Carousel';
 import { dummyData, events } from '../data/Data';
 import EventsItem from '../components/EventsItem';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../components/HeaderButton';
 
+const updateFirebase = async (item) => {
+    const response = await fetch(`https://dnorganizers-default-rtdb.firebaseio.com/events/cooperate/items/theme.json`, {
+      method: 'POST', //update the product while PUT Replaces the item with new 1.
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(item)
+    })
+
+}
+
+const updateData = async () => {
+    const object = ["Rustic Country Theme",
+    "Fairy Tale Theme",
+    "Garden Theme",
+    "Beach Theme",
+    "Holiday Themes",
+    "Great Gatsby Theme",
+    "Woodland Forest Theme",
+    "Romantic Pink"]
+    object.forEach((item) => {
+        updateFirebase(item)
+    })
+}
+
 const Home = props => {
+    
     const headerHeight = useHeaderHeight();
     useEffect(() => {
         props.navigation.setOptions({
-            headerShown: true,
             headerTitle: "Home",
-            headerTintColor: 'white',
-            headerBackTitleStyle: {
-                color: 'black'
-            },
-            headerTitleStyle: {
-                alignSelf: 'center',
-                fontFamily: 'headings',
-                fontSize: 30
-            },
             headerLeft: () => <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
                 <Item
                     title="Menu"
@@ -34,24 +49,12 @@ const Home = props => {
                     }}
                 />
             </HeaderButtons>,
-            // headerTransparent: true
-            // headerStyle: {
-            //     backgroundColor: 'blue',
-            // },
-            headerBackground: () => (
-                <LinearGradient
-                    colors={['#a13388', '#10356c']}
-                    style={{ flex: 1 }}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}
-                />
-            ),
         });
+        // updateData();
     }, []);
     return (
         <>
             <ScrollView>
-                {/* <ScrollView contentContainerStyle={{marginTop: headerHeight}}> */}
                 <Carousel data={dummyData} />
                 <View style={styles.servicesContainer}>
                     <Text style={styles.label}>Top Demanding Events</Text>
@@ -59,7 +62,7 @@ const Home = props => {
                 {events.map((event, key) => (
                     <EventsItem
                         key={key.toString()}
-                        onSelect={() => { }}
+                        onSelect={() => {props.navigation.navigate('eventdetail', {"name": event.title})}}
                         image={event.source}
                         title={event.title}
                         description={event.desc}
