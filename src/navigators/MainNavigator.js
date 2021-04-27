@@ -7,6 +7,11 @@ import Login from '../screens/Login';
 import Home from '../screens/Home';
 import EventDetail from '../screens/EventDetail';
 import { LinearGradient } from 'expo-linear-gradient';
+import Packages from '../screens/Packages';
+import IndividualService from '../screens/IndividualService';
+import UserInvoices from '../screens/UserInvoices';
+import BookedEvents from '../screens/BookedEvents';
+import UserRatings from '../screens/UserRatings';
 
 const Stack = createStackNavigator();
 
@@ -51,9 +56,14 @@ function MainNavigator() {
     return (
         <Drawer.Navigator
             initialRouteName="Home"
-            drawerContentOptions={{ style: { backgroundColor: 'black', flex: 1 } }}
+            drawerContentOptions={{ style: { backgroundColor: 'black', flex: 1}, inactiveTintColor: 'white' }}
         >
             <Drawer.Screen name="Home" component={HomeNavigator} />
+            <Drawer.Screen name="Packages" component={Packages} />
+            <Drawer.Screen name="Individual Services" component={IndividualService} />
+            <Drawer.Screen name="Invoices" component={UserInvoices} />
+            <Drawer.Screen name="Booked Events" component={BookedEvents} />
+            <Drawer.Screen name="Your Ratings" component={UserRatings} />
             {/* <Drawer.Screen name="Notifications" component={NotificationsScreen} /> */}
         </Drawer.Navigator>
     );

@@ -17,7 +17,6 @@ const updateFirebase = async (item) => {
       },
       body: JSON.stringify(item)
     })
-
 }
 
 const updateData = async () => {

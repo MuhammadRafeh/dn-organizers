@@ -1,0 +1,104 @@
+{
+  "admin" : {
+    "email" : "hello@gmail.com",
+    "password" : "hello"
+  },
+  "events" : {
+    "birthday" : {
+      "items" : {
+        "menu" : {
+          "-MYoAUoGfwQcHTw2hSx1" : {"name": "Mutton Kunna", "price": 132},
+          "-MYoAUoGfwQcHTw2hSx2" : {"name": "Lahori Fried Fish", "price": 132},
+          "-MYoAUoRQ_GcHU7GN6kN" : {"name": "Spaghetti with chicken and mushroom", "price": 132},
+          "-MYoAUoXgNSVnSaBUzGK" : {"name": "Mandi", "price": 132},
+          "-MYoAUobomYMZgwVROc9" : {"name": "Mediterranean mezze platter", "price": 132},
+          "-MYoAUtCvrAeZOa54-u-" : {"name": "Mint Raita", "price": 132},
+          "-MYoAUtDA91RXhvjJJpW" : {"name": "2 Tier Fresh cream Cake", "price": 132},
+          "-MYoAUtEeUNnAu9yFuN5" : {"name": "Chicken Roast", "price": 132}
+        },
+        "theme" : {
+          "-MYoB5Wx7ry5RZdbOf2r" : {"name": "Cherry Picnic Party", "price": 132},
+          "-MYoB5X9NhkZvvgpsFR3" : {"name": "Pajama Party", "price": 132},
+          "-MYoB5XKmp_X-1gcJNoo" : {"name": "Cupcake Bake Shop Party", "price": 132},
+          "-MYoB5XPin0Zk_NKFxfq" : {"name": "Pirate Party", "price": 132},
+          "-MYoB5X_B6sHZLwFhrnS" : {"name": "Paris Glam Party", "price": 132},
+          "-MYoB5ailxKXzTg0dwuP" : {"name": "Cowboy Party", "price": 132},
+          "-MYoB5au89Lj89HbyWgz" : {"name": "Golf Party", "price": 132},
+          "-MYoB5b8TLNg06Jd2qUP" : {"name": "Ice Cream Party", "price": 132}
+        },
+        "venu" : {
+          "-MYoBVjfYzAefNhV193n" : {"name": "Kaybees", "price": 132},
+          "-MYoBVjkGlpzXhWk7yTB" : {"name": "Mc Donalds Sea View", "price": 132},
+          "-MYoBVjq8eGDp1gV-ImR" : {"name": "Sindbad Dolmen City Mall", "price": 132},
+          "-MYoBVjtDdFRvbW75jnm" : {"name": "Port Grand", "price": 132},
+          "-MYoBVjxhHwnyS2psiZj" : {"name": "Burger King", "price": 132},
+          "-MYoBVoRv1pFlzaXibBU" : {"name": "Lal Qila Restaurant", "price": 132},
+          "-MYoBVoXoiI4VyBEE9ck" : {"name": "Koffie Chalet", "price": 132}
+        }
+      }
+    },
+    "cooperate" : {
+      "items" : {
+        "menu" : {
+          "-MYoCOPRr4eZccd7RVN1" : {"name": "Noodle boxes", "price": 132},
+          "-MYoCOPjOZPNyaqMHY2Y" : {"name": "Roast chicken & salad", "price": 132},
+          "-MYoCOPsH5cKcnulHQ_1" : {"name": "Hearty salads", "price": 132},
+          "-MYoCOQ6pSjacrJb4nfO" : {"name": "Gourmet sandwiches", "price": 132},
+          "-MYoCOQCTPEpymj6MgHN" : {"name": "Poke bowls", "price": 132},
+          "-MYoCOUV6SgmNG6U0Lyd" : {"name": "Cheese & antipasto singles", "price": 132}
+        },
+        "theme" : {
+          "-MYoDi-53JCZJTXZndUU" : {"name": "Fairy Tale Theme", "price": 132},
+          "-MYoDi-ibxNC8IlI1Vjy" : {"name": "Garden Theme", "price": 132},
+          "-MYoDi-kSeWIU-5Wgm4u" : {"name": "Beach Theme", "price": 132},
+          "-MYoDi-tLCZx9Auhg7M5" : {"name": "Holiday Themes", "price": 132},
+          "-MYoDi0-6MXb1GTmWCa7" : {"name": "Rustic Country Theme", "price": 132},
+          "-MYoDi3qpVutwoPmVWAa" : {"name": "Great Gatsby Theme", "price": 132},
+          "-MYoDi4VE_gwaju4UfPk" : {"name": "Woodland Forest Theme", "price": 132},
+          "-MYoDi4ijo-u3PXSZCNT" : {"name": "Romantic Pink", "price": 132}
+        },
+        "venu" : {
+          "-MYoD6ld2h3VMRwo0--B" : {"name": "Victory Offices 175 Eagle", "price": 132},
+          "-MYoD6lmgCrrwL9aldnv" : {"name": "Buffalo Bar", "price": 132},
+          "-MYoD6m1gHtRDc6PApbl" : {"name": "Hotel Grand Chancellor", "price": 132},
+          "-MYoD6m6ddTlWuXr4ARf" : {"name": "Pacific Hotel", "price": 132},
+          "-MYoD6mGV93zYJgJpPkE" : {"name": "Rydges South Bank", "price": 132},
+          "-MYoD6qS7r4wR_i4EnSh" : {"name": "The Brisbane Club", "price": 132},
+          "-MYoD6qVCITd3ccYpGDL" : {"name": "BSPACE Brisbane", "price": 132},
+          "-MYoD6quTtrdlsgSJWF8" : {"name": "Park Regis North Quay", "price": 132}
+        }
+      }
+    },
+    "wedding" : {
+      "items" : {
+        "menu" : {
+          "-MYo9e8KSLQLsWY2jSmz" : {"name": "Grilled chicken with sweet summer vegetables", "price": 132},
+          "-MYo9e8YCwdyAhGmFtYg" : {"name": "Brisket with mashed potatoes", "price": 132},
+          "-MYo9e8c5tu2qxYIkVbm" : {"name": "Lobster mac and cheese", "price": 132},
+          "-MYo9e8fwWUhXU20V3iA" : {"name": "Pulled pork sandwiches", "price": 132},
+          "-MYo9e9-RejqnK0rVKwD" : {"name": "Shrimp and grits", "price": 132}
+        },
+        "theme" : {
+          "-MYo8bWOcghp-yJJ2oab" : {"name": "Garden Theme", "price": 132},
+          "-MYo8bewCriuiRlahBkC" : {"name": "Holiday Themes", "price": 132},
+          "-MYo8bftJ_poNeOclaPl" : {"name": "Great Gatsby Theme", "price": 132},
+          "-MYo8bk91CsSRDchWJ6t" : {"name": "Woodland Forest Theme", "price": 132},
+          "-MYo8bl40wytEza4K37N" : {"name": "Fairy Tale Theme", "price": 132},
+          "-MYo8blC8-0dTTloNBIK" : {"name": "Romantic Pink Theme", "price": 132},
+          "-MYo8blRLEVlUK-pEpGx" : {"name": "Rustic Country Theme", "price": 132},
+          "-MYo8bqOJUaqPZqK6LVP" : {"name": "Beach Theme", "price": 132}
+        },
+        "venu" : {
+          "-MYo9GkasE1Tir2H154C" : {"name": "New York Public Library", "price": 132},
+          "-MYo9GkasE1Tir2H154D" : {"name": "Hotel du Cap-Eden-Roc", "price": 132},
+          "-MYo9GkmA9jTcEPOfXnu" : {"name": "Blackberry Farm", "price": 132},
+          "-MYo9GkmA9jTcEPOfXnv" : {"name": "Villa Balbiano", "price": 132},
+          "-MYo9GlKbUll5EmHcEYL" : {"name": "The Historic Royal Palaces", "price": 132},
+          "-MYo9GpL3mnd62VGbidg" : {"name": "Hayfield", "price": 132},
+          "-MYo9GpVbp6NdMB5WpXY" : {"name": "Frederick Loewe Estate", "price": 132},
+          "-MYo9GpjFCBvyGPUiAFX" : {"name": "Ballyfin", "price": 132}
+        }
+      }
+    }
+  }
+}
