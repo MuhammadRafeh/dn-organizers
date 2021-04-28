@@ -67,7 +67,7 @@ function PackagesBottomTab() {
                     tabBarIcon: (tabInfo) => {
                         return <Ionicons name="heart" size={25} color={tabInfo.color} />
                     },
-                    tabBarColor: '#FC766AFF',
+                    tabBarColor: '#000080',
                     tabBarLabel: Platform.OS === 'android' ? <Text style={{fontFamily: 'headings'}}>Wedding</Text> : 'Wedding'
                 }
             }}/>
@@ -76,14 +76,13 @@ function PackagesBottomTab() {
                     tabBarIcon: (tabInfo) => {
                         return <FontAwesome5 name="birthday-cake" size={25} color={tabInfo.color} />
                     },
-                    tabBarColor: '#B0B8B4FF',
+                    tabBarColor: '#808080',
                     tabBarLabel: Platform.OS === 'android' ? <Text style={{fontFamily: 'headings'}}>Birthday</Text> : 'Birthday'
                 }
             }}/>
             <Tab.Screen name="Coorporate" component={Coorporate} options={() => {
                 return {
                     tabBarIcon: (tabInfo) => {
-                        console.log('asaaaaaaaaaaaaaa', tabInfo)
                         return <FontAwesome5 name="handshake" size={25} color={tabInfo.color} />
                     },
                     tabBarColor: '#184A45FF',
