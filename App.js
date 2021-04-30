@@ -37,6 +37,7 @@ function AppWrapper() {
 
   // firebase.initializeApp(firebaseConfig);
   var config = {
+    apiKey: "AIzaSyADijNnt7JWPYBp1cFBxD-V3FXjJYxlX8E",
     databaseURL: "https://dnorganizers-default-rtdb.firebaseio.com",
     projectId: "dnorganizers",
   };

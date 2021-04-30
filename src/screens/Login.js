@@ -11,6 +11,9 @@ import { TextInput, Button } from "react-native-paper";
 // import { Ionicons } from '@expo/vector-icons';
 import { useHeaderHeight } from "@react-navigation/stack";
 import BackgroundImage from "../components/BackgroundImage";
+import firebase from "firebase";
+import { useDispatch } from "react-redux";
+import { authenticate } from "../redux/actions";
 
 const { width, height } = Dimensions.get("window");
 
@@ -23,6 +26,8 @@ const Login = (props) => {
     let headerHeight = useHeaderHeight();
     const loginBy = props.route.params?.loginBy; //value can be user or admin
     const isSignup = props.route.params?.signup === 'signup';
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         props.navigation.setOptions({
@@ -64,8 +69,17 @@ const Login = (props) => {
         if (isSignup) {
             //here we are creating the user
         }
-        else if (loginBy === 'user') {
+        else if (loginBy === 'user' && isEmailValid && password >= 6) {
             //here we are signing the user
+            // console.log('aa')
+            firebase
+                .auth()
+                .signInWithEmailAndPassword(email, password)
+                .then((object) => {
+                    console.log(object.user.uid)
+                    dispatch(authenticate(object.user.uid, email, false, false))
+                })
+                .catch(error => console.log(error.message));
         }
         else if (loginBy === 'admin') {
             //here we are signing the admin

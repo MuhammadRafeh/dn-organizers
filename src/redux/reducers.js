@@ -12,10 +12,11 @@ const authReducer = (state = initialStateAuth, action) => {
     switch (action.type) {
         case AUTHENTICATE:
             return {
-                ...state,
+                // ...state,
                 uid: action.payload.uid,
                 email: action.payload.email,
-                isAdmin: action.payload.isAdmin
+                isAdmin: action.payload.isAdmin,
+                isAuth: action.payload.isAuth,
             }
         case LOGOUT:
             return initialStateAuth;
