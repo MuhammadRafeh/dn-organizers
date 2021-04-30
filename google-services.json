@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "402190384263",
+    "firebase_url": "https://dnorganizers-default-rtdb.firebaseio.com",
+    "project_id": "dnorganizers",
+    "storage_bucket": "dnorganizers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402190384263:android:748ff7510a5b92bdd7cc22",
+        "android_client_info": {
+          "package_name": "com.eventmanagementsystem.ems"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "402190384263-v9al1imjvglq1tle4esi7kn6rp998puk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADijNnt7JWPYBp1cFBxD-V3FXjJYxlX8E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "402190384263-v9al1imjvglq1tle4esi7kn6rp998puk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,8 +1,9 @@
 // User Side Screen
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 
 const UserRatings = props => {
+    const dispatch = useDispatch();
     return (
         <View style={styles.screen}>
             <Text>

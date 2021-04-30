@@ -11,6 +11,10 @@ import AppLoading from 'expo-app-loading';
 import Login from './src/screens/LoginWith';
 import MainNavigator from './src/navigators/MainNavigator';
 import { NavigationContainer } from '@react-navigation/native';
+import store from './src/redux/store';
+import { Provider } from "react-redux";
+// import * as firebase from 'firebase';
+import firebase from "firebase";
 
 function cacheImages(images) {
   return images.map(image => {
@@ -23,6 +27,30 @@ function cacheImages(images) {
 }
 
 export default function App() {
+  // const firebaseConfig = {
+  //   apiKey: 'api-key',
+  //   authDomain: 'project-id.firebaseapp.com',
+  //   databaseURL: 'https://project-id.firebaseio.com',
+  //   projectId: 'project-id',
+  //   storageBucket: 'project-id.appspot.com',
+  //   messagingSenderId: 'sender-id',
+  //   appId: 'app-id',
+  //   measurementId: 'G-measurement-id',
+  // };
+
+  // firebase.initializeApp(firebaseConfig);
+  var config = {
+    databaseURL: "https://dnorganizers-default-rtdb.firebaseio.com",
+    projectId: "dnorganizers",
+  };
+  // firebase.initializeApp(config);
+
+  if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+  } else {
+    firebase.app(); // if already initialized, use that one
+  }
+
   const [isReady, setIsReady] = useState(false);
 
   const _loadAssetsAsync = async () => {
@@ -50,15 +78,17 @@ export default function App() {
   }
 
   return (
-    <PaperProvider
-      settings={{
-        icon: props => <Ionicons {...props} />,
-      }}
-    >
-      <NavigationContainer>
-        <MainNavigator />
-      </NavigationContainer>
-    </PaperProvider>
+    <Provider store={store}>
+      <PaperProvider
+        settings={{
+          icon: props => <Ionicons {...props} />,
+        }}
+      >
+        <NavigationContainer>
+          <MainNavigator />
+        </NavigationContainer>
+      </PaperProvider>
+    </Provider>
   );
 }
 

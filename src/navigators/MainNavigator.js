@@ -18,6 +18,7 @@ import Wedding from '../screens/Wedding';
 import Birthday from '../screens/Birthday';
 import Coorporate from '../screens/Coorporate';
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Stack = createStackNavigator();
 
@@ -68,27 +69,27 @@ function PackagesBottomTab() {
                         return <Ionicons name="heart" size={25} color={tabInfo.color} />
                     },
                     tabBarColor: '#000080',
-                    tabBarLabel: Platform.OS === 'android' ? <Text style={{fontFamily: 'headings'}}>Wedding</Text> : 'Wedding'
+                    tabBarLabel: Platform.OS === 'android' ? <Text style={{ fontFamily: 'headings' }}>Wedding</Text> : 'Wedding'
                 }
-            }}/>
+            }} />
             <Tab.Screen name="Birthday" component={Birthday} options={() => {
                 return {
                     tabBarIcon: (tabInfo) => {
                         return <FontAwesome5 name="birthday-cake" size={25} color={tabInfo.color} />
                     },
                     tabBarColor: '#808080',
-                    tabBarLabel: Platform.OS === 'android' ? <Text style={{fontFamily: 'headings'}}>Birthday</Text> : 'Birthday'
+                    tabBarLabel: Platform.OS === 'android' ? <Text style={{ fontFamily: 'headings' }}>Birthday</Text> : 'Birthday'
                 }
-            }}/>
+            }} />
             <Tab.Screen name="Coorporate" component={Coorporate} options={() => {
                 return {
                     tabBarIcon: (tabInfo) => {
                         return <FontAwesome5 name="handshake" size={25} color={tabInfo.color} />
                     },
                     tabBarColor: '#184A45FF',
-                    tabBarLabel: Platform.OS === 'android' ? <Text style={{fontFamily: 'headings'}}>Coorporate</Text> : 'Coorporate'
+                    tabBarLabel: Platform.OS === 'android' ? <Text style={{ fontFamily: 'headings' }}>Coorporate</Text> : 'Coorporate'
                 }
-            }}/>
+            }} />
         </Tab.Navigator>
     );
 }
@@ -96,18 +97,29 @@ function PackagesBottomTab() {
 const Drawer = createDrawerNavigator();
 
 function MainNavigator() {
+    const isAdmin = useSelector(state =>
+        state.auth.isAdmin
+    );
     return (
         <Drawer.Navigator
             initialRouteName="Home"
             drawerContentOptions={{ style: { backgroundColor: 'black', flex: 1 }, inactiveTintColor: 'white' }}
         >
-            <Drawer.Screen name="Home" component={HomeNavigator} />
-            <Drawer.Screen name="Packages" component={PackagesBottomTab} />
-            <Drawer.Screen name="Individual Services" component={IndividualService} />
-            <Drawer.Screen name="Invoices" component={UserInvoices} />
-            <Drawer.Screen name="Booked Events" component={BookedEvents} />
-            <Drawer.Screen name="Your Ratings" component={UserRatings} />
-            {/* <Drawer.Screen name="Notifications" component={NotificationsScreen} /> */}
+            {
+                isAdmin ? (
+                    <Drawer.Screen name="Booked Events" component={BookedEvents} />
+
+                ) : (
+                        <>
+                            <Drawer.Screen name="Home" component={HomeNavigator} />
+                            <Drawer.Screen name="Packages" component={PackagesBottomTab} />
+                            <Drawer.Screen name="Individual Services" component={IndividualService} />
+                            <Drawer.Screen name="Invoices" component={UserInvoices} />
+                            <Drawer.Screen name="Booked Events" component={BookedEvents} />
+                            <Drawer.Screen name="Your Ratings" component={UserRatings} />
+                        </>
+                    )
+            }
         </Drawer.Navigator>
     );
 }
