@@ -1,13 +1,13 @@
 import { useHeaderHeight } from '@react-navigation/stack';
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, FlatList } from 'react-native';
-import BackgroundImage from '../components/BackgroundImage';
+import BackgroundImage from '../../components/BackgroundImage';
 // import Card from '../components/EventsItem';
-import Carousel from '../components/Carousel';
-import { dummyData, events } from '../data/Data';
-import EventsItem from '../components/EventsItem';
+import Carousel from '../../components/Carousel';
+import { dummyData, events } from '../../data/Data';
+import EventsItem from '../../components/EventsItem';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import CustomHeaderButton from '../components/HeaderButton';
+import CustomHeaderButton from '../../components/HeaderButton';
 
 const updateFirebase = async (item) => {
     const response = await fetch(`https://dnorganizers-default-rtdb.firebaseio.com/events/cooperate/items/theme.json`, {
@@ -68,7 +68,7 @@ const Home = props => {
                     />
                 ))}
             </ScrollView>
-            <BackgroundImage source={require('../../assets/images/home_background.jpg')} headerHeight={headerHeight} />
+            <BackgroundImage source={require('../../../assets/images/home_background.jpg')} headerHeight={headerHeight} />
         </>
     );
 }

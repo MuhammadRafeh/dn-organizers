@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ImageBackground, Dimensions, StyleSheet } from 'react-native';
+import { ImageBackground, Dimensions, StyleSheet } from 'react-native';
 import propTypes from 'prop-types';
 
 const BackgroundImage = props => {

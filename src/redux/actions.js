@@ -1,13 +1,14 @@
 export const AUTHENTICATE = "AUTHENTICATE";
 export const LOGOUT = "LOGOUT";
 
-export const authenticate = (token, userId, isAdmin) => { // It will take token, userId & isAdmin
+export const authenticate = (uid, email, isAdmin, isAuth) => { // It will take credentials
     return {
         type: AUTHENTICATE,
         payload: {
-            userId,
-            token, 
-            isAdmin
+            uid,
+            email,
+            isAdmin,
+            isAuth
         }
     }
 }

@@ -5,7 +5,6 @@ import {
     StyleSheet,
     Dimensions,
     TouchableOpacity,
-    Keyboard,
     ScrollView,
 } from "react-native";
 import { TextInput, Button } from "react-native-paper";

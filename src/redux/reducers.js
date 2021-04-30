@@ -2,15 +2,17 @@ import { combineReducers } from "redux";
 import { AUTHENTICATE, LOGOUT } from "./actions";
 
 const initialStateAuth = {
-    token: '',
-    userId: '',
-    isAdmin: false
+    uid: '',
+    email: '',
+    isAdmin: false,
+    isAuth: true
 }
 
 const authReducer = (state = initialStateAuth, action) => {
     switch (action.type) {
         case AUTHENTICATE:
             return {
+                ...state,
                 uid: action.payload.uid,
                 email: action.payload.email,
                 isAdmin: action.payload.isAdmin

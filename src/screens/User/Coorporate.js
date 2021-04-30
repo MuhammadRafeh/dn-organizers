@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Header from '../components/Header';
+import Header from '../../components/Header';
 
-const Birthday = props => {
+const Coorporate = props => {
     return (
         <View>
             <Header navigation={props.navigation}/>
-            <Text>This is Birthday Section</Text>
+            <Text>This is Coorporate Section</Text>
         </View>
     );
 }
 
-export default Birthday;
+export default Coorporate;

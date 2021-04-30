@@ -1,20 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
+// import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
-import UserLogin from './src/screens/Login';
 import { Ionicons } from '@expo/vector-icons';
-// import { useFonts } from 'expo-font';
 import * as Font from 'expo-font';
 import { Asset } from 'expo-asset';
 import AppLoading from 'expo-app-loading';
-import Login from './src/screens/LoginWith';
 import MainNavigator from './src/navigators/MainNavigator';
 import { NavigationContainer } from '@react-navigation/native';
 import store from './src/redux/store';
-import { Provider } from "react-redux";
-// import * as firebase from 'firebase';
+import { Provider, useSelector } from "react-redux";
 import firebase from "firebase";
+import AuthNavigator from './src/navigators/AuthNavigator';
 
 function cacheImages(images) {
   return images.map(image => {
@@ -26,7 +23,7 @@ function cacheImages(images) {
   });
 }
 
-export default function App() {
+function AppWrapper() {
   // const firebaseConfig = {
   //   apiKey: 'api-key',
   //   authDomain: 'project-id.firebaseapp.com',
@@ -76,21 +73,30 @@ export default function App() {
       />
     );
   }
-
   return (
     <Provider store={store}>
-      <PaperProvider
-        settings={{
-          icon: props => <Ionicons {...props} />,
-        }}
-      >
-        <NavigationContainer>
-          <MainNavigator />
-        </NavigationContainer>
-      </PaperProvider>
+      <App />
     </Provider>
   );
 }
+
+const App = () => {
+  const isAuth = useSelector(state => state.auth.isAuth);
+  return (
+    <PaperProvider
+      settings={{
+        icon: props => <Ionicons {...props} />,
+      }}
+    >
+      <NavigationContainer>
+        {!isAuth && <MainNavigator />}
+        {isAuth && <AuthNavigator />}
+      </NavigationContainer>
+    </PaperProvider>
+  )
+}
+
+export default AppWrapper;
 
 const styles = StyleSheet.create({
   container: {

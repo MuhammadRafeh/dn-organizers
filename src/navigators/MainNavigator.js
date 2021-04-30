@@ -1,29 +1,25 @@
 import React from 'react';
 import { Text } from 'react-native';
-
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import LoginWith from '../screens/LoginWith';
-import Login from '../screens/Login';
-import Home from '../screens/Home';
-import EventDetail from '../screens/EventDetail';
+import Home from '../screens/User/Home';
+import EventDetail from '../screens/User/EventDetail';
 import { LinearGradient } from 'expo-linear-gradient';
 // import Packages from '../components/Header';
-import IndividualService from '../screens/IndividualService';
-import UserInvoices from '../screens/UserInvoices';
-import BookedEvents from '../screens/BookedEvents';
-import UserRatings from '../screens/UserRatings';
+import IndividualService from '../screens/User/IndividualService';
+import UserInvoices from '../screens/User/UserInvoices';
+import BookedEvents from '../screens/User/BookedEvents';
+import UserRatings from '../screens/User/UserRatings';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import Wedding from '../screens/Wedding';
-import Birthday from '../screens/Birthday';
-import Coorporate from '../screens/Coorporate';
+import Wedding from '../screens/User/Wedding';
+import Birthday from '../screens/User/Birthday';
+import Coorporate from '../screens/User/Coorporate';
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const Stack = createStackNavigator();
 
 function HomeNavigator() {
-    const isLoggedIn = true;
     return (
         <Stack.Navigator screenOptions={{
             headerBackground: () => (
@@ -42,21 +38,11 @@ function HomeNavigator() {
                 marginRight: 50
             },
         }}>
-            {isLoggedIn ? (
-                <>
-                    <Stack.Screen name="home" component={Home} />
-                    <Stack.Screen name="eventdetail" component={EventDetail} />
-                </>
-            ) : (
-                    <>
-                        <Stack.Screen name="loginwith" component={LoginWith} />
-                        <Stack.Screen name="login" component={Login} />
-                    </>
-                )}
+            <Stack.Screen name="home" component={Home} />
+            <Stack.Screen name="eventdetail" component={EventDetail} />
         </Stack.Navigator>
     );
 }
-
 
 const Tab = createMaterialBottomTabNavigator();
 
