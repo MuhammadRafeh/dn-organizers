@@ -9,14 +9,6 @@ const { width, height } = Dimensions.get('window');
 
 const LoginWith = props => {
     const headerHeight = useHeaderHeight();
-    useEffect(() => {
-        props.navigation.setOptions({
-            headerShown: true,
-            headerTransparent: true,
-            headerTitle: ''
-            // headerTintColor: 'white'
-        });
-    }, [])
 
     const handleLogin = (type) => {
         if (type === 'user') {
