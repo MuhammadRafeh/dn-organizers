@@ -1,19 +1,17 @@
-// User Side Screen
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
-const UserRatings = props => {
-    // const dispatch = useDispatch();
+const Home = () => {
     return (
         <View style={styles.screen}>
             <Text>
-                This is User Ratings Screen.
+               This is admin's home 
             </Text>
         </View>
     );
 }
 
-export default UserRatings;
+export default Home;
 
 const styles = StyleSheet.create({
     screen: {

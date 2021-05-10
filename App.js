@@ -38,6 +38,7 @@ function AppWrapper() {
   // firebase.initializeApp(firebaseConfig);
   var config = {
     apiKey: "AIzaSyADijNnt7JWPYBp1cFBxD-V3FXjJYxlX8E",
+    storageBucket: "dnorganizers.appspot.com",
     databaseURL: "https://dnorganizers-default-rtdb.firebaseio.com",
     projectId: "dnorganizers",
   };

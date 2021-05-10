@@ -15,6 +15,12 @@ export const authenticate = (uid, email, isAdmin, isAuth) => { // It will take c
 
 export const logout = () => {
     return {
-        type: LOGOUT
+        type: LOGOUT,
+        payload: {
+            uid: '',
+            email: '',
+            isAdmin: true,
+            isAuth: true
+        }
     }
 }

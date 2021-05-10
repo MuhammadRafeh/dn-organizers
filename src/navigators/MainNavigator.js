@@ -1,7 +1,13 @@
 import React from 'react';
 import { Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+// import { createDrawerNavigator } from '@react-navigation/drawer';
+import {
+    createDrawerNavigator,
+    DrawerContentScrollView,
+    DrawerItemList,
+    DrawerItem,
+} from '@react-navigation/drawer';
 import Home from '../screens/User/Home';
 import EventDetail from '../screens/User/EventDetail';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -16,6 +22,11 @@ import Birthday from '../screens/User/Birthday';
 import Coorporate from '../screens/User/Coorporate';
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
+import AdminHome from '../screens/Admin/Home';
+import AdminInvoices from '../screens/Admin/AdminInvoices';
+import AdminRatings from '../screens/Admin/AdminRatings';
+import { useDispatch } from 'react-redux';
+import { logout } from '../redux/actions';
 
 const Stack = createStackNavigator();
 
@@ -80,6 +91,16 @@ function PackagesBottomTab() {
     );
 }
 
+function CustomDrawerContent(props) {
+    const dispatch = useDispatch();
+    return (
+        <DrawerContentScrollView {...props}>
+            <DrawerItemList {...props} />
+            <DrawerItem activeTintColor={'blue'} inactiveTintColor={'white'} activeBackgroundColor={'blue'} label="Logout" onPress={() => dispatch(logout())} />
+        </DrawerContentScrollView>
+    );
+}
+
 const Drawer = createDrawerNavigator();
 
 function MainNavigator() {
@@ -90,21 +111,26 @@ function MainNavigator() {
         <Drawer.Navigator
             initialRouteName="Home"
             drawerContentOptions={{ style: { backgroundColor: 'black', flex: 1 }, inactiveTintColor: 'white' }}
+            drawerContent={props => <CustomDrawerContent {...props} />}
         >
             {
                 isAdmin ? (
-                    <Drawer.Screen name="Booked Events" component={BookedEvents} />
-
+                    <>
+                        <Drawer.Screen name="Home" component={AdminHome} />
+                        <Drawer.Screen name="Packages" component={PackagesBottomTab} />
+                        <Drawer.Screen name="Ratings" component={AdminRatings} />
+                        <Drawer.Screen name="Invoices" component={AdminInvoices} />
+                    </>
                 ) : (
-                        <>
-                            <Drawer.Screen name="Home" component={HomeNavigator} />
-                            <Drawer.Screen name="Packages" component={PackagesBottomTab} />
-                            <Drawer.Screen name="Individual Services" component={IndividualService} />
-                            <Drawer.Screen name="Invoices" component={UserInvoices} />
-                            <Drawer.Screen name="Booked Events" component={BookedEvents} />
-                            <Drawer.Screen name="Your Ratings" component={UserRatings} />
-                        </>
-                    )
+                    <>
+                        <Drawer.Screen name="Home" component={HomeNavigator} />
+                        <Drawer.Screen name="Packages" component={PackagesBottomTab} />
+                        <Drawer.Screen name="Individual Services" component={IndividualService} />
+                        <Drawer.Screen name="Invoices" component={UserInvoices} />
+                        <Drawer.Screen name="Booked Events" component={BookedEvents} />
+                        <Drawer.Screen name="Your Ratings" component={UserRatings} />
+                    </>
+                )
             }
         </Drawer.Navigator>
     );

@@ -19,7 +19,13 @@ const authReducer = (state = initialStateAuth, action) => {
                 isAuth: action.payload.isAuth,
             }
         case LOGOUT:
-            return initialStateAuth;
+            return {
+                // ...state,
+                uid: action.payload.uid,
+                email: action.payload.email,
+                isAdmin: action.payload.isAdmin,
+                isAuth: action.payload.isAuth,
+            }
         default:
             return state;
     }

@@ -6,6 +6,7 @@ import {
     Dimensions,
     TouchableOpacity,
     ScrollView,
+    Alert,
 } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 // import { Ionicons } from '@expo/vector-icons';
@@ -57,21 +58,47 @@ const Login = (props) => {
     const buttonHandler = () => {
         if (isSignup) {
             //here we are creating the user
+            if (password === confirmPassword) {
+                firebase.auth().createUserWithEmailAndPassword(email, password).then((object) => {
+                    dispatch(authenticate(object.user.uid, email, false, false));
+                }).catch(err => {
+                    Alert.alert('Something went wrong', err.message, [{ text: 'Ok' }])
+                })
+                // firebase.auth().
+            } else {
+                Alert.alert('Password Error', 'Passwords not match with each other', [{ text: 'Ok' }])
+            }
         }
         else if (loginBy === 'user' && isEmailValid && password >= 6) {
             //here we are signing the user
-            // console.log('aa')
             firebase
                 .auth()
                 .signInWithEmailAndPassword(email, password)
                 .then((object) => {
-                    console.log(object.user.uid)
+                    // console.log(object.user.uid)
                     dispatch(authenticate(object.user.uid, email, false, false))
                 })
-                .catch(error => console.log(error.message));
+                .catch(error => Alert.alert('Something went wrong', error.message, [{text: 'OK'}]));
         }
         else if (loginBy === 'admin') {
             //here we are signing the admin
+            // firebase.database().ref('admin/').once('value', function (snapshot) {
+            //     const admin = snapshot.val();
+            //     if (admin.email == email && admin.password == password){
+            //         dispatch(authenticate())
+            //     } 
+            // });
+            if (email == 'Admin@gmail.com' && password == '123456'){
+                firebase
+                    .auth()
+                    .signInWithEmailAndPassword(email, password)
+                    .then((object) => {
+                        dispatch(authenticate(object.user.uid, email, true, false))
+                    })
+                    .catch(error => Alert.alert('Something went wrong', error.message, [{text: 'OK'}]));
+            } else {
+                Alert.alert('Wrong Credentials', 'Invalid email/password', [{text: 'Ok'}])
+            }
         }
     }
 

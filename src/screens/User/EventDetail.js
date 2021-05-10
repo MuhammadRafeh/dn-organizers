@@ -1,29 +1,54 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {Button} from 'react-native-paper';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import { events } from '../../data/Data';
 
 const EventDetail = props => {
 
-    const { navigation } = props;
+    const { navigation, route } = props;
 
     React.useLayoutEffect(() => {
         props.navigation.setOptions({
-            headerTitle: props.route.params?.name
+            headerTitle: route.params?.name
         });
     }, [navigation]);
 
+    const eventName = route.params?.name;
+    const event = events.filter((event) => {
+        if (event.title == eventName) {
+            return true
+        }
+        return false;
+    })[0];
     return (
-        <View style={styles.screen}>
-            <Text>
-                Text here
-            </Text>
-        </View>
+        <ScrollView>
+            <Image source={event.source} style={styles.image} resizeMode={'cover'} />
+            <Text style={styles.description}>{event.desc}</Text>
+            <View style={styles.buttonContainer}>
+                {/* <Button title={'View Packages'} onPress={() => { console.log('packages') }} /> */}
+            <Button icon="receipt" mode="contained" onPress={() => console.log('Pressed')}>
+                View Packages
+            </Button>
+            </View>
+        </ScrollView>
     );
 }
 
 export default EventDetail;
 
 const styles = StyleSheet.create({
-    screen: {
-        flex: 1
+    image: {
+        width: '100%',
+        height: 300
+    },
+    description: {
+        fontSize: 14,
+        textAlign: 'center',
+        marginVertical: 10,
+        marginHorizontal: 20,
+        fontFamily: 'joining'
+    },
+    buttonContainer: {
+        marginHorizontal: 20,
     }
 });
