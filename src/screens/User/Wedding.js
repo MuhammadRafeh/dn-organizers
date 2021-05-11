@@ -3,7 +3,6 @@ import { View, Text, FlatList, StyleSheet } from 'react-native';
 import Header from '../../components/Header';
 import firebase from 'firebase';
 import PackagesItem from '../../components/PackagesItem';
-import Package from '../../models/package';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateWedding } from '../../redux/actions';
 

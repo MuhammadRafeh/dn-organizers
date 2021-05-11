@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import Package from "../models/package";
+import transformIntoPackage from "../barriers/transformIntoPackages";
 import { AUTHENTICATE, LOGOUT, UPDATEBIRTHDAY, UPDATECORPORATE, UPDATEWEDDING } from "./actions";
 
 const initialAuthState = {
@@ -36,17 +36,6 @@ const initialPackageState = {
     wedding: [],
     birthday: [],
     corporate: []
-}
-
-const transformIntoPackage = (payload) => {
-    const transformData = [];
-    const response = payload;
-    for (let id in response) {
-        transformData.push(
-            new Package(id, response[id].name, response[id].price, response[id].theme, response[id].menu, response[id].venu)
-        )
-    }
-    return transformData;
 }
 
 const packageReducer = (state = initialPackageState, action) => {
