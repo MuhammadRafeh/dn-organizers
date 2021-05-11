@@ -29,31 +29,28 @@ const Birthday = props => {
                 contentContainerStyle={{ padding: 20 }}
                 data={packages}
                 renderItem={(item) => {
-                    return <View style={{ marginVertical: 10 }}>
-                        <Card style={{ padding: 4 }}>
-                            <View style={styles.cardHeader}>
-                                <View style={{flex: 1}}/>
-                                <View style={{ flex: 1}}>
-                                    <Text style={{ textAlign: 'center', fontFamily: 'webfont', fontSize: 30 }}>{item.item.name}</Text>
-                                </View>
-                                <Button mode="text" onPress={() => console.log('Pressed')}>
-                                    Book Now
+                    return <Card style={{ padding: 4, marginVertical: 10 }}>
+                        <View style={styles.cardHeader}>
+                            <View style={{ flex: 1 }} />
+                            <View style={{ flex: 1 }}>
+                                <Text style={{ textAlign: 'center', fontFamily: 'webfont', fontSize: 30 }}>{item.item.name}</Text>
+                            </View>
+                            <Button mode="text" onPress={() => console.log('Pressed')}>
+                                Book Now
                                 </Button>
+                        </View>
+                        <View style={{ width: '100%', height: 1, backgroundColor: 'grey' }}></View>
+                        <View style={styles.packageDetails}>
+                            <View>
+                                <Text>Price: {item.item.price}</Text>
+                                <Text>Theme: {item.item.theme}</Text>
+                                <Text>Venu: {item.item.venu}</Text>
                             </View>
-                            <View style={{ width: '100%', height: 1, backgroundColor: 'grey' }}></View>
-                            <View style={styles.packageDetails}>
-                                <View>
-                                    <Text>Price: {item.item.price}</Text>
-                                    <Text>Theme: {item.item.theme}</Text>
-                                </View>
-                                <View>
-                                    <Text>Venu: {item.item.venu}</Text>
-                                    <Text>Menu: {item.item.menu}</Text>
-                                </View>
+                            <View>
+                                <Text>Menu: {item.item.menu}</Text>
                             </View>
-                        </Card>
-
-                    </View>
+                        </View>
+                    </Card>
                 }}
             />
         </View>
