@@ -4,6 +4,7 @@ import Header from '../../components/Header';
 import Package from '../../models/package';
 import firebase from "firebase";
 import Card from '../../components/Card';
+import { Button } from 'react-native-paper';
 
 const Birthday = props => {
     const [packages, setPackages] = useState([]);
@@ -25,12 +26,20 @@ const Birthday = props => {
         <View>
             <Header navigation={props.navigation} />
             <FlatList
-                contentContainerStyle={{padding: 20}}
+                contentContainerStyle={{ padding: 20 }}
                 data={packages}
                 renderItem={(item) => {
-                    return <View style={{marginVertical: 10}}>
-                        <Card style={{padding: 4}}>
-                            <Text style={{ textAlign: 'center', fontFamily: 'headings', fontSize: 30 }}>{item.item.name}</Text>
+                    return <View style={{ marginVertical: 10 }}>
+                        <Card style={{ padding: 4 }}>
+                            <View style={styles.cardHeader}>
+                                <View style={{flex: 1}}/>
+                                <View style={{ flex: 1}}>
+                                    <Text style={{ textAlign: 'center', fontFamily: 'webfont', fontSize: 30 }}>{item.item.name}</Text>
+                                </View>
+                                <Button mode="text" onPress={() => console.log('Pressed')}>
+                                    Book Now
+                                </Button>
+                            </View>
                             <View style={{ width: '100%', height: 1, backgroundColor: 'grey' }}></View>
                             <View style={styles.packageDetails}>
                                 <View>
@@ -54,6 +63,10 @@ const Birthday = props => {
 export default Birthday;
 
 const styles = StyleSheet.create({
+    cardHeader: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end'
+    },
     packageDetails: {
         padding: 6
     }
