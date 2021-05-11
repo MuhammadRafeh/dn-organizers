@@ -23,7 +23,7 @@ const Birthday = props => {
     }, [])
 
     return (
-        <View>
+        <View style={styles.screen}>
             <Header navigation={props.navigation} />
             <FlatList
                 contentContainerStyle={{ padding: 20 }}
@@ -42,12 +42,19 @@ const Birthday = props => {
                         <View style={{ width: '100%', height: 1, backgroundColor: 'grey' }}></View>
                         <View style={styles.packageDetails}>
                             <View>
-                                <Text>Price: {item.item.price}</Text>
-                                <Text>Theme: {item.item.theme}</Text>
-                                <Text>Venu: {item.item.venu}</Text>
+                                <Text><Text style={styles.labelStyle}>Price:</Text> {item.item.price}</Text>
+                                <Text><Text style={styles.labelStyle}>Theme:</Text> {item.item.theme}</Text>
+                                <Text><Text style={styles.labelStyle}>Venu:</Text> {item.item.venu}</Text>
                             </View>
-                            <View>
-                                <Text>Menu: {item.item.menu}</Text>
+                            <View style={styles.menuRowContainer}>
+                                <View style={styles.menuLabelContainer}>
+                                    <Text style={{ ...styles.labelStyle, textDecorationLine: 'underline' }}>Menu</Text>
+                                </View>
+                                <View style={styles.menuListContainer}>
+                                    {item.item.menu.map((item) =>
+                                        <Text>- {item}</Text>
+                                    )}
+                                </View>
                             </View>
                         </View>
                     </Card>
@@ -60,11 +67,28 @@ const Birthday = props => {
 export default Birthday;
 
 const styles = StyleSheet.create({
+    screen: {
+        paddingBottom: 80
+    },
     cardHeader: {
         flexDirection: 'row',
         justifyContent: 'flex-end'
     },
     packageDetails: {
         padding: 6
+    },
+    labelStyle: {
+        fontSize: 15,
+        fontWeight: 'bold'
+    },
+    menuLabelContainer: {
+        flex: 1
+    },
+    menuListContainer: {
+        flex: 1
+    },
+    menuRowContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     }
 });
