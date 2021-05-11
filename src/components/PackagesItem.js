@@ -3,8 +3,12 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import Card from './Card';
 import propTypes from 'prop-types';
+import { List } from 'react-native-paper';
 
 const PackagesItem = props => {
+    const [expanded, setExpanded] = React.useState(true);
+
+    const handlePress = () => setExpanded(!expanded);
     return (
         <Card style={styles.cardStyle}>
             <View style={styles.cardHeader}>
@@ -12,7 +16,7 @@ const PackagesItem = props => {
                 <View style={styles.flex1}>
                     <Text style={styles.packageName}>{props.name}</Text>
                 </View>
-                <Button mode="text" onPress={() => console.log('Pressed')}>
+                <Button mode="text" onPress={props.handleBookPress}>
                     Book Now
                 </Button>
             </View>
@@ -23,27 +27,43 @@ const PackagesItem = props => {
                     <Text><Text style={styles.labelStyle}>Theme:</Text> {props.theme}</Text>
                     <Text><Text style={styles.labelStyle}>Venu:</Text> {props.venu}</Text>
                 </View>
-                <View style={styles.menuRowContainer}>
-                    <View style={styles.menuLabelContainer}>
+                <List.Section>
+                    <List.Accordion
+                        title="Menu"
+                        // left={props => <List.Icon {...props} icon="folder" />}
+                        expanded={expanded}
+                        onPress={handlePress}>
+                        {/* <List.Item title="First item" /> */}
+                        <View style={{marginLeft: 5}}>
+                            {props.menu.map((item, key) =>
+                                <Text key={key}><Text style={styles.menuListDecorator}>-</Text> {item}</Text>
+                            )}
+                        </View>
+                    </List.Accordion>
+                </List.Section>
+                {/* <View style={styles.menuRowContainer}> */}
+                {/* <View style={styles.menuLabelContainer}>
                         <Text style={{ ...styles.labelStyle, textDecorationLine: 'underline' }}>Menu</Text>
                     </View>
                     <View style={styles.menuListContainer}>
                         {props.menu.map((item, key) =>
                             <Text key={key}><Text style={styles.menuListDecorator}>-</Text> {item}</Text>
-                        )}
-                    </View>
-                </View>
+                        )} */}
+                {/* </View> */}
+                {/* </View> */}
             </View>
         </Card>
     );
 }
 
 PackagesItem.propTypes = {
+    // id: propTypes.string,
     name: propTypes.string,
     price: propTypes.any,
     menu: propTypes.array,
     venu: propTypes.string,
-    theme: propTypes.string
+    theme: propTypes.string,
+    handleBookPress: propTypes.func
 }
 
 export default PackagesItem;

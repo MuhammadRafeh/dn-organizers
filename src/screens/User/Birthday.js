@@ -15,6 +15,10 @@ const Birthday = props => {
         });
     }, [])
 
+    const handleBookPress = id => {
+        console.log(id)
+    }
+
     return (
         <View style={styles.screen}>
             <Header navigation={props.navigation} />
@@ -22,7 +26,15 @@ const Birthday = props => {
                 contentContainerStyle={{ padding: 20 }}
                 data={packages}
                 renderItem={(item) => {
-                    return <PackagesItem name={item.item.name} price={item.item.price} theme={item.item.theme} venu={item.item.venu} menu={item.item.menu} />
+                    return <PackagesItem
+                        // id={item.item.id}
+                        name={item.item.name}
+                        price={item.item.price}
+                        theme={item.item.theme}
+                        venu={item.item.venu}
+                        menu={item.item.menu}
+                        handleBookPress={() => {handleBookPress(item.item.id)}}
+                    />
                 }}
             />
         </View>
