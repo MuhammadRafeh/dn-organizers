@@ -22,6 +22,17 @@ function cacheImages(images) {
     }
   });
 }
+// function readUserData() {
+//     firebase.database().ref('admin/').once('value', function (snapshot) {
+//         console.log(snapshot.val())
+//     });
+// }
+
+// function readUserData() {
+//     firebase.database().ref('admin/').on('value', function (snapshot) {
+//         console.log(snapshot.val())
+//     });
+// }
 
 function AppWrapper() {
   // const firebaseConfig = {

@@ -8,6 +8,7 @@ const Home = () => {
                This is admin's home 
             </Text>
         </View>
+        
     );
 }
 

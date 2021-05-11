@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import Card from './Card';
+import propTypes from 'prop-types';
 
 const PackagesItem = props => {
     return (
@@ -27,8 +28,8 @@ const PackagesItem = props => {
                         <Text style={{ ...styles.labelStyle, textDecorationLine: 'underline' }}>Menu</Text>
                     </View>
                     <View style={styles.menuListContainer}>
-                        {props.menu.map((item) =>
-                            <Text>- {item}</Text>
+                        {props.menu.map((item, key) =>
+                            <Text key={key}><Text style={styles.menuListDecorator}>-</Text> {item}</Text>
                         )}
                     </View>
                 </View>
@@ -37,12 +38,20 @@ const PackagesItem = props => {
     );
 }
 
+PackagesItem.propTypes = {
+    name: propTypes.string,
+    price: propTypes.any,
+    menu: propTypes.array,
+    venu: propTypes.string,
+    theme: propTypes.string
+}
+
 export default PackagesItem;
 
 const styles = StyleSheet.create({
     divider: {
-        width: '100%', 
-        height: 1, 
+        width: '100%',
+        height: 1,
         backgroundColor: 'grey'
     },
     packageName: {
@@ -77,5 +86,8 @@ const styles = StyleSheet.create({
     menuRowContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between'
+    },
+    menuListDecorator: {
+        fontWeight: 'bold'
     }
 });

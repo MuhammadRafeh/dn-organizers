@@ -1,14 +1,15 @@
 import { combineReducers } from "redux";
-import { AUTHENTICATE, LOGOUT } from "./actions";
+import Package from "../models/package";
+import { AUTHENTICATE, LOGOUT, UPDATEBIRTHDAY, UPDATECORPORATE, UPDATEWEDDING } from "./actions";
 
-const initialStateAuth = {
+const initialAuthState = {
     uid: '',
     email: '',
     isAdmin: false,
     isAuth: false
 }
 
-const authReducer = (state = initialStateAuth, action) => {
+const authReducer = (state = initialAuthState, action) => {
     switch (action.type) {
         case AUTHENTICATE:
             return {
@@ -31,8 +32,48 @@ const authReducer = (state = initialStateAuth, action) => {
     }
 }
 
+const initialPackageState = {
+    wedding: [],
+    birthday: [],
+    corporate: []
+}
+
+const transformIntoPackage = (payload) => {
+    const transformData = [];
+    const response = payload;
+    for (let id in response) {
+        transformData.push(
+            new Package(id, response[id].name, response[id].price, response[id].theme, response[id].menu, response[id].venu)
+        )
+    }
+    return transformData;
+}
+
+const packageReducer = (state = initialPackageState, action) => {
+    switch (action.type) {
+        case UPDATEBIRTHDAY:
+            return {
+                ...state,
+                birthday: transformIntoPackage(action.payload)
+            }
+        case UPDATECORPORATE:
+            return {
+                ...state,
+                corporate: transformIntoPackage(action.payload)
+            }
+        case UPDATEWEDDING:
+            return {
+                ...state,
+                wedding: transformIntoPackage(action.payload)
+            }
+        default:
+            return state;
+    }
+}
+
 const rootReducer = combineReducers({
-    auth: authReducer
+    auth: authReducer,
+    packages: packageReducer
 })
 
 export default rootReducer

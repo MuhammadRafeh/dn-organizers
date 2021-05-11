@@ -1,23 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import Header from '../../components/Header';
-import Package from '../../models/package';
 import firebase from "firebase";
 import PackagesItem from '../../components/PackagesItem';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateBirthday } from '../../redux/actions';
 
 const Birthday = props => {
-    const [packages, setPackages] = useState([]);
+    const dispatch = useDispatch();
+    const packages = useSelector(state => state.packages.birthday);
     useEffect(() => {
         firebase.database().ref('events/birthday/packages').once('value', function (snapshot) {
-            // new Package()
-            const transformData = [];
-            const response = snapshot.val();
-            for (let id in response) {
-                transformData.push(
-                    new Package(id, response[id].name, response[id].price, response[id].theme, response[id].menu, response[id].venu)
-                )
-            }
-            setPackages(transformData);
+            dispatch(updateBirthday(snapshot.val()));
         });
     }, [])
 
