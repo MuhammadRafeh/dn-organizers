@@ -13,6 +13,60 @@ import { Provider, useSelector } from "react-redux";
 import firebase from "firebase";
 import AuthNavigator from './src/navigators/AuthNavigator';
 
+//delete from database
+// deleteData(){
+//   firebase.database().ref('Users/').remove();
+// }
+
+//update database
+// updateSingleData(email){
+//   firebase.database().ref('Users/').update({
+//       email,
+//   });
+// }
+
+//read data from firebase and listen on changes their
+// readUserData() {
+//   firebase.database().ref('Users/').on('value', function (snapshot) {
+//       console.log(snapshot.val())
+//   });
+// }
+
+//push data -------------------
+// writeUserData(email,fname,lname){
+//   firebase.database().ref('UsersList/').push({
+//       email,
+//       fname,
+//       lname
+//   }).then((data)=>{
+//       //success callback
+//       console.log('data ' , data)
+//   }).catch((error)=>{
+//       //error callback
+//       console.log('error ' , error)
+//   })
+// }
+// --------------------------------
+
+//update item
+// var updates = {};
+//     updates["/items/" + this.state.selecteditem.key] = {
+//       name: this.state.itemname
+//     };
+
+//     return firebaseApp
+//       .database()
+//       .ref()
+//       .update(updates);
+
+//delete item from birebase
+// var updates = {};
+//     updates["/items/" + key] = null;
+//     return firebaseApp
+//       .database()
+//       .ref()
+//       .update(updates);
+
 function cacheImages(images) {
   return images.map(image => {
     if (typeof image === 'string') {

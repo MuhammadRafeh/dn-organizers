@@ -3,6 +3,7 @@ export const LOGOUT = "LOGOUT";
 export const UPDATEWEDDING = 'UPDATEWEDDING';
 export const UPDATEBIRTHDAY = 'UPDATEBIRTHDAY';
 export const UPDATECORPORATE = 'UPDATECORPORATE';
+export const UPDATEPENDINGINVOICES = 'UPDATEPENDINGINVOICES';
 
 export const authenticate = (uid, email, isAdmin, isAuth) => { // It will take credentials
     return {
@@ -46,5 +47,12 @@ export const updateCorporate = (objRes) => { //in objRes key is a firebase key a
     return {
         type: UPDATECORPORATE,
         payload: objRes
+    }
+}
+
+export const updatePendingInvoices = object => { //{price, theme, menu, venu, eventName, isPackage, serPackName, serPackId, userEmail, bookDate, occuredDate, designerName, status}
+    return {
+        type: UPDATEPENDINGINVOICES,
+        payload: object
     }
 }
