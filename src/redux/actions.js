@@ -4,6 +4,7 @@ export const UPDATEWEDDING = 'UPDATEWEDDING';
 export const UPDATEBIRTHDAY = 'UPDATEBIRTHDAY';
 export const UPDATECORPORATE = 'UPDATECORPORATE';
 export const UPDATEPENDINGINVOICES = 'UPDATEPENDINGINVOICES';
+export const SETPENDINGINVOICES = 'SETPENDINGINVOICES';
 
 export const authenticate = (uid, email, isAdmin, isAuth) => { // It will take credentials
     return {
@@ -54,5 +55,15 @@ export const updatePendingInvoices = object => { //{price, theme, menu, venu, ev
     return {
         type: UPDATEPENDINGINVOICES,
         payload: object
+    }
+}
+
+export const setPendingInvoices = (object, email) => {
+    return {
+        type: SETPENDINGINVOICES,
+        payload: {
+            object,
+            email
+        }
     }
 }

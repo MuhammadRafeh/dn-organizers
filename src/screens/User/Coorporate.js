@@ -43,6 +43,9 @@ const Coorporate = props => {
         }
         firebase.database().ref('pendingInvoices/').push(invoice).then(function (data) {
             //success callback
+            //TODOS------------------------------------------------------------
+            // Assign data.key to pendingInvoices as id property
+            console.log('firebase assigned key: ',data.key)
             dispatch(updatePendingInvoices(invoice))
             Alert.alert('Successfully added to Invoices', 'Please go to invoice section to clear first and continue.', [{ text: 'Ok' }])
         }).catch(function (error) {

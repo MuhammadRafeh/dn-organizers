@@ -1,7 +1,8 @@
 import { combineReducers } from "redux";
 import transformIntoPackage from "../barriers/transformIntoPackages";
+import transformIntoPendingInvoices from "../barriers/transformIntoPendingInvoices";
 import PendingInvoices from "../models/pendingInvoices";
-import { AUTHENTICATE, LOGOUT, UPDATEBIRTHDAY, UPDATECORPORATE, UPDATEPENDINGINVOICES, UPDATEWEDDING } from "./actions";
+import { AUTHENTICATE, LOGOUT, SETPENDINGINVOICES, UPDATEBIRTHDAY, UPDATECORPORATE, UPDATEPENDINGINVOICES, UPDATEWEDDING } from "./actions";
 
 const initialAuthState = {
     uid: '',
@@ -88,6 +89,10 @@ const invoiceReducer = (state = initialInvoiceState, action) => {
                         payload.status
                     )
                 ]
+            }
+        case SETPENDINGINVOICES:
+            return {
+                pendingInvoices: transformIntoPendingInvoices(action.payload)
             }
         default:
             return state;
