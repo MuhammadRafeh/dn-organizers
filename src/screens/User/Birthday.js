@@ -42,7 +42,7 @@ const Birthday = props => {
         }
         firebase.database().ref('pendingInvoices/').push(invoice).then((data) => {
             //success callback
-            dispatch(updatePendingInvoices(invoice))
+            dispatch(updatePendingInvoices({...invoice, id: data.key}))
             Alert.alert('Successfully added to Invoices', 'Please go to invoice section to clear first and continue.', [{ text: 'Ok' }])
         }).catch((error) => {
             //error callback

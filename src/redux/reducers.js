@@ -2,7 +2,14 @@ import { combineReducers } from "redux";
 import transformIntoPackage from "../barriers/transformIntoPackages";
 import transformIntoPendingInvoices from "../barriers/transformIntoPendingInvoices";
 import PendingInvoices from "../models/pendingInvoices";
-import { AUTHENTICATE, LOGOUT, SETPENDINGINVOICES, UPDATEBIRTHDAY, UPDATECORPORATE, UPDATEPENDINGINVOICES, UPDATEWEDDING } from "./actions";
+import { 
+    AUTHENTICATE, 
+    LOGOUT, 
+    SETPENDINGINVOICES, 
+    UPDATEBIRTHDAY, 
+    UPDATECORPORATE, 
+    UPDATEPENDINGINVOICES, 
+    UPDATEWEDDING } from "./actions";
 
 const initialAuthState = {
     uid: '',
@@ -74,6 +81,7 @@ const invoiceReducer = (state = initialInvoiceState, action) => {
                 pendingInvoices: [
                     ...state.pendingInvoices,
                     new PendingInvoices(
+                        payload.id,
                         payload.price,
                         payload.theme,
                         payload.menu,

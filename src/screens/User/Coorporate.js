@@ -45,8 +45,9 @@ const Coorporate = props => {
             //success callback
             //TODOS------------------------------------------------------------
             // Assign data.key to pendingInvoices as id property
-            console.log('firebase assigned key: ',data.key)
-            dispatch(updatePendingInvoices(invoice))
+            console.log('firebase assigned key: ', data.key)
+
+            dispatch(updatePendingInvoices({...invoice, id: data.key}))
             Alert.alert('Successfully added to Invoices', 'Please go to invoice section to clear first and continue.', [{ text: 'Ok' }])
         }).catch(function (error) {
             //error callback

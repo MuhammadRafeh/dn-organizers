@@ -33,7 +33,7 @@ const UserInvoices = props => {
                 renderItem={(item) => {
                     return <View>
                         <Text>
-                            {item.item.theme}
+                            {item.item.id}
                         </Text>
                     </View>
                 }}

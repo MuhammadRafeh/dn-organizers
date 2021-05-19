@@ -36,9 +36,10 @@ const Header = props => {
                 icon="menu"
                 onPress={_goBack}
             />
-            {props.invoices ? <Appbar.Content title="Invoices" subtitle="Packages" /> : (
+            {props.invoices ? <Appbar.Content title="Invoices" subtitle="Packages" /> : props.custom ? <Appbar.Content title="Custom" subtitle="Events" /> : (
                 <Appbar.Content title="Packages" subtitle="Events" />
             )}
+            {/* {props.custom && <Appbar.Content title="Custom" subtitle="Events" />} */}
             {/* <Appbar.Action icon="magnify" onPress={_handleSearch} />
       <Appbar.Action icon="dots-vertical" onPress={_handleMore} /> */}
         </Appbar.Header>
