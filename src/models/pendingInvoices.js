@@ -1,6 +1,6 @@
 class PendingInvoices {
     constructor(id, price, theme, menu, venu, eventName, isPackage, serPackName, serPackId, userEmail, bookDate, occuredDate, designerName, status) {
-        this.id = id
+        this.id = id //this is /pendingInvoices generated id by firebase
         this.price = price;
         this.theme = theme;
         this.menu = menu;
