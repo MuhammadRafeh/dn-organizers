@@ -23,7 +23,7 @@ const DataTableRow = props => {
                         <Checkbox
                             status={checked ? 'checked' : 'unchecked'}
                             onPress={() => {
-                                if (!checked) {
+                                if (!checked) { //here !checked because to take step according to next state
                                     getRowSelectedData({ ...data, checked: true });
                                     setChecked(!checked);
                                     return

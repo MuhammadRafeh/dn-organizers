@@ -39,6 +39,7 @@ const Header = props => {
             {props.invoices ? <Appbar.Content title="Invoices" subtitle="Packages" /> : props.custom ? <Appbar.Content title="Custom" subtitle="Events" /> : (
                 <Appbar.Content title="Packages" subtitle="Events" />
             )}
+            {/* <Appbar.Action icon="save" onPress={_handleMore} /> */}
             {/* {props.custom && <Appbar.Content title="Custom" subtitle="Events" />} */}
             {/* <Appbar.Action icon="magnify" onPress={_handleSearch} />
       <Appbar.Action icon="dots-vertical" onPress={_handleMore} /> */}
