@@ -39,7 +39,7 @@ const DataTable = props => {
 
             <View style={{ height: 0.2, backgroundColor: 'grey', width: '100%', marginTop: 18, marginBottom: 10 }} />
 
-            {props.list && props.list.map((item, index) => <DataTableRow key={index} data={{ ...item, id: index }} getRowSelectedData={getRowSelectedData} />)}
+            {props.list && props.list.map((item, index) => <DataTableRow key={index} data={item} getRowSelectedData={getRowSelectedData} />)}
         </>
     );
 }

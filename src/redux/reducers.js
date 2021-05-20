@@ -96,6 +96,7 @@ const invoiceReducer = (state = initialInvoiceState, action) => {
                         payload.bookDate,
                         payload.occuredDate,
                         payload.designerName,
+                        payload.noOfPeople,
                         payload.status
                     )
                 ]

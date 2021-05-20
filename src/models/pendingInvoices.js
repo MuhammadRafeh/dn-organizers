@@ -1,5 +1,5 @@
 class PendingInvoices {
-    constructor(id, price, theme, menu, venu, eventName, isPackage, serPackName, serPackId, userEmail, bookDate, occuredDate, designerName, status) {
+    constructor(id, price, theme, menu, venu, eventName, isPackage, serPackName, serPackId, userEmail, bookDate, occuredDate, designerName, noOfPeople, status) {
         this.id = id //this is /pendingInvoices generated id by firebase
         this.price = price;
         this.theme = theme;
@@ -13,6 +13,7 @@ class PendingInvoices {
         this.bookDate = bookDate; //when user click the book now button on app
         this.occuredDate = occuredDate; //When user want this function to be held
         this.designerName = designerName;
+        this.noOfPeople = noOfPeople;
         this.status = status; //what's the status of it
     }
 }
