@@ -5,6 +5,7 @@ import transformIntoPendingInvoices from "../barriers/transformIntoPendingInvoic
 import PendingInvoices from "../models/pendingInvoices";
 import { 
     AUTHENTICATE, 
+    DELETEPENDINGINVOICE, 
     LOGOUT, 
     SETITEMS, 
     SETPENDINGINVOICES, 
@@ -104,6 +105,10 @@ const invoiceReducer = (state = initialInvoiceState, action) => {
         case SETPENDINGINVOICES:
             return {
                 pendingInvoices: transformIntoPendingInvoices(action.payload)
+            }
+        case DELETEPENDINGINVOICE:
+            return {
+                pendingInvoices: state.pendingInvoices.filter(item => item.id != action.payload)
             }
         default:
             return state;

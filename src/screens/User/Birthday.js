@@ -8,6 +8,7 @@ import { updateBirthday, updatePendingInvoices } from '../../redux/actions';
 
 const Birthday = props => {
     const dispatch = useDispatch();
+    // const [packages, email, pendingInvoices] = useSelector(state => [state.packages.birthday, state.auth.email, state.invoices.pendingInvoices]);
     const [packages, email] = useSelector(state => [state.packages.birthday, state.auth.email]);
     const [isRefreshing, setIsRefreshing] = useState(false);
     const pullData = () => {
@@ -25,6 +26,11 @@ const Birthday = props => {
     }, [])
 
     const handleBookPress = (id, name, theme, menu, venu, price) => {
+        // pendingInvoices.forEach(invoice => {
+        //     if (invoice.id == id){
+                
+        //     }
+        // })
         const invoice = {
             theme,
             menu,

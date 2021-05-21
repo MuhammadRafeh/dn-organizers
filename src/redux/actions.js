@@ -6,6 +6,7 @@ export const UPDATECORPORATE = 'UPDATECORPORATE';
 export const UPDATEPENDINGINVOICES = 'UPDATEPENDINGINVOICES';
 export const SETPENDINGINVOICES = 'SETPENDINGINVOICES';
 export const SETITEMS = 'SETITEMS';
+export const DELETEPENDINGINVOICE = 'DELETEPENDINGINVOICE';
 
 export const authenticate = (uid, email, isAdmin, isAuth) => { // It will take credentials
     return {
@@ -77,5 +78,12 @@ export const setItems = (wed, birth, corp) => { // obj that returned from fireba
             birth,
             corp
         }
+    }
+}
+
+export const deletePendingInvoice = id => { //firebase generated Id
+    return {
+        type: DELETEPENDINGINVOICE,
+        payload: id
     }
 }
