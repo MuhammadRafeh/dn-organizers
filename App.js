@@ -128,7 +128,10 @@ function AppWrapper() {
       headings: require('./assets/fonts/main-headings.ttf'),
       subHeadings: require('./assets/fonts/sub-headings.ttf'),
       joining: require('./assets/fonts/stylish.ttf'),
-      webfont: require('./assets/fonts/Sacramento-Regular.ttf')
+      webfont: require('./assets/fonts/Sacramento-Regular.ttf'),
+      price: require('./assets/fonts/price.ttf'),
+      descent: require('./assets/fonts/DroidSerif-Bold.ttf'),
+      
     });
   }
   if (!isReady) {

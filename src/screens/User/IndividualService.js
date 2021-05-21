@@ -21,7 +21,7 @@ const IndividualService = props => {
     const [selectedDesigner, setSelectedDesigner] = useState('');
 
     const [price, setPrice] = useState(0);
-    
+
     const [selectedVenu, setSelectedVenu] = useState('');
     const [venuPrice, setVenuPrice] = useState(0);
     const [menuPrice, setMenuPrice] = useState(0);
@@ -66,7 +66,11 @@ const IndividualService = props => {
         const menu = selectedMenu.map(item => {
             // delete item["checked"];
             // price = price + (item.price * peopleCount);
-            return item.name;
+            return {
+                id: item.id,
+                name: item.name,
+                price: parseInt(item.price)
+            }
         })
         // console.log('--------------->', price)
 
@@ -128,7 +132,7 @@ const IndividualService = props => {
             <View style={{ height: 1, width: '80%', backgroundColor: 'black', alignSelf: 'center', marginBottom: 20 }} />
             {isRefreshing ? <ActivityIndicator size={45} color={'blue'} /> : <>
 
-            {/* theme---------------------------------------------- */}
+                {/* theme---------------------------------------------- */}
 
                 <View style={{ marginLeft: '5%' }}>
                     <Text style={{ color: 'grey' }}>Theme</Text>
@@ -182,15 +186,15 @@ const IndividualService = props => {
                         }
                         }>
                         {value == 'Corporate' && corporateItems.filter(obj => obj['venu'])[0]['venu'].map((item) => (
-                            <Picker.Item key={item.id} label={`${item.name} -${item.price} Rs`} value={{name: item.name, price: item.price }} />
+                            <Picker.Item key={item.id} label={`${item.name} -${item.price} Rs`} value={{ name: item.name, price: item.price }} />
                         ))
                         }
                         {value == 'Birthday' && birthdayItems.filter(obj => obj['venu'])[0]['venu'].map((item) => (
-                            <Picker.Item key={item.id} label={`${item.name} -${item.price} Rs`} value={{name: item.name, price: item.price }} />
+                            <Picker.Item key={item.id} label={`${item.name} -${item.price} Rs`} value={{ name: item.name, price: item.price }} />
                         ))
                         }
                         {value == 'Wedding' && weddingItems.filter(obj => obj['venu'])[0]['venu'].map((item) => (
-                            <Picker.Item key={item.id} color={'black'} label={`${item.name} -${item.price} Rs`} value={{name: item.name, price: item.price }} />
+                            <Picker.Item key={item.id} color={'black'} label={`${item.name} -${item.price} Rs`} value={{ name: item.name, price: item.price }} />
                         ))
                         }
                     </Picker>
@@ -260,9 +264,9 @@ const IndividualService = props => {
 
                 {/* Total Price Label-------------------------------------------------------- */}
 
-                <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
-                    <Text style={{textAlign: 'center', color: 'blue', fontSize: 45, fontFamily: 'webfont', paddingTop: 20}}>Total:</Text>
-                    <Text style={{textAlign: 'center', color: 'blue', fontSize: 45, fontFamily: 'headings'}}>{venuPrice + (menuPrice * peopleCount)}</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+                    <Text style={{ textAlign: 'center', color: 'blue', fontSize: 45, fontFamily: 'webfont', paddingTop: 20 }}>Total:</Text>
+                    <Text style={{ textAlign: 'center', color: 'blue', fontSize: 45, fontFamily: 'headings' }}>{venuPrice + (menuPrice * peopleCount)}</Text>
                 </View>
 
                 {/* Book Event Button-------------------------------------------------------- */}
