@@ -1,17 +1,18 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const VerifySlips = props => {
+const Wedding = () => {
     return (
         <View style={styles.screen}>
             <Text>
-                This is verify slips screen
+               This is admin's Wedding
             </Text>
         </View>
+        
     );
 }
 
-export default VerifySlips;
+export default Wedding;
 
 const styles = StyleSheet.create({
     screen: {

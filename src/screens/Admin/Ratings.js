@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Tect, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 const Ratings = () => {
     return (

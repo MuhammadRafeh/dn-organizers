@@ -1,18 +1,18 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const Home = () => {
+const Birthday = props => {
     return (
         <View style={styles.screen}>
             <Text>
-               This is admin's home 
+               This is admin's Birthday
             </Text>
         </View>
         
     );
 }
 
-export default Home;
+export default Birthday;
 
 const styles = StyleSheet.create({
     screen: {

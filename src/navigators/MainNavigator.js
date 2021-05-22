@@ -22,11 +22,14 @@ import Birthday from '../screens/User/Birthday';
 import Coorporate from '../screens/User/Coorporate';
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
-import AdminHome from '../screens/Admin/Home';
+import AdminWedding from '../screens/Admin/Wedding';
 import AdminInvoices from '../screens/Admin/AdminInvoices';
-import AdminRatings from '../screens/Admin/AdminRatings';
+import AdminCorporate from '../screens/Admin/AdminCorporate';
 import { useDispatch } from 'react-redux';
 import { logout } from '../redux/actions';
+import AdminBirthday from '../screens/Admin/AdminBirthday';
+import VerifySlips from '../screens/Admin/VerifySlips';
+import Ratings from '../screens/Admin/Ratings';
 
 const Stack = createStackNavigator();
 
@@ -96,7 +99,7 @@ function CustomDrawerContent(props) {
     return (
         <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} />
-            <DrawerItem activeTintColor={'blue'} inactiveTintColor={'white'} activeBackgroundColor={'blue'} label="Logout" onPress={() => dispatch(logout())} />
+            <DrawerItem activeTintColor={'blue'} inactiveTintColor={'white'} activeBackgroundColor={'blue'} style={{borderTopWidth: 0.2, borderTopColor: 'yellow'}} label="Logout" onPress={() => dispatch(logout())} />
         </DrawerContentScrollView>
     );
 }
@@ -116,10 +119,11 @@ function MainNavigator() {
             {
                 isAdmin ? (
                     <>
-                        <Drawer.Screen name="Home" component={AdminHome} />
-                        <Drawer.Screen name="Packages" component={PackagesBottomTab} />
-                        <Drawer.Screen name="Ratings" component={AdminRatings} />
-                        <Drawer.Screen name="Invoices" component={AdminInvoices} />
+                        <Drawer.Screen name="Wedding" component={AdminWedding} />
+                        <Drawer.Screen name="Birthday" component={AdminBirthday} />
+                        <Drawer.Screen name="Coorporate" component={AdminCorporate} />
+                        <Drawer.Screen name="Verify Slips" component={VerifySlips} />
+                        <Drawer.Screen name="Reviews" component={Ratings} />
                     </>
                 ) : (
                     <>
