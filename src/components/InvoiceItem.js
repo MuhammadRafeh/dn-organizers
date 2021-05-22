@@ -17,7 +17,7 @@ import getGalleryPermission from '../functions/getGalleryPermission';
 const InvoiceItem = props => {
     const { item } = props;
     const [isDeleting, setIsDeleting] = useState(false);
-    const [bandAddress, setBankAddress] = useState('');
+    const [bankAddress, setBankAddress] = useState('');
     const [branchCode, setBranchCode] = useState('');
     // const [imageUri, setImageUri] = useState('');
     const [date, setDate] = useState(new Date(1598051730000));
@@ -66,12 +66,28 @@ const InvoiceItem = props => {
 
     const onSubmitForm = () => {
         hideDialog();
+        const userClear = {
+            date,
+            branchCode,
+            bankAddress,
+            pendingInvoiceId: item.item.id,
+            userEmail: item.item.userEmail
+        }
         //Now we want to update status of pending invoices;
         firebase.database().ref(`pendingInvoices/${item.item.id}`).update({
             status: 'userclear'
         }).then((response) => {
-            dispatch(updatePendingInvoice(item.item.id, { status: 'userclear' }))
             console.log('asdasdasd')
+            //Now we are creating userClear
+            firebase.database().ref('userClear/').push(userClear).then((data) => {
+                //success callback
+                // dispatch(addPendingInvoice({ ...invoice, id: data.key }))
+                dispatch(updatePendingInvoice(item.item.id, { status: 'userclear' }))
+                // Alert.alert('Successfully added to Invoices', 'Please go to invoice section to clear first and continue.', [{ text: 'Ok' }])
+            }).catch((error) => {
+                //error callback
+                Alert.alert("Something went wrong.", 'Please check your internet connection!', [{ text: 'OK', style: 'destructive' }])
+            })
         }).catch((error) => {
             console.log(error)
         });
@@ -120,7 +136,18 @@ const InvoiceItem = props => {
                 </View>
 
             </View>
-
+            {/* --------------------------Message Row */}
+            {
+                item.item.status == 'submitwrong' ? (
+                    <View style={styles.messageRow}>
+                        <Text style={{ textAlign: 'center', color: 'white' }}>
+                            You submitted wrong info! Please Clear again.
+                        </Text>
+                    </View>
+                ) : (
+                    <View />
+                )
+            }
 
             <ViewShot style={{ backgroundColor: 'white' }} ref={screenShot} options={{ format: "jpg", quality: 0.9 }}>
 
@@ -187,6 +214,20 @@ const InvoiceItem = props => {
 
             {/* 3rd Row */}
             <View style={styles.lastRow}>
+                {/* ----------TODO:------------------Uncomment Below & delete <View> under it--------------------------------------------- */}
+                {/* {
+                    item.item.status != 'userclear' && (
+                        <View>
+                            {
+                                isDeleting ? <ActivityIndicator size={23} color={'red'} /> : (
+                                    <Button mode="text" onPress={onDelete}>
+                                        Delete
+                                    </Button>
+                                )
+                            }
+                        </View>
+                    )
+                } */}
 
                 <View>
                     {
@@ -217,7 +258,7 @@ const InvoiceItem = props => {
 
                                 <TextInput
                                     // autoFocus={true}
-                                    value={bandAddress}
+                                    value={bankAddress}
                                     onChangeText={setBankAddress}
                                     placeholder="Enter Bank Address"
                                     style={styles.textInput}
@@ -330,5 +371,10 @@ const styles = StyleSheet.create({
     textInput: {
         borderBottomWidth: 1,
         borderBottomColor: 'blue'
+    },
+    messageRow: {
+        width: '100%',
+        backgroundColor: 'red',
+        marginBottom: 10
     }
 });
