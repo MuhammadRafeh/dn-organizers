@@ -56,15 +56,15 @@ const PackagesItem = props => {
     );
 }
 
-PackagesItem.propTypes = {
-    // id: propTypes.string,
-    name: propTypes.string,
-    price: propTypes.any,
-    menu: propTypes.array,
-    venu: propTypes.string,
-    theme: propTypes.string,
-    handleBookPress: propTypes.func
-}
+// PackagesItem.propTypes = {
+//     // id: propTypes.string,
+//     name: propTypes.string,
+//     price: propTypes.any,
+//     menu: propTypes.array,
+//     venu: propTypes.string,
+//     theme: propTypes.string,
+//     handleBookPress: propTypes.func
+// }
 
 export default PackagesItem;
 

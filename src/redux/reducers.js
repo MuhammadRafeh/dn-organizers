@@ -3,16 +3,18 @@ import transformIntoItems from "../barriers/transformIntoItems";
 import transformIntoPackage from "../barriers/transformIntoPackages";
 import transformIntoPendingInvoices from "../barriers/transformIntoPendingInvoices";
 import PendingInvoices from "../models/pendingInvoices";
-import { 
-    AUTHENTICATE, 
-    DELETEPENDINGINVOICE, 
-    LOGOUT, 
-    SETITEMS, 
-    SETPENDINGINVOICES, 
+import {
+    AUTHENTICATE,
+    DELETEPENDINGINVOICE,
+    LOGOUT,
+    SETITEMS,
+    SETPENDINGINVOICES,
     UPDATEBIRTHDAY,
     UPDATECORPORATE,
-    UPDATEPENDINGINVOICES,
-    UPDATEWEDDING } from "./actions";
+    ADDPENDINGINVOICE,
+    UPDATEWEDDING,
+    UPDATEPENDINGINVOICE
+} from "./actions";
 
 const initialAuthState = {
     uid: '',
@@ -77,9 +79,9 @@ const initialInvoiceState = {
 }
 
 const invoiceReducer = (state = initialInvoiceState, action) => {
+    const { payload } = action;
     switch (action.type) {
-        case UPDATEPENDINGINVOICES:
-            const { payload } = action;
+        case ADDPENDINGINVOICE:
             return {
                 pendingInvoices: [
                     ...state.pendingInvoices,
@@ -104,11 +106,39 @@ const invoiceReducer = (state = initialInvoiceState, action) => {
             }
         case SETPENDINGINVOICES:
             return {
-                pendingInvoices: transformIntoPendingInvoices(action.payload)
+                pendingInvoices: transformIntoPendingInvoices(payload)
             }
         case DELETEPENDINGINVOICE:
             return {
-                pendingInvoices: state.pendingInvoices.filter(item => item.id != action.payload)
+                pendingInvoices: state.pendingInvoices.filter(item => item.id != payload)
+            }
+        case UPDATEPENDINGINVOICE:
+            return {
+                pendingInvoices: state.pendingInvoices.map(item => {
+                    if (item.id == payload.id) {
+                        return (
+                            new PendingInvoices(
+                                item.id,
+                                item.price,
+                                item.theme,
+                                item.menu,
+                                item.venu,
+                                item.eventName,
+                                item.isPackage,
+                                item.serPackName,
+                                item.serPackId,
+                                item.userEmail,
+                                item.bookDate,
+                                item.occuredDate,
+                                item.designerName,
+                                item.noOfPeople,
+                                payload.update.status
+                            )
+                        ) 
+                        // item['status'] = payload.update.status
+                        // return item;
+                    } return item;
+                })
             }
         default:
             return state;

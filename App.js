@@ -10,7 +10,7 @@ import MainNavigator from './src/navigators/MainNavigator';
 import { NavigationContainer } from '@react-navigation/native';
 import store from './src/redux/store';
 import { Provider, useSelector } from "react-redux";
-import firebase from "firebase";
+import firebase from "firebase/app";
 import AuthNavigator from './src/navigators/AuthNavigator';
 
 //delete from database

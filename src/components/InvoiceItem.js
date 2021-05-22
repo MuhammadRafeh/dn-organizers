@@ -1,17 +1,36 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, StyleSheet, Image, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, ActivityIndicator, Alert, TextInput } from 'react-native';
 import { Button, DataTable } from 'react-native-paper';
-import { deletePendingInvoice } from '../redux/actions';
+import { deletePendingInvoice, updatePendingInvoice } from '../redux/actions';
 import Card from './Card';
 import { useDispatch } from 'react-redux';
+// import firebase from 'firebase/app'
+import 'firebase/database';
 import firebase from 'firebase';
 import ViewShot from "react-native-view-shot";
 import * as MediaLibrary from 'expo-media-library';
+import { Dialog, Portal } from 'react-native-paper';
+
+import DateTimePicker from '@react-native-community/datetimepicker';
+import getGalleryPermission from '../functions/getGalleryPermission';
 
 const InvoiceItem = props => {
-    const { item, onClearInvoice, getGalleryPermission } = props;
+    const { item } = props;
     const [isDeleting, setIsDeleting] = useState(false);
+    const [bandAddress, setBankAddress] = useState('');
+    const [branchCode, setBranchCode] = useState('');
     // const [imageUri, setImageUri] = useState('');
+    const [date, setDate] = useState(new Date(1598051730000));
+    const [show, setShow] = useState(false);
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === 'ios');
+        setDate(currentDate);
+    };
+
+    const [visible, setVisible] = React.useState(false);
+
+    const hideDialog = () => setVisible(false);
 
     const dispatch = useDispatch();
 
@@ -30,7 +49,6 @@ const InvoiceItem = props => {
                 })
             }
         }, { text: 'No' }])
-
     }
 
     const onPrint = async () => {
@@ -46,9 +64,23 @@ const InvoiceItem = props => {
         }
     }
 
+    const onSubmitForm = () => {
+        hideDialog();
+        //Now we want to update status of pending invoices;
+        firebase.database().ref(`pendingInvoices/${item.item.id}`).update({
+            status: 'userclear'
+        }).then((response) => {
+            dispatch(updatePendingInvoice(item.item.id, { status: 'userclear' }))
+            console.log('asdasdasd')
+        }).catch((error) => {
+            console.log(error)
+        });
+    }
+
     return (
         <Card style={{ marginHorizontal: 10, marginBottom: 8, marginTop: 8, overflow: 'hidden' }}>
             {/* 1st Row */}
+            {/* {console.log(item.item.id)} */}
             <View style={styles.header}>
 
                 <View style={styles.flex1}>
@@ -73,9 +105,18 @@ const InvoiceItem = props => {
                 </View>
 
                 <View style={styles.flex1}>
-                    <Button mode="text" onPress={onClearInvoice}>
-                        Clear
-                    </Button>
+                    {
+                        item.item.status == 'userclear' ? (
+                            <View style={{ backgroundColor: 'yellow', width: '100%', alignSelf: 'stretch', height: 30, justifyContent: 'center' }}>
+                                <Text style={{ color: 'blue', textAlign: 'center' }}>Is Under Review...</Text>
+                            </View>
+
+                        ) : (
+                            <Button mode="text" onPress={setVisible.bind(null, true)}>
+                                Clear
+                            </Button>
+                        )
+                    }
                 </View>
 
             </View>
@@ -165,6 +206,62 @@ const InvoiceItem = props => {
 
             </View>
             {/* <Image source={{uri: imageUri}} style={{width: '100%', height: 400}} resizeMode={'contain'}/> */}
+            <Portal>
+                <Dialog visible={visible} onDismiss={hideDialog}>
+                    <Dialog.ScrollArea>
+                        <ScrollView contentContainerStyle={{ paddingHorizontal: 24 }}>
+                            <View style={{ backgroundColor: '' }}>
+                                <Text style={{ textAlign: 'center', fontSize: 25, fontFamily: 'headings' }}>Fill out form below...</Text>
+                            </View>
+                            <View style={styles.textInputContainer}>
+
+                                <TextInput
+                                    // autoFocus={true}
+                                    value={bandAddress}
+                                    onChangeText={setBankAddress}
+                                    placeholder="Enter Bank Address"
+                                    style={styles.textInput}
+                                />
+                            </View>
+                            <View style={styles.textInputContainer}>
+                                <TextInput
+                                    // autoFocus={true}
+                                    value={branchCode}
+                                    onChangeText={setBranchCode}
+                                    keyboardType="number-pad"
+                                    placeholder="Enter Branch Code"
+                                    style={styles.textInput}
+                                />
+                            </View>
+
+                            {
+                                show && (
+                                    <DateTimePicker
+                                        testID="dateTimePicker"
+                                        value={date}
+                                        mode={'date'}
+                                        is24Hour={true}
+                                        display="default"
+                                        onChange={onChange}
+                                    />
+                                )
+                            }
+                            <View style={styles.textInputContainer}>
+                                <Button icon="md-calendar-sharp" mode="contained" onPress={setShow.bind(null, true)}>
+                                    Select Submit Date
+                                </Button>
+                            </View>
+
+                            <View style={{ marginTop: 5 }}>
+                                <Button mode="text" onPress={onSubmitForm}>
+                                    Submit
+                                </Button>
+                            </View>
+
+                        </ScrollView>
+                    </Dialog.ScrollArea>
+                </Dialog>
+            </Portal>
 
         </Card>
     );
@@ -225,5 +322,13 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         marginVertical: 10,
+    },
+    textInputContainer: {
+        marginBottom: 5,
+        marginTop: 5
+    },
+    textInput: {
+        borderBottomWidth: 1,
+        borderBottomColor: 'blue'
     }
 });

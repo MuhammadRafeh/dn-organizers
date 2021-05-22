@@ -4,7 +4,7 @@ import Header from '../../components/Header';
 import firebase from 'firebase';
 import PackagesItem from '../../components/PackagesItem';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateCorporate, updatePendingInvoices } from '../../redux/actions';
+import { updateCorporate, addPendingInvoice } from '../../redux/actions';
 
 
 const Coorporate = props => {
@@ -47,7 +47,7 @@ const Coorporate = props => {
             // Assign data.key to pendingInvoices as id property //Done
             console.log('firebase assigned key: ', data.key)
 
-            dispatch(updatePendingInvoices({...invoice, id: data.key}))
+            dispatch(addPendingInvoice({...invoice, id: data.key}))
             Alert.alert('Successfully added to Invoices', 'Please go to invoice section to clear first and continue.', [{ text: 'Ok' }])
         }).catch(function (error) {
             //error callback

@@ -12,7 +12,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { useEffect } from 'react';
 import firebase from 'firebase';
 import { useDispatch, useSelector } from 'react-redux';
-import { setItems, updatePendingInvoices } from '../../redux/actions';
+import { setItems, addPendingInvoice } from '../../redux/actions';
 
 const IndividualService = props => {
     const [value, setValue] = useState('');
@@ -92,7 +92,7 @@ const IndividualService = props => {
         }
         firebase.database().ref('pendingInvoices/').push(invoice).then((data) => {
             //success callback
-            dispatch(updatePendingInvoices({ ...invoice, id: data.key }))
+            dispatch(addPendingInvoice({ ...invoice, id: data.key }))
             Alert.alert('Successfully added to Invoices', 'Please go to invoice section to clear first and continue.', [{ text: 'Ok' }])
         }).catch((error) => {
             //error callback

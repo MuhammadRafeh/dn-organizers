@@ -4,7 +4,7 @@ import Header from '../../components/Header';
 import firebase from 'firebase';
 import PackagesItem from '../../components/PackagesItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { updatePendingInvoices, updateWedding } from '../../redux/actions';
+import { addPendingInvoice, updateWedding } from '../../redux/actions';
 
 const Wedding = props => {
     const dispatch = useDispatch();
@@ -43,7 +43,7 @@ const Wedding = props => {
         }
         firebase.database().ref('pendingInvoices/').push(invoice).then((data) => {
             //success callback
-            dispatch(updatePendingInvoices({...invoice, id: data.key}))
+            dispatch(addPendingInvoice({...invoice, id: data.key}))
             Alert.alert('Successfully added to Invoices', 'Please go to invoice section to clear first and continue.', [{ text: 'Ok' }])
         }).catch((error) => {
             //error callback
