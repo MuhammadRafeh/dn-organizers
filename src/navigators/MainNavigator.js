@@ -128,7 +128,7 @@ function MainNavigator() {
                         <Drawer.Screen name="Individual Services" component={IndividualService} />
                         <Drawer.Screen name="Invoices" component={UserInvoices} />
                         <Drawer.Screen name="Booked Events" component={BookedEvents} />
-                        <Drawer.Screen name="Your Ratings" component={UserRatings} />
+                        {/* <Drawer.Screen name="Your Ratings" component={UserRatings} /> */}
                     </>
                 )
             }
