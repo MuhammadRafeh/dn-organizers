@@ -6,6 +6,8 @@ import Header from '../../components/Header';
 import firebase from 'firebase';
 import { deletePendingInvoice, setPendingInvoices } from '../../redux/actions';
 // import PendingInvoices from '../../models/pendingInvoices';
+import * as MediaLibrary from 'expo-media-library';
+
 
 
 import InvoiceItem from '../../components/InvoiceItem';
@@ -31,6 +33,16 @@ const UserInvoices = props => {
         const a = 'asd';
         a.toUpperCase()
     }
+
+    const getGalleryPermission = async () => {
+        const {status} = await MediaLibrary.requestPermissionsAsync();
+        if (status == 'granted') {
+            return true;
+        }
+        return false;
+        // console.log('----------',response)
+    }
+
     useEffect(() => {
         pullData();
     }, [])
@@ -60,7 +72,7 @@ const UserInvoices = props => {
                 data={pendingInvoices} //[new PendingInvoices(), .....]
                 renderItem={(item) => {
                     return (
-                        <InvoiceItem item={item} onClearInvoice={onClearInvoice}/>
+                        <InvoiceItem item={item} onClearInvoice={onClearInvoice} getGalleryPermission={getGalleryPermission}/>
                     )
                 }}
             />

@@ -6,22 +6,23 @@ import Card from './Card';
 import { useDispatch } from 'react-redux';
 import firebase from 'firebase';
 import ViewShot from "react-native-view-shot";
+import * as MediaLibrary from 'expo-media-library';
 
 const InvoiceItem = props => {
-    const { item, onClearInvoice } = props;
+    const { item, onClearInvoice, getGalleryPermission } = props;
     const [isDeleting, setIsDeleting] = useState(false);
-    const [imageUri, setImageUri] = useState('');
+    // const [imageUri, setImageUri] = useState('');
 
     const dispatch = useDispatch();
 
     const screenShot = useRef(null);
 
-    const onDelete = id => {//firebase generated Id
+    const onDelete = () => {//firebase generated Id
         Alert.alert('Are you sure', 'Do you want to delete invoice?', [{
             text: 'Yes', onPress: () => {
                 setIsDeleting(true);
-                firebase.database().ref(`pendingInvoices/${id}`).remove().then((data) => {
-                    dispatch(deletePendingInvoice(id));
+                firebase.database().ref(`pendingInvoices/${item.item.id}`).remove().then((data) => {
+                    dispatch(deletePendingInvoice(item.item.id));
                     Alert.alert('Successfully Deleted', 'You have successfully deleted invoice.', [{ text: 'Ok' }])
                 }).catch((error) => {
                     Alert.alert('Unable to Delete Invoice', 'Please check your network connection.', [{ text: 'Ok' }])
@@ -32,25 +33,18 @@ const InvoiceItem = props => {
 
     }
 
-    const onPrint = () => {
-        screenShot.current.capture().then(uri => {
-            console.log("do something with ", uri);
-            setImageUri(uri);
-        });
+    const onPrint = async () => {
+        const isGranted = await getGalleryPermission();
+        if (isGranted) {
+            screenShot.current.capture().then(async (uri) => {
+                console.log("do something with ", uri);
+                // setImageUri(uri);
+                await MediaLibrary.saveToLibraryAsync(uri);
+                Alert.alert('Saved to Gallery', 'Now, make your payment to bank.', [{ text: 'OK' }])
+                // console.log('response', response)
+            });
+        }
     }
-
-    {/* <ViewShot style={{backgroundColor: 'white'}} ref={screenShot} options={{ format: "jpg", quality: 0.9 }}>
-                <Text>...Something to rasterize...</Text>
-                <Text>...Something to rasterize...</Text>
-                <Text>...Something to rasterize...</Text>
-                <Text>...Something to rasterize...</Text>
-                <Text>...Something to rasterize...</Text>
-                <Text>...Something to rasterize...</Text>
-            </ViewShot> */}
-    {/* <h1>asd</h1> */ }
-    {/* <Button title={'preess'} onPress={onPrint} /> */ }
-    {/* <Image source={{uri: imageUri}} style={{width: '100%', height: 400}} resizeMode={'contain'}/> */ }
-
 
     return (
         <Card style={{ marginHorizontal: 10, marginBottom: 8, marginTop: 8, overflow: 'hidden' }}>
@@ -81,7 +75,7 @@ const InvoiceItem = props => {
                 <View style={styles.flex1}>
                     <Button mode="text" onPress={onClearInvoice}>
                         Clear
-                                    </Button>
+                    </Button>
                 </View>
 
             </View>
@@ -156,7 +150,7 @@ const InvoiceItem = props => {
                 <View>
                     {
                         isDeleting ? <ActivityIndicator size={23} color={'red'} /> : (
-                            <Button mode="text" onPress={onDelete.bind('null', item.item.id)}>
+                            <Button mode="text" onPress={onDelete}>
                                 Delete
                             </Button>
                         )
@@ -170,7 +164,7 @@ const InvoiceItem = props => {
                 </View>
 
             </View>
-    {/* <Image source={{uri: imageUri}} style={{width: '100%', height: 400}} resizeMode={'contain'}/> */}
+            {/* <Image source={{uri: imageUri}} style={{width: '100%', height: 400}} resizeMode={'contain'}/> */}
 
         </Card>
     );
