@@ -1,8 +1,8 @@
 import {Alert} from 'react-native';
 import firebase from 'firebase';
 
-const uploadToFirebase = (reference, invoice, SucAlertMessageTitle, SucAlertMessageDesc, failAlertTitle, failAlertDesc) => {
-    firebase.database().ref(reference).push(invoice).then((data) => {
+const uploadToFirebase = (reference, pushData, SucAlertMessageTitle, SucAlertMessageDesc, failAlertTitle, failAlertDesc) => {
+    firebase.database().ref(reference).push(pushData).then((data) => {
         //success callback
         // dispatch(addPendingInvoice({ ...invoice, id: data.key }))
         Alert.alert(SucAlertMessageTitle, SucAlertMessageDesc, [{ text: 'Ok' }])

@@ -34,37 +34,36 @@ const PackagesItem = props => {
                         expanded={expanded}
                         onPress={handlePress}>
                         {/* <List.Item title="First item" /> */}
-                        <View style={{marginLeft: 5}}>
-                            {props.menu.map((item, key) =>
-                                <Text key={key}><Text style={styles.menuListDecorator}>-</Text> {item}</Text>
-                            )}
+                        <View style={{ marginLeft: 5 }}>
+                            {props.menu.map((item, key) => {
+                                if (item.name) {
+                                    return (
+                                        <View key={key} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginRight: 15 }}>
+                                            <Text><Text style={styles.menuListDecorator}>-</Text>{item.name}</Text>
+                                            <Text>{item.price}</Text>
+                                        </View>
+                                    )
+                                } return (
+                                    <Text><Text style={styles.menuListDecorator}>-</Text>{item}</Text>
+                                )
+                            })}
                         </View>
                     </List.Accordion>
                 </List.Section>
-                {/* <View style={styles.menuRowContainer}> */}
-                {/* <View style={styles.menuLabelContainer}>
-                        <Text style={{ ...styles.labelStyle, textDecorationLine: 'underline' }}>Menu</Text>
-                    </View>
-                    <View style={styles.menuListContainer}>
-                        {props.menu.map((item, key) =>
-                            <Text key={key}><Text style={styles.menuListDecorator}>-</Text> {item}</Text>
-                        )} */}
-                {/* </View> */}
-                {/* </View> */}
             </View>
         </Card>
     );
 }
 
-// PackagesItem.propTypes = {
-//     // id: propTypes.string,
-//     name: propTypes.string,
-//     price: propTypes.any,
-//     menu: propTypes.array,
-//     venu: propTypes.string,
-//     theme: propTypes.string,
-//     handleBookPress: propTypes.func
-// }
+PackagesItem.propTypes = {
+    // id: propTypes.string,
+    name: propTypes.string,
+    price: propTypes.any,
+    menu: propTypes.array,
+    venu: propTypes.string,
+    theme: propTypes.string,
+    handleBookPress: propTypes.func
+}
 
 export default PackagesItem;
 

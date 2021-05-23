@@ -22,7 +22,7 @@ import {
 const initialAuthState = {
     uid: '',
     email: 'Rafeh@gmail.com',
-    isAdmin: true,
+    isAdmin: false,
     isAuth: false
 }
 

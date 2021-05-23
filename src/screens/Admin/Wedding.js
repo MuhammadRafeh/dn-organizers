@@ -10,10 +10,13 @@ import uploadToFirebase from '../../functions/uploadToFirebase';
 import { setWeddingItems } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import firebase from 'firebase'
+import DataTable from '../../components/DataTable';
+import { ThemeProvider } from '@react-navigation/native';
 
 const Wedding = props => {
     const [visible, setVisible] = React.useState(false);
     const hideDialog = () => {
+        setSelectedMenu([]);
         setVisible(false);
     }
     const [show, setShow] = useState(false);
@@ -25,20 +28,23 @@ const Wedding = props => {
     };
 
     const dispatch = useDispatch();
-    const weddingItems = useSelector(state => state.items.weddingItems);
-    const onSubmitForm = (type) => { //type can be package/item
-        hideDialog();
-        firebase.database().ref('events/wedding/items').once('value', function (snapshot) {
-            // dispatch(updateWedding(snapshot.val()));
-            dispatch(setWeddingItems(snapshot.val()));
-            // setIsRefreshing(false);
-            Alert.alert('Successfully fet', 'ads', [{ text: 'ok' }])
-        }, function (err) {
-            // setIsRefreshing(false);
-            console.log('failed to fetch')
-        });
-    }
+    // Package Model State's
+    const [packageName, setPackageName] = useState('');
+    const [price, setPrice] = useState('');
+    const [menuTotalPrice, setMenuTotalPrice] = useState('');
+    const [venuName, setVenuName] = useState('');
+    const [venuPrice, setVenuPrice] = useState('');
+    const [noOfPeople, setNoOfPeople] = useState('');
+    const [selectedMenu, setSelectedMenu] = useState([]);
+    //take occured Date from date state
 
+    //Item Model State
+    const [addMenuName, setAddMenuName] = useState('');
+    const [addMenuPrice, setAddMenuPrice] = useState('');
+    const [addVenuName, setAddVenuName] = useState('');
+    const [addVenuPrice, setAddVenuPrice] = useState('');
+    //-------------------------- 
+    const weddingItems = useSelector(state => state.items.weddingItems);
     const addMenu = () => {
         if (addMenuName.length >= 1 && +addMenuPrice >= 1) {
             uploadToFirebase(
@@ -73,22 +79,7 @@ const Wedding = props => {
         Alert.alert('Fillout Name/Price first', 'Fill in order to continue', [{ text: 'OK', style: 'destructive' }])
     }
 
-    // Package Model State's
-    const [packageName, setPackageName] = useState('');
-    const [price, setPrice] = useState('');
-    const [menuName, setMenuName] = useState('');
-    const [menuPrice, setMenuPrice] = useState('');
-    const [venuName, setVenuName] = useState('');
-    const [venuPrice, setVenuPrice] = useState('');
-    const [noOfPeople, setNoOfPeople] = useState('');
-    //take occured Date from date state
-
-    //Item Model State
-    const [addMenuName, setAddMenuName] = useState('');
-    const [addMenuPrice, setAddMenuPrice] = useState('');
-    const [addVenuName, setAddVenuName] = useState('');
-    const [addVenuPrice, setAddVenuPrice] = useState('');
-    //-------------------------- 
+    
 
     // const menuItems = weddingItems.filter(obj => obj['menu'])[0]['menu'];
     // const venuItems = weddingItems.filter(obj => obj['venu'])[0]['venu'];
@@ -105,17 +96,51 @@ const Wedding = props => {
         });
     }, [])
 
-    // if (weddingItems.length == 0) {
-    //     return (
-    //         <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-    //         </View>
-    //     )
-    // }
+    const handleSelectionMenu = list => { //[{checked, id, name, price},{},...]
+        //here we want to calcultae price
+        let menuAmount = 0;
+        list.forEach(item => {
+            menuAmount = menuAmount + parseInt(item.price);
+        })
+        setSelectedMenu(list);
+        setMenuTotalPrice(menuAmount);
+    }
+
+    const onSubmitForm = () => { //type can be package/item
+        const menu = selectedMenu.map(item => {
+            // delete item["checked"];
+            // price = price + (item.price * peopleCount);
+            return {
+                id: item.id,
+                name: item.name,
+                price: parseInt(item.price)
+            }
+        });
+
+        const pushData = {
+            name: packageName,
+            price,
+            theme: 'wedding',
+            venu: venuName,
+            menu,
+            occuredDate: date.toString(),
+            noOfPeople
+        }
+        uploadToFirebase(
+            'events/wedding/packages/',
+            pushData,
+            'Package Added successfully!',
+            'Everyone can see this package and approach.',
+            'Something Went Wrong!',
+            'Please check your network.'
+        )
+        hideDialog();
+    }
 
     return (
         // <Ionicons name="add-outline"/>
         <View style={styles.screen}>
-            {console.log('wedding ITems', weddingItems)}
+            {console.log('wedding ITems', selectedMenu)}
             <AdminHeader navigation={props.navigation} wedding />
             {
                 weddingItems.length != 0 ? (
@@ -128,16 +153,14 @@ const Wedding = props => {
                         </View>
                         {/* ------------------------ADD PACKAGE Model--------------------------------------- */}
                         <Portal>
-                            <Dialog visible={visible} onDismiss={hideDialog.bind(null, 'package')}>
+                            <Dialog visible={visible} onDismiss={hideDialog}>
                                 <Dialog.ScrollArea>
                                     <ScrollView contentContainerStyle={{ paddingHorizontal: 1 }}>
                                         <View style={{ backgroundColor: '' }}>
                                             <Text style={{ textAlign: 'center', fontSize: 25, fontFamily: 'headings' }}>
                                                 Add Package Details
-                                </Text>
+                                            </Text>
                                         </View>
-
-
                                         <View style={styles.textInputContainer}>
                                             <TextInput
                                                 // autoFocus={true}
@@ -191,73 +214,29 @@ const Wedding = props => {
                                         <View style={{ marginVertical: 5 }}>
                                             <Text style={{ color: 'grey', fontFamily: 'descent', textAlign: 'center', fontSize: 20 }}>
                                                 Menu
-                                </Text>
+                                            </Text>
                                         </View>
                                         <View style={styles.menuRow}>
-                                            <View>
-                                                <Text style={{ color: 'grey' }}>
-                                                    Name:
-                                    </Text>
-                                            </View>
-                                            {/* MENU NAME----------------------------------- */}
-                                            <View style={{ flex: 1, marginLeft: 5 }}>
-                                                <Picker
-                                                    style={{ width: '100%', height: 20 }}
-                                                    selectedValue={menuName}
-                                                    mode="dropdown"
-                                                    onValueChange={(itemValue, itemIndex) => {
-                                                        setMenuName(itemValue.name);
-                                                        // setMenuPrice(itemValue.price);
-                                                        // setVenuPrice(itemValue.price);
-                                                        //here we want to calculate price
-                                                    }
-                                                    }>
-                                                    {weddingItems.filter(obj => obj['menu'])[0]['menu'].map((item) => (
-                                                        <Picker.Item key={item.id} label={`${item.name}`} value={{ name: item.name }} />
-                                                    ))
-                                                    }
-                                                </Picker>
-                                            </View>
-                                            <View>
-                                                <Text style={{ color: 'grey' }}>
-                                                    Price:
-                                    </Text>
-                                            </View>
-                                            {/* MENU PRICE----------------------------------- */}
-
-                                            <View style={{ flex: 1, marginRight: 0 }}>
-                                                <Picker
-                                                    style={{ width: '100%', height: 20 }}
-                                                    selectedValue={menuPrice}
-                                                    mode="dropdown"
-                                                    onValueChange={(itemValue, itemIndex) => {
-                                                        setMenuPrice(itemValue.price);
-                                                        // setVenuPrice(itemValue.price);
-                                                        //here we want to calculate price
-                                                    }
-                                                    }>
-                                                    {weddingItems.filter(obj => obj['menu'])[0]['menu'].map((item) => (
-                                                        <Picker.Item key={item.id} label={`${item.price}`} value={{ price: item.price }} />
-                                                    ))
-                                                    }
-                                                </Picker>
-                                            </View>
+                                            <DataTable
+                                                list={weddingItems.filter(obj => obj['menu'])[0]['menu']}
+                                                handleSelectionMenu={handleSelectionMenu}
+                                            />
                                         </View>
                                         {/* Venu Row */}
                                         <View style={{ marginBottom: 5, marginTop: 15 }}>
                                             <Text style={{ color: 'grey', fontFamily: 'descent', textAlign: 'center', fontSize: 20 }}>
                                                 Venu
-                                </Text>
+                                            </Text>
                                         </View>
                                         <View style={styles.menuRow}>
                                             <View>
                                                 <Text style={{ color: 'grey' }}>
                                                     Name:
-                                    </Text>
+                                                </Text>
                                             </View>
                                             {/* VENU NAME----------------------------------- */}
 
-                                            <View style={{ flex: 1, marginLeft: 5 }}>
+                                            <View style={{ marginLeft: 5, marginVertical: 5 }}>
                                                 <Picker
                                                     style={{ width: '100%', height: 20 }}
                                                     selectedValue={venuName}
@@ -277,10 +256,10 @@ const Wedding = props => {
                                             <View>
                                                 <Text style={{ color: 'grey' }}>
                                                     Price:
-                                    </Text>
+                                                </Text>
                                             </View>
                                             {/* VENU PRICE------------------------------- */}
-                                            <View style={{ flex: 1, marginRight: 0 }}>
+                                            <View style={{ marginLeft: 5, marginVertical: 5 }}>
                                                 <Picker
                                                     style={{ width: '100%', height: 20 }}
                                                     selectedValue={venuPrice}
@@ -320,7 +299,7 @@ const Wedding = props => {
                                         <View style={{ marginTop: 5 }}>
                                             <Button mode="text" onPress={onSubmitForm}>
                                                 Add Package
-                                </Button>
+                                            </Button>
                                         </View>
                                     </ScrollView>
                                 </Dialog.ScrollArea>
@@ -328,7 +307,7 @@ const Wedding = props => {
                         </Portal>
                     </>
                 ) : (
-                    <View style={{marginTop: 10}}>
+                    <View style={{ marginTop: 10 }}>
                         <ActivityIndicator size={25} color={'red'} />
                     </View>
                 )
@@ -439,8 +418,9 @@ const styles = StyleSheet.create({
         borderBottomColor: 'blue'
     },
     menuRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center'
+        // flexDirection: 'row',
+        // justifyContent: 'space-around',
+        // alignItems: 'center'
+        width: '100%'
     }
 });

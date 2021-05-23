@@ -6,8 +6,8 @@ class Package {
         this.theme = theme;
         this.menu = menu; //[{id, name, price}, ....]
         this.venu = venu; //[{id, name, price}, ....]
-        this.occuredDate = occuredDate;
-        this.noOfPeople = noOfPeople;
+        // this.occuredDate = occuredDate; //TODO UNcomment this 2 lines
+        // this.noOfPeople = noOfPeople;
     }
 }
 
