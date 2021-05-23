@@ -13,7 +13,10 @@ import {
     UPDATECORPORATE,
     ADDPENDINGINVOICE,
     UPDATEWEDDING,
-    UPDATEPENDINGINVOICE
+    UPDATEPENDINGINVOICE,
+    SETWEDDINGITEMS,
+    SETBIRTHDAYITEMS,
+    SETCORPORATEITEMS
 } from "./actions";
 
 const initialAuthState = {
@@ -134,7 +137,7 @@ const invoiceReducer = (state = initialInvoiceState, action) => {
                                 item.noOfPeople,
                                 payload.update.status
                             )
-                        ) 
+                        )
                         // item['status'] = payload.update.status
                         // return item;
                     } return item;
@@ -158,6 +161,21 @@ const itemReducer = (state = initialItemState, action) => {
                 weddingItems: transformIntoItems(action.payload.wed),
                 birthdayItems: transformIntoItems(action.payload.birth),
                 corporateItems: transformIntoItems(action.payload.corp)
+            }
+        case SETWEDDINGITEMS:
+            return {
+                ...state,
+                weddingItems: transformIntoItems(action.payload)
+            }
+        case SETBIRTHDAYITEMS:
+            return {
+                ...state,
+                birthdayItems: transformIntoItems(action.payload)
+            }
+        case SETCORPORATEITEMS:
+            return {
+                ...state,
+                corporateItems: transformIntoItems(action.payload)
             }
         default:
             return state;

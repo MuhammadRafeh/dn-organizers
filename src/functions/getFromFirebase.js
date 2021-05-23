@@ -1,3 +1,7 @@
+import firebase from 'firebase';
+
+
+
 import {Alert} from 'react-native';
 import firebase from 'firebase';
 

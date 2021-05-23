@@ -4,8 +4,10 @@ class Package {
         this.name = name;
         this.price = price;
         this.theme = theme;
-        this.menu = menu
-        this.venu = venu;
+        this.menu = menu; //[{id, name, price}, ....]
+        this.venu = venu; //[{id, name, price}, ....]
+        this.occuredDate = occuredDate;
+        this.noOfPeople = noOfPeople;
     }
 }
 

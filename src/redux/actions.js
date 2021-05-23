@@ -8,6 +8,9 @@ export const SETPENDINGINVOICES = 'SETPENDINGINVOICES';
 export const SETITEMS = 'SETITEMS';
 export const DELETEPENDINGINVOICE = 'DELETEPENDINGINVOICE';
 export const UPDATEPENDINGINVOICE = 'UPDATEPENDINGINVOICE';
+export const SETBIRTHDAYITEMS = 'SETBIRTHDAYITEMS';
+export const SETCORPORATEITEMS = 'SETCORPORATEITEMS';
+export const SETWEDDINGITEMS = 'SETWEDDINGITEMS';
 
 export const authenticate = (uid, email, isAdmin, isAuth) => { // It will take credentials
     return {
@@ -89,6 +92,25 @@ export const setItems = (wed, birth, corp) => { // obj that returned from fireba
             birth,
             corp
         }
+    }
+}
+
+export const setBirthdayItems = (item) => { // obj that returned from firebase
+    return {
+        type: SETBIRTHDAYITEMS,
+        payload: item
+    }
+}
+export const setWeddingItems = (item) => { // obj that returned from firebase
+    return {
+        type: SETWEDDINGITEMS,
+        payload: item
+    }
+}
+export const setCorporateItems = (item) => { // obj that returned from firebase
+    return {
+        type: SETCORPORATEITEMS,
+        payload: item
     }
 }
 
