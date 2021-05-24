@@ -22,7 +22,7 @@ import Birthday from '../screens/User/Birthday';
 import Coorporate from '../screens/User/Coorporate';
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
-import AdminWedding from '../screens/Admin/Wedding';
+import AdminWedding from '../screens/Admin/AdminWedding';
 import AdminInvoices from '../screens/Admin/AdminInvoices';
 import AdminCorporate from '../screens/Admin/AdminCorporate';
 import { useDispatch } from 'react-redux';

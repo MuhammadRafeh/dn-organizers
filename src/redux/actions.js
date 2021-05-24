@@ -11,6 +11,8 @@ export const UPDATEPENDINGINVOICE = 'UPDATEPENDINGINVOICE';
 export const SETBIRTHDAYITEMS = 'SETBIRTHDAYITEMS';
 export const SETCORPORATEITEMS = 'SETCORPORATEITEMS';
 export const SETWEDDINGITEMS = 'SETWEDDINGITEMS';
+export const DELETEPACKAGE = 'DELETEPACKAGE';
+export const ADDPACKAGE = 'ADDPACKAGE';
 
 export const authenticate = (uid, email, isAdmin, isAuth) => { // It will take credentials
     return {
@@ -120,3 +122,25 @@ export const deletePendingInvoice = id => { //firebase generated Id
         payload: id
     }
 }
+
+export const deletePackage = (id, type) => { // type should be wedding | birthday | corporate
+    return {
+        type: DELETEPACKAGE,
+        payload: {
+            id,
+            type
+        }
+    }
+}
+
+export const addPackage = (type, data) => { // type should be wedding | birthday | corporate
+    return {
+        type: ADDPACKAGE,
+        payload: {
+            package: data,
+            type
+        }
+    }
+}
+
+

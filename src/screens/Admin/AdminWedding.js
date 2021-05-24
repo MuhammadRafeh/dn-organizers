@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, TextInput, StyleSheet, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, TextInput, StyleSheet, FlatList, Alert, ActivityIndicator } from 'react-native';
 import { Button } from 'react-native-paper';
 import AdminHeader from '../../components/AdminHeader';
-import { Ionicons } from '@expo/vector-icons';
 import { Dialog, Portal } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 import uploadToFirebase from '../../functions/uploadToFirebase';
-import { setWeddingItems } from '../../redux/actions';
+import { addPackage, deletePackage, setWeddingItems, updateWedding } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import firebase from 'firebase'
 import DataTable from '../../components/DataTable';
-import { ThemeProvider } from '@react-navigation/native';
+import AdminPackageItems from '../../components/AdminPackageItems';
 
-const Wedding = props => {
+const AdminWedding = props => {
     const [visible, setVisible] = React.useState(false);
     const hideDialog = () => {
         setSelectedMenu([]);
@@ -44,7 +43,7 @@ const Wedding = props => {
     const [addVenuName, setAddVenuName] = useState('');
     const [addVenuPrice, setAddVenuPrice] = useState('');
     //-------------------------- 
-    const weddingItems = useSelector(state => state.items.weddingItems);
+    const [weddingItems, packages] = useSelector(state => [state.items.weddingItems, state.packages.wedding]);
     const addMenu = () => {
         if (addMenuName.length >= 1 && +addMenuPrice >= 1) {
             uploadToFirebase(
@@ -79,21 +78,34 @@ const Wedding = props => {
         Alert.alert('Fillout Name/Price first', 'Fill in order to continue', [{ text: 'OK', style: 'destructive' }])
     }
 
-    
+    const deleteItem = id => {
+        firebase.database().ref(`events/wedding/packages/${id}`).remove().then(() => {
+            dispatch(deletePackage(id, 'wedding'));
+            Alert.alert('Successfully deleted', 'No one have access to this package now.', [{text: 'OK', style: "destructive"}])
+        }).catch((error) => {
+            Alert.alert('Something went wrong!', 'Please check your network', [{text: 'Ok', style: 'destructive'}])
+        })
+    }
 
     // const menuItems = weddingItems.filter(obj => obj['menu'])[0]['menu'];
     // const venuItems = weddingItems.filter(obj => obj['venu'])[0]['venu'];
 
-    useEffect(() => {
-        firebase.database().ref('events/wedding/items').once('value', function (snapshot) {
+    const getPackages = () => {
+        firebase.database().ref('events/wedding/').once('value', function (snapshot) {
             // dispatch(updateWedding(snapshot.val()));
-            dispatch(setWeddingItems(snapshot.val()));
+            const { items, packages } = snapshot.val();
+            dispatch(setWeddingItems(items));
+            dispatch(updateWedding(packages));
             // setIsRefreshing(false);
             // Alert.alert('Successfully fet', 'ads', [{ text: 'ok' }])
         }, function (err) {
             // setIsRefreshing(false);
             console.log('failed to fetch')
         });
+    }
+
+    useEffect(() => {
+        getPackages();
     }, [])
 
     const handleSelectionMenu = list => { //[{checked, id, name, price},{},...]
@@ -132,14 +144,16 @@ const Wedding = props => {
             'Package Added successfully!',
             'Everyone can see this package and approach.',
             'Something Went Wrong!',
-            'Please check your network.'
+            'Please check your network.',
+            dispatch,
+            addPackage('wedding', pushData)
         )
         hideDialog();
     }
 
     return (
         // <Ionicons name="add-outline"/>
-        <View style={styles.screen}>
+        <ScrollView>
             {console.log('wedding ITems', selectedMenu)}
             <AdminHeader navigation={props.navigation} wedding />
             {
@@ -318,7 +332,7 @@ const Wedding = props => {
                 ADD ITEMS
                 </Button> */}
             <View>
-                <Text style={{ textAlign: 'center', marginBottom: 5, marginTop: 15, fontFamily: 'webfont', fontSize: 30 }}>Add Items</Text>
+                <Text style={{ textAlign: 'center', marginBottom: 5, marginTop: 15, fontFamily: 'webfont', fontSize: 40 }}>Add Items</Text>
             </View>
 
             <View style={{ marginBottom: 5, marginTop: 15 }}>
@@ -390,18 +404,50 @@ const Wedding = props => {
                     />
                 </View>
             </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginHorizontal: 10, marginTop: 10 }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginHorizontal: 10, marginTop: 10, marginBottom: 20 }}>
                 <View />
                 <Button icon="add-circle" mode="contained" onPress={addVenu}>
                     ADD Venu
                 </Button>
             </View>
-        </View>
+            {/* <FlatList
+                keyExtractor={item => item.id}
+                data={packages}
+                renderItem={({item}, key) => {
+                    // const {item} = item;
+                    return (
+                        <AdminPackageItems
+                            handleBookPress={() => {}}
+                            menu={item.menu}
+                            name={item.name}
+                            price={item.price}
+                            theme={item.theme}
+                            venu={item.venu}
+                        />
+                    )
+                }}
+            /> */}
+            <View>
+                <Text style={{ textAlign: 'center', marginBottom: 5, marginTop: 5, fontFamily: 'webfont', fontSize: 40 }}>Manage Packages</Text>
+            </View>
+            {packages.map((item, map) => {
+                return (
+                    <AdminPackageItems
+                        handleBookPress={deleteItem.bind(null, item.id)}
+                        menu={item.menu}
+                        name={item.name}
+                        price={item.price}
+                        theme={item.theme}
+                        venu={item.venu}
+                    />
+                )
+            })}
+        </ScrollView>
 
     );
 }
 
-export default Wedding;
+export default AdminWedding;
 
 const styles = StyleSheet.create({
     screen: {

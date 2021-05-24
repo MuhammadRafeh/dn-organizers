@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import transformIntoItems from "../barriers/transformIntoItems";
 import transformIntoPackage from "../barriers/transformIntoPackages";
 import transformIntoPendingInvoices from "../barriers/transformIntoPendingInvoices";
+import Package from "../models/package";
 import PendingInvoices from "../models/pendingInvoices";
 import {
     AUTHENTICATE,
@@ -16,13 +17,15 @@ import {
     UPDATEPENDINGINVOICE,
     SETWEDDINGITEMS,
     SETBIRTHDAYITEMS,
-    SETCORPORATEITEMS
+    SETCORPORATEITEMS,
+    DELETEPACKAGE,
+    ADDPACKAGE
 } from "./actions";
 
 const initialAuthState = {
     uid: '',
     email: 'Rafeh@gmail.com',
-    isAdmin: false,
+    isAdmin: true,
     isAuth: false
 }
 
@@ -71,6 +74,25 @@ const packageReducer = (state = initialPackageState, action) => {
             return {
                 ...state,
                 wedding: transformIntoPackage(action.payload)
+            }
+        case DELETEPACKAGE:
+            return {
+                ...state,
+                [action.payload.type]: state[action.payload.type].filter(item => item.id != action.payload.id)
+            }
+        case ADDPACKAGE:
+            // const { package } = action.payload;
+            return {
+                ...state,
+                [action.payload.type]: [...state[action.payload.type],
+                new Package(
+                    action.payload.package.id,
+                    action.payload.package.name,
+                    action.payload.package.price,
+                    action.payload.package.theme,
+                    action.payload.package.menu,
+                    action.payload.package.venu,
+                )]
             }
         default:
             return state;
