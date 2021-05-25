@@ -30,7 +30,7 @@ const UserInvoices = props => {
         <View style={styles.screen}>
             <Header navigation={props.navigation} invoices />
             <FlatList
-                keyExtractor={(item) => {item.id}}
+                keyExtractor={(item) => item.id}
                 onRefresh={pullData}
                 refreshing={isRefreshing}
                 data={pendingInvoices} //[new PendingInvoices(), .....]

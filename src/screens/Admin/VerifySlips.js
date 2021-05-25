@@ -32,24 +32,25 @@ const VerifySlips = props => {
         Promise.all([
             firebase.database().ref(`pendingInvoices/${pendingInvoiceId}`).remove(),
             firebase.database().ref(`userClear/${userClearId}`).remove(),
-            firebase.database().ref(`bookedEvents/`).push({...invoiceData, status: 'completed'})
+            firebase.database().ref(`bookedEvents/`).push({ ...invoiceData, status: 'completed' })
         ]).then((data) => {
-            console.log("Operations Successful", data)
-        }).catch((e) => console.log(e))
+            // console.log("Operations Successful", data)
+            Alert.alert('Verified Successfully!', 'User registered to this event.', [{ text: 'Ok', style: 'destructive' }])
+        }).catch((e) => {
+            Alert.alert('Something went wrong!', 'Check your network.', [{ text: 'Ok', style: 'destructive' }])
+        })
     }
 
     const rejectSlip = (pendingInvoiceId, userClearId) => {
-        firebase.database().ref(`pendingInvoices/${pendingInvoiceId}`).update({
-            status: 'submitwrong'
-        }).then(() => {
-            firebase.database().ref(`userClear/${userClearId}`).remove().then(() => {
-                Alert.alert('Successfully Cleared!', 'User cleared their invoice.', [{ style: 'destructive' }])
-            }).catch(() => {
-                Alert.alert('Something went wrong!', 'Admin please check your network.', [{ style: 'destructive' }])
-            });
-        }).catch((error) => {
-            Alert.alert('Something went wrong!', 'Admin please check your network.', [{ style: 'destructive' }])
-        });
+        Promise.all([
+            firebase.database().ref(`pendingInvoices/${pendingInvoiceId}`).update({ status: 'submitwrong' }),
+            firebase.database().ref(`userClear/${userClearId}`).remove(),
+        ]).then((data) => {
+            // console.log("Operations Successful", data)
+            Alert.alert('Rejected Successfully!', 'User will fillout again.', [{ text: 'Ok', style: 'destructive' }])
+        }).catch((e) => {
+            Alert.alert('Something went wrong!', 'Check your network.', [{ text: 'Ok', style: 'destructive' }])
+        })
     }
 
     return (
@@ -57,29 +58,33 @@ const VerifySlips = props => {
             {'slips', console.log(slips)}
             <AdminHeader navigation={props.navigation} verifySlips />
             <FlatList
-                contentContainerStyle={{ margin: 10, backgroundColor: 'white' }}
                 keyExtractor={item => item.id}
                 data={slips}
                 renderItem={({ item }) => {
                     return (
-                        <Card>
-                            <View style={styles.slipInfoRow}>
-                                <View>
-                                    <Text>
-                                        {item.branchCode}
-                                    </Text>
-                                </View>
-                                <View>
-                                    <Text>
-                                        {item.bankAddress}
-                                    </Text>
-                                </View>
-                                <View>
-                                    <Text>
-                                        {item.userEmail}
-                                    </Text>
-                                </View>
+                        <Card style={{ marginVertical: 10, marginHorizontal: 10, paddingHorizontal: 10, paddingVertical: 10 }}>
+                            {/* <View style={styles.slipInfoRow}> */}
+                            <View>
+                                <Text>
+                                    <Text style={{ color: 'grey', fontFamily: 'descent' }}>User Email:</Text> {item.userEmail}
+                                </Text>
                             </View>
+                            <View>
+                                <Text>
+                                    <Text style={{ color: 'grey', fontFamily: 'descent' }}>Bank Address:</Text> {item.bankAddress}
+                                </Text>
+                            </View>
+                            <View>
+                                <Text>
+                                    <Text style={{ color: 'grey', fontFamily: 'descent' }}>Branch Code:</Text> {item.branchCode}
+                                </Text>
+                            </View>
+                            <View>
+                                <Text>
+                                    <Text style={{ color: 'grey', fontFamily: 'descent' }}>Date:</Text> {new Date(item.date).toUTCString()}
+                                </Text>
+                            </View>
+                            {/* </View> */}
                             <View style={styles.buttonRow}>
                                 <View>
                                     <Button mode="text" onPress={verifySlip.bind(null, item.pendingInvoiceId, item.id, item.invoiceData)}>
@@ -114,6 +119,7 @@ const styles = StyleSheet.create({
     },
     buttonRow: {
         flexDirection: 'row',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        marginTop: 10
     }
 });

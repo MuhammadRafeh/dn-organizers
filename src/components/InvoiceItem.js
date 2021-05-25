@@ -197,9 +197,9 @@ const InvoiceItem = props => {
                             <DataTable.Title numeric>Price</DataTable.Title>
                         </DataTable.Header>
                         {
-                            item.item.menu.map(itemObj => {
+                            item.item.menu.map((itemObj, key) => {
                                 return (
-                                    <DataTable.Row>
+                                    <DataTable.Row key={key}>
                                         <DataTable.Cell>{itemObj.name}</DataTable.Cell>
                                         <DataTable.Cell numeric>{parseInt(itemObj.price)}</DataTable.Cell>
                                     </DataTable.Row>
