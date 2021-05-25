@@ -31,7 +31,7 @@ const AdminWedding = props => {
     const [packageName, setPackageName] = useState('');
     const [price, setPrice] = useState('');
     const [menuTotalPrice, setMenuTotalPrice] = useState('');
-    const [venuName, setVenuName] = useState('');
+    const [venuName, setVenuName] = useState('Select Venu');
     const [venuPrice, setVenuPrice] = useState('');
     const [noOfPeople, setNoOfPeople] = useState('');
     const [selectedMenu, setSelectedMenu] = useState([]);
@@ -149,6 +149,9 @@ const AdminWedding = props => {
         });
         if (menu.length == 0) {
             Alert.alert('Select menu first!', 'Please select at least 1 menu item', [{text: 'Ok', style: "destructive"}])
+            return;
+        } else if (venuName == 'Select Venu') {
+            Alert.alert('Select Venu first!', 'Please select at event location.', [{text: 'Ok', style: "destructive"}])
             return;
         }
 
@@ -311,6 +314,7 @@ const AdminWedding = props => {
                                                         //here we want to calculate price
                                                     }
                                                     }>
+                                                    <Picker.Item key={0} label={'Select Venu'} value={{ name: 'Select Venu' }} />
                                                     {venu.map((item) => (
                                                         <Picker.Item key={item.id} label={`${item.name}`} value={{ name: item.name }} />
                                                     ))
