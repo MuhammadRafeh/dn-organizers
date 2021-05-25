@@ -8,16 +8,18 @@ const uploadToFirebase = (reference, pushData, SucAlertMessageTitle, SucAlertMes
         // dispatch(addPendingInvoice({ ...invoice, id: data.key }))
         if (action == 'addVenu') {
             dispatch(addItems('weddingItems', 'venu', {...pushData, id: data.key }));
+        } else if(action == 'corAddVenu') {
+            dispatch(addItems('corporateItems', 'venu', {...pushData, id: data.key }));
         } else if (action == 'addPackage') {
             dispatch(addPackage('wedding', {...pushData, id: data.key}))
+        } else if (action == 'corAddPackage') {
+            dispatch(addPackage('corporate', {...pushData, id: data.key}))
         } else if (action == 'addMenu') {
             dispatch(addItems('weddingItems', 'menu', {...pushData, id: data.key }));
+        } else if (action == 'corAddMenu') {
+            dispatch(addItems('corporateItems', 'menu', {...pushData, id: data.key }));
         }
 
-        try {
-            dispatch(action);
-        } catch (error) {
-        }
         Alert.alert(SucAlertMessageTitle, SucAlertMessageDesc, [{ text: 'Ok' }])
     }).catch((error) => {
         //error callback

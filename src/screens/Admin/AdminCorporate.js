@@ -6,12 +6,13 @@ import { Dialog, Portal } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 import uploadToFirebase from '../../functions/uploadToFirebase';
-import { setCorporateItems } from '../../redux/actions';
+import { deletePackage, deleteItems, setCorporateItems, updateCorporate } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import firebase from 'firebase'
 import DataTable from '../../components/DataTable';
+import AdminPackageItems from '../../components/AdminPackageItems';
 
-const AdminBirthday = props => {
+const AdminWedding = props => {
     const [visible, setVisible] = React.useState(false);
     const hideDialog = () => {
         setSelectedMenu([]);
@@ -30,7 +31,7 @@ const AdminBirthday = props => {
     const [packageName, setPackageName] = useState('');
     const [price, setPrice] = useState('');
     const [menuTotalPrice, setMenuTotalPrice] = useState('');
-    const [venuName, setVenuName] = useState('');
+    const [venuName, setVenuName] = useState('Select Venu');
     const [venuPrice, setVenuPrice] = useState('');
     const [noOfPeople, setNoOfPeople] = useState('');
     const [selectedMenu, setSelectedMenu] = useState([]);
@@ -42,7 +43,22 @@ const AdminBirthday = props => {
     const [addVenuName, setAddVenuName] = useState('');
     const [addVenuPrice, setAddVenuPrice] = useState('');
     //-------------------------- 
-    const corporateItems = useSelector(state => state.items.corporateItems);
+
+    //Delete Venu and Menu state
+    const [deleteVenuName, setDeleteVenuName] = useState('');
+    const [deleteMenuName, setDeleteMenuName] = useState('');
+    const [deleteVenuId, setDeleteVenuId] = useState('');
+    const [deleteMenuId, setDeleteMenuId] = useState('');
+    //---------------------------------------------------
+    const [items, packages] = useSelector(state => [state.items.corporateItems, state.packages.corporate]);
+    let venu = [];
+    let menu = [];
+    try {
+        venu = items.filter(obj => obj['venu'])[0]['venu'];
+        menu = items.filter(obj => obj['menu'])[0]['menu'];
+    } catch (error) {
+        
+    }
     const addMenu = () => {
         if (addMenuName.length >= 1 && +addMenuPrice >= 1) {
             uploadToFirebase(
@@ -51,7 +67,9 @@ const AdminBirthday = props => {
                 'Successfully Added.',
                 'You now have new Corporate menu item!',
                 "Something went wrong.",
-                'Please check your network!'
+                'Please check your network!',
+                dispatch,
+                'corAddMenu' 
             )
             setAddMenuPrice('');
             setAddMenuName('');
@@ -68,7 +86,9 @@ const AdminBirthday = props => {
                 'Successfully Added.',
                 'You now have new Corporate menu item!',
                 "Something went wrong.",
-                'Please check your network!'
+                'Please check your network!',
+                dispatch,
+                'corAddVenu'
             )
             setAddVenuName('');
             setAddVenuPrice('');
@@ -77,21 +97,34 @@ const AdminBirthday = props => {
         Alert.alert('Fillout Name/Price first', 'Fill in order to continue', [{ text: 'OK', style: 'destructive' }])
     }
 
-    
+    const deletePackages = id => {
+        firebase.database().ref(`events/corporate/packages/${id}`).remove().then(() => {
+            dispatch(deletePackage(id, 'corporate'));
+            Alert.alert('Successfully deleted', 'No one have access to this package now.', [{ text: 'OK', style: "destructive" }])
+        }).catch((error) => {
+            Alert.alert('Something went wrong!', 'Please check your network', [{ text: 'Ok', style: 'destructive' }])
+        })
+    }
 
-    // const menuItems = corporateItems.filter(obj => obj['menu'])[0]['menu'];
-    // const venuItems = corporateItems.filter(obj => obj['venu'])[0]['venu'];
+    // const menuItems = weddingItems.filter(obj => obj['menu'])[0]['menu'];
+    // const venuItems = weddingItems.filter(obj => obj['venu'])[0]['venu'];
 
-    useEffect(() => {
-        firebase.database().ref('events/corporate/items').once('value', function (snapshot) {
+    const getPackages = () => {
+        firebase.database().ref('events/corporate/').once('value', function (snapshot) {
             // dispatch(updateWedding(snapshot.val()));
-            dispatch(setCorporateItems(snapshot.val()));
+            const { items, packages } = snapshot.val();
+            dispatch(setCorporateItems(items));
+            dispatch(updateCorporate(packages));
             // setIsRefreshing(false);
             // Alert.alert('Successfully fet', 'ads', [{ text: 'ok' }])
         }, function (err) {
             // setIsRefreshing(false);
             console.log('failed to fetch')
         });
+    }
+
+    useEffect(() => {
+        getPackages();
     }, [])
 
     const handleSelectionMenu = list => { //[{checked, id, name, price},{},...]
@@ -104,7 +137,7 @@ const AdminBirthday = props => {
         setMenuTotalPrice(menuAmount);
     }
 
-    const onSubmitForm = () => { //type can be package/item
+    const onSubmitForm = () => {
         const menu = selectedMenu.map(item => {
             // delete item["checked"];
             // price = price + (item.price * peopleCount);
@@ -114,11 +147,18 @@ const AdminBirthday = props => {
                 price: parseInt(item.price)
             }
         });
+        if (menu.length == 0) {
+            Alert.alert('Select menu first!', 'Please select at least 1 menu item', [{text: 'Ok', style: "destructive"}])
+            return;
+        } else if (venuName == 'Select Venu') {
+            Alert.alert('Select Venu first!', 'Please select at event location.', [{text: 'Ok', style: "destructive"}])
+            return;
+        }
 
         const pushData = {
             name: packageName,
             price,
-            theme: 'wedding',
+            theme: 'corporate',
             venu: venuName,
             menu,
             occuredDate: date.toString(),
@@ -130,18 +170,47 @@ const AdminBirthday = props => {
             'Package Added successfully!',
             'Everyone can see this package and approach.',
             'Something Went Wrong!',
-            'Please check your network.'
+            'Please check your network.',
+            dispatch,
+            'corAddPackage'
         )
         hideDialog();
     }
 
+    const deleteItem = type => { // 'venu' | 'menu'
+        // deleteMenuId, deleteVenuId
+        if (type == 'venu') {
+            if (deleteVenuId == '0') {
+                Alert.alert('Please Select Venu First!', 'Select item to delete.', [{text: 'Ok', style: 'destructive'}])
+                return;
+            }
+            firebase.database().ref(`events/corporate/items/venu/${deleteVenuId}`).remove().then(() => {
+                dispatch(deleteItems('corporateItems', deleteVenuId, 'venu'));
+                Alert.alert('Successfully Deleted!', 'This item is no more exists.', [{text: 'Ok', style: 'destructive'}])
+            }).catch(() => {
+                Alert.alert('Something went wrong!', 'Please check your network.', [{text: 'Ok', style: 'destructive'}])
+            })
+        } else if (type == 'menu') {
+            if (deleteMenuId == '0') {
+                Alert.alert('Please Select Menu First!', 'Select item to delete.', [{text: 'Ok', style: 'destructive'}])
+                return
+            }
+            firebase.database().ref(`events/corporate/items/menu/${deleteMenuId}`).remove().then(() => {
+                dispatch(deleteItems('corporateItems', deleteMenuId, 'menu'));
+                Alert.alert('Successfully Deleted!', 'This item is no more exists.', [{text: 'Ok', style: 'destructive'}])
+            }).catch(() => {
+                Alert.alert('Something went wrong!', 'Please check your network.', [{text: 'Ok', style: 'destructive'}])
+            })
+        }
+    }
+
     return (
         // <Ionicons name="add-outline"/>
-        <View style={styles.screen}>
-            {console.log('wedding ITems', selectedMenu)}
+        <ScrollView>
+            {/* {console.log('corporate ITems', selectedMenu)} */}
             <AdminHeader navigation={props.navigation} corporate />
             {
-                corporateItems.length != 0 ? (
+                items.length != 0 ? (
 
                     <>
                         <View style={{ marginTop: 10, marginHorizontal: 10 }}>
@@ -216,7 +285,7 @@ const AdminBirthday = props => {
                                         </View>
                                         <View style={styles.menuRow}>
                                             <DataTable
-                                                list={corporateItems.filter(obj => obj['menu'])[0]['menu']}
+                                                list={menu}
                                                 handleSelectionMenu={handleSelectionMenu}
                                             />
                                         </View>
@@ -245,7 +314,8 @@ const AdminBirthday = props => {
                                                         //here we want to calculate price
                                                     }
                                                     }>
-                                                    {corporateItems.filter(obj => obj['venu'])[0]['venu'].map((item) => (
+                                                    <Picker.Item key={0} label={'Select Venu'} value={{ name: 'Select Venu' }} />
+                                                    {venu.map((item) => (
                                                         <Picker.Item key={item.id} label={`${item.name}`} value={{ name: item.name }} />
                                                     ))
                                                     }
@@ -268,7 +338,7 @@ const AdminBirthday = props => {
                                                         //here we want to calculate price
                                                     }
                                                     }>
-                                                    {corporateItems.filter(obj => obj['menu'])[0]['menu'].map((item) => (
+                                                    {menu.map((item) => (
                                                         <Picker.Item key={item?.id} label={`${item?.price}`} value={{ price: item?.price }} />
                                                     ))
                                                     }
@@ -316,7 +386,7 @@ const AdminBirthday = props => {
                 ADD ITEMS
                 </Button> */}
             <View>
-                <Text style={{ textAlign: 'center', marginBottom: 5, marginTop: 15, fontFamily: 'webfont', fontSize: 30 }}>Add Items</Text>
+                <Text style={{ textAlign: 'center', marginBottom: 5, marginTop: 15, fontFamily: 'webfont', fontSize: 40 }}>Manage Items</Text>
             </View>
 
             <View style={{ marginBottom: 5, marginTop: 15 }}>
@@ -357,6 +427,33 @@ const AdminBirthday = props => {
                     ADD Menu
                 </Button>
             </View>
+            {/* DELETE MENU PICKER------------------------------------------ */}
+            <View style={{ marginLeft: 5, marginTop: 10 }}>
+                <Picker
+                    style={{ width: '100%', height: 20 }}
+                    selectedValue={deleteMenuName}
+                    mode="dropdown"
+                    onValueChange={(itemValue, itemIndex) => {
+                        setDeleteMenuName(itemValue.name);
+                        setDeleteMenuId(itemValue.id);
+                    }
+                    }>
+                    <Picker.Item key={-1} label={'Select Menu'} value={{ name: 'Select Menu', id: '0' }} />
+                    {menu.map((item) => (
+                        <Picker.Item key={item.id} label={`${item.name}`} value={{ name: item.name, id: item.id }} />
+                    ))
+                    }
+                </Picker>
+            </View>
+            {/* DELETE MENU-------------------------------------------------- */}
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginHorizontal: 10, marginTop: 10, marginBottom: 5 }}>
+                <View />
+                <View style={{ width: 125 }}>
+                    <Button icon="trash-outline" mode="outlined" onPress={deleteItem.bind(null, 'menu')}>
+                        DELETE MENU
+                    </Button>
+                </View>
+            </View>
             <View style={{ marginBottom: 5, marginTop: 15 }}>
                 <Text style={{ color: 'grey', fontFamily: 'descent', marginLeft: 10, fontSize: 15 }}>
                     Venu
@@ -394,12 +491,57 @@ const AdminBirthday = props => {
                     ADD Venu
                 </Button>
             </View>
-        </View>
+            {/* DELETE VENU PICKER---------------------------------------------------- */}
+            <View style={{ marginLeft: 5, marginTop: 10 }}>
+                <Picker
+                    style={{ width: '100%', height: 20 }}
+                    selectedValue={deleteVenuName}
+                    mode="dropdown"
+                    onValueChange={(itemValue, itemIndex) => {
+                        setDeleteVenuName(itemValue.name);
+                        setDeleteVenuId(itemValue.id)
+                        // setVenuPrice(itemValue.price);
+                        //here we want to calculate price
+                    }
+                    }>
+                    <Picker.Item key={-1} label={'Select Venu'} value={{ name: 'Select Venu', id: 0 }} />
+                    {venu.map((item) => (
+                        <Picker.Item key={item.id} label={`${item.name}`} value={{ name: item.name, id: item.id }} />
+                    ))
+                    }
+                </Picker>
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginHorizontal: 10, marginTop: 10, marginBottom: 20 }}>
+                <View />
+                <View style={{ width: 124 }}>
+                    <Button icon="trash-outline" mode="outlined" onPress={deleteItem.bind(null, 'venu')}>
+                        DELETE VENU
+                    </Button>
+                </View>
+            </View>
+
+            <View>
+                <Text style={{ textAlign: 'center', marginBottom: 5, marginTop: 5, fontFamily: 'webfont', fontSize: 40 }}>Manage Packages</Text>
+            </View>
+            {packages.map((item, map) => {
+                return (
+                    <AdminPackageItems
+                        key={item.id}
+                        handleBookPress={deletePackages.bind(null, item.id)}
+                        menu={item.menu}
+                        name={item.name}
+                        price={item.price}
+                        theme={item.theme}
+                        venu={item.venu}
+                    />
+                )
+            })}
+        </ScrollView>
 
     );
 }
 
-export default AdminBirthday;
+export default AdminWedding;
 
 const styles = StyleSheet.create({
     screen: {
@@ -422,5 +564,3 @@ const styles = StyleSheet.create({
         width: '100%'
     }
 });
-
-

@@ -6,7 +6,7 @@ import { Dialog, Portal } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 import uploadToFirebase from '../../functions/uploadToFirebase';
-import { addPackage, deletePackage, setWeddingItems, updateWedding, deleteItems, addItems } from '../../redux/actions';
+import { deletePackage, setWeddingItems, updateWedding, deleteItems } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import firebase from 'firebase'
 import DataTable from '../../components/DataTable';
