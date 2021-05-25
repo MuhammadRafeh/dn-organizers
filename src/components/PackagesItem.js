@@ -26,6 +26,7 @@ const PackagesItem = props => {
                     <Text><Text style={styles.labelStyle}>Price:</Text> {props.price}</Text>
                     <Text><Text style={styles.labelStyle}>Theme:</Text> {props.theme}</Text>
                     <Text><Text style={styles.labelStyle}>Venu:</Text> {props.venu}</Text>
+                    {/* <Text><Text style={styles.labelStyle}>Venu:</Text> {props.venu}</Text> */}
                 </View>
                 <List.Section>
                     <List.Accordion

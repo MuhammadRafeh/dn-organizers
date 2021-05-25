@@ -95,6 +95,8 @@ const packageReducer = (state = initialPackageState, action) => {
                     action.payload.package.theme,
                     action.payload.package.menu,
                     action.payload.package.venu,
+                    action.payload.package.occuredDate,
+                    action.payload.package.noOfPeople,
                 )]
             }
         default:

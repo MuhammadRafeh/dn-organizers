@@ -67,7 +67,8 @@ const InvoiceItem = props => {
     const onSubmitForm = () => {
         hideDialog();
         const userClear = {
-            date,
+            invoiceData: item.item,
+            date: date.toString(),
             branchCode,
             bankAddress,
             pendingInvoiceId: item.item.id,
@@ -96,7 +97,7 @@ const InvoiceItem = props => {
     return (
         <Card style={{ marginHorizontal: 10, marginBottom: 8, marginTop: 8, overflow: 'hidden' }}>
             {/* 1st Row */}
-            {/* {console.log(item.item.id)} */}
+            {console.log(item.item)}
             <View style={styles.header}>
 
                 <View style={styles.flex1}>

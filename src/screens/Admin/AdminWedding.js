@@ -151,8 +151,8 @@ const AdminWedding = props => {
         if (menu.length == 0) {
             Alert.alert('Select menu first!', 'Please select at least 1 menu item', [{text: 'Ok', style: "destructive"}])
             return;
-        } else if (venuName == 'Select Venu') {
-            Alert.alert('Select Venu first!', 'Please select at event location.', [{text: 'Ok', style: "destructive"}])
+        } else if (venuName == 'Select Venu' || +noOfPeople <= 0 || packageName.length < 1 || +price <= 0) {
+            Alert.alert('Please fillout form first!', 'First fillout form to continue.', [{text: 'Ok', style: "destructive"}])
             return;
         }
 
@@ -208,7 +208,7 @@ const AdminWedding = props => {
     return (
         // <Ionicons name="add-outline"/>
         <ScrollView>
-            {console.log('wedding ITems', selectedMenu)}
+            {console.log('wedding ITems', noOfPeople)}
             <AdminHeader navigation={props.navigation} wedding />
             {
                 items.length != 0 ? (
@@ -270,7 +270,7 @@ const AdminWedding = props => {
                                                     if (+value) setNoOfPeople(value);
                                                     // else if (value == '') setNoOfPeople(1);
                                                     else if (value == '') {
-                                                        setNoOfPeople('1');
+                                                        setNoOfPeople('');
                                                     }
                                                 }}
                                                 keyboardType="number-pad"
@@ -534,6 +534,8 @@ const AdminWedding = props => {
                         price={item.price}
                         theme={item.theme}
                         venu={item.venu}
+                        noOfPeople={item.noOfPeople}
+                        occuredDate={new Date(item.occuredDate).toUTCString()}
                     />
                 )
             })}

@@ -25,7 +25,7 @@ const Wedding = props => {
         pullData();
     }, [])
 
-    const handleBookPress = (id, name, theme, menu, venu, price) => {
+    const handleBookPress = (id, name, theme, menu, venu, price, occuredDate, noOfPeople) => {
         const invoice = {
             theme,
             menu,
@@ -37,9 +37,10 @@ const Wedding = props => {
             serPackId: id,
             userEmail: email,
             bookDate: new Date().toString(),
-            occuredDate: false,
+            occuredDate,
             designerName: 'Mast Qalandar',
-            status: 'inprogress'
+            status: 'inprogress',
+            noOfPeople
         }
         firebase.database().ref('pendingInvoices/').push(invoice).then((data) => {
             //success callback
@@ -75,7 +76,9 @@ const Wedding = props => {
                                 item.item.theme,
                                 item.item.menu,
                                 item.item.venu,
-                                item.item.price
+                                item.item.price,
+                                item.item.occuredDate,
+                                item.item.noOfPeople
                             )
                         }}
                     />

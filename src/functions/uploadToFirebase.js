@@ -4,6 +4,7 @@ import { addItems, addPackage } from '../redux/actions';
 
 const uploadToFirebase = (reference, pushData, SucAlertMessageTitle, SucAlertMessageDesc, failAlertTitle, failAlertDesc, dispatch, action) => {
     firebase.database().ref(reference).push(pushData).then((data) => {
+        Alert.alert(SucAlertMessageTitle, SucAlertMessageDesc, [{ text: 'Ok' }])
         //success callback
         // dispatch(addPendingInvoice({ ...invoice, id: data.key }))
         if (action == 'addVenu') {
@@ -26,7 +27,6 @@ const uploadToFirebase = (reference, pushData, SucAlertMessageTitle, SucAlertMes
             dispatch(addItems('birthdayItems', 'menu', {...pushData, id: data.key }));
         }
 
-        Alert.alert(SucAlertMessageTitle, SucAlertMessageDesc, [{ text: 'Ok' }])
     }).catch((error) => {
         //error callback
         Alert.alert(failAlertTitle, failAlertDesc, [{ text: 'OK', style: 'destructive' }])
