@@ -50,12 +50,12 @@ const AdminWedding = props => {
     const [deleteVenuId, setDeleteVenuId] = useState('');
     const [deleteMenuId, setDeleteMenuId] = useState('');
     //---------------------------------------------------
-    const [weddingItems, packages] = useSelector(state => [state.items.weddingItems, state.packages.wedding]);
+    const [items, packages] = useSelector(state => [state.items.weddingItems, state.packages.wedding]);
     let venu = [];
     let menu = [];
     try {
-        venu = weddingItems.filter(obj => obj['venu'])[0]['venu'];
-        menu = weddingItems.filter(obj => obj['menu'])[0]['menu'];
+        venu = items.filter(obj => obj['venu'])[0]['venu'];
+        menu = items.filter(obj => obj['menu'])[0]['menu'];
     } catch (error) {
         
     }
@@ -210,7 +210,7 @@ const AdminWedding = props => {
             {console.log('wedding ITems', selectedMenu)}
             <AdminHeader navigation={props.navigation} wedding />
             {
-                weddingItems.length != 0 ? (
+                items.length != 0 ? (
 
                     <>
                         <View style={{ marginTop: 10, marginHorizontal: 10 }}>
