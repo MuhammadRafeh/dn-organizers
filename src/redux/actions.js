@@ -15,6 +15,7 @@ export const DELETEPACKAGE = 'DELETEPACKAGE';
 export const ADDPACKAGE = 'ADDPACKAGE';
 export const DELETEITEM = 'DELETEITEM';
 export const ADDITEM = 'ADDITEM';
+export const SETBOOKEDEVENTS = 'SETBOOKEDEVENTS'
 
 export const authenticate = (uid, email, isAdmin, isAuth) => { // It will take credentials
     return {
@@ -166,6 +167,16 @@ export const addItems = (type, itemType, item) => { //type = weddingItems, birth
             type,
             itemType,
             item
+        }
+    }
+}
+
+export const setBookedEvents = (object, email) => { //object = obj
+    return {
+        type: SETBOOKEDEVENTS,
+        payload: {
+            object,
+            email
         }
     }
 }

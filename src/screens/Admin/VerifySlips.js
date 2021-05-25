@@ -32,7 +32,7 @@ const VerifySlips = props => {
         Promise.all([
             firebase.database().ref(`pendingInvoices/${pendingInvoiceId}`).remove(),
             firebase.database().ref(`userClear/${userClearId}`).remove(),
-            firebase.database().ref(`bookedEvents/`).push({ ...invoiceData, status: 'completed' })
+            firebase.database().ref(`bookedEvents/`).push({ ...invoiceData, status: 'inprogress', ratings: '0' })
         ]).then((data) => {
             // console.log("Operations Successful", data)
             Alert.alert('Verified Successfully!', 'User registered to this event.', [{ text: 'Ok', style: 'destructive' }])

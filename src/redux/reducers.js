@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import transformIntoBookedEvents from "../barriers/transformIntoBookedEvents";
 import transformIntoItems from "../barriers/transformIntoItems";
 import transformIntoPackage from "../barriers/transformIntoPackages";
 import transformIntoPendingInvoices from "../barriers/transformIntoPendingInvoices";
@@ -22,13 +23,14 @@ import {
     DELETEPACKAGE,
     ADDPACKAGE,
     DELETEITEM,
-    ADDITEM
+    ADDITEM,
+    SETBOOKEDEVENTS
 } from "./actions";
 
 const initialAuthState = {
     uid: '',
     email: 'Rafeh@gmail.com',
-    isAdmin: true,
+    isAdmin: false,
     isAuth: false
 }
 
@@ -237,10 +239,26 @@ const itemReducer = (state = initialItemState, action) => {
     }
 }
 
+const initialBookedEventsState = {
+    bookedEvents: []
+}
+
+const bookedEventsReducer = (state = initialBookedEventsState, action) => {
+    switch (action.type) {
+        case SETBOOKEDEVENTS:
+            return {
+                bookedEvents: transformIntoBookedEvents(action.payload)
+            }
+        default:
+            return state;
+    }
+}
+
 const rootReducer = combineReducers({
     auth: authReducer,
     packages: packageReducer,
     invoices: invoiceReducer,
+    bookedEvents: bookedEventsReducer,
     items: itemReducer
 })
 
