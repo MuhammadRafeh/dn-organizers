@@ -28,10 +28,14 @@ const VerifySlips = props => {
         return () => ref.off('value');
     }, [])
 
-    const verifySlip = (pendingInvoiceId, userClearId) => {
-        // firebase.database().ref(`pendingInvoices/${pendingInvoiceId}`).update({
-        //     status: 
-        // });
+    const verifySlip = (pendingInvoiceId, userClearId, invoiceData) => {
+        Promise.all([
+            firebase.database().ref(`pendingInvoices/${pendingInvoiceId}`).remove(),
+            firebase.database().ref(`userClear/${userClearId}`).remove(),
+            firebase.database().ref(`bookedEvents/`).push({...invoiceData, status: 'completed'})
+        ]).then((data) => {
+            console.log("Operations Successful", data)
+        }).catch((e) => console.log(e))
     }
 
     const rejectSlip = (pendingInvoiceId, userClearId) => {
@@ -78,7 +82,7 @@ const VerifySlips = props => {
                             </View>
                             <View style={styles.buttonRow}>
                                 <View>
-                                    <Button mode="text" onPress={verifySlip.bind(null, item.pendingInvoiceId, item.id)}>
+                                    <Button mode="text" onPress={verifySlip.bind(null, item.pendingInvoiceId, item.id, item.invoiceData)}>
                                         Verify
                                     </Button>
                                 </View>
