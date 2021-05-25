@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import transformIntoItems from "../barriers/transformIntoItems";
 import transformIntoPackage from "../barriers/transformIntoPackages";
 import transformIntoPendingInvoices from "../barriers/transformIntoPendingInvoices";
+import Item from "../models/item";
 import Package from "../models/package";
 import PendingInvoices from "../models/pendingInvoices";
 import {
@@ -19,7 +20,9 @@ import {
     SETBIRTHDAYITEMS,
     SETCORPORATEITEMS,
     DELETEPACKAGE,
-    ADDPACKAGE
+    ADDPACKAGE,
+    DELETEITEM,
+    ADDITEM
 } from "./actions";
 
 const initialAuthState = {
@@ -198,6 +201,34 @@ const itemReducer = (state = initialItemState, action) => {
             return {
                 ...state,
                 corporateItems: transformIntoItems(action.payload)
+            }
+        case DELETEITEM:
+            return {
+                ...state,
+                [action.payload.type]: state[action.payload.type].map(obj => {
+                    const itemsArray = obj[action.payload.itemType];
+                    if (itemsArray) { // this is what we are searching
+                        const modifiedItems = itemsArray.filter(item => item.id != action.payload.id)//[{id, name, price},...]
+                        //final return
+                        return {
+                            [action.payload.itemType]: modifiedItems
+                        }
+                    } return obj;
+                })
+            }
+        case ADDITEM:
+            return {
+                ...state,
+                [action.payload.type]: state[action.payload.type].map(obj => {
+                    const itemsArray = obj[action.payload.itemType];
+                    if (itemsArray) { // this is what we are searching
+                        // const modifiedItems = itemsArray.filter(item => item.id != action.payload.id)//[{id, name, price},...]
+                        //final return
+                        return {
+                            [action.payload.itemType]: [...itemsArray, new Item(action.payload.item.id, action.payload.item.name, action.payload.item.price)]
+                        }
+                    } return obj;
+                })
             }
         default:
             return state;

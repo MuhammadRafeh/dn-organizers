@@ -13,6 +13,8 @@ export const SETCORPORATEITEMS = 'SETCORPORATEITEMS';
 export const SETWEDDINGITEMS = 'SETWEDDINGITEMS';
 export const DELETEPACKAGE = 'DELETEPACKAGE';
 export const ADDPACKAGE = 'ADDPACKAGE';
+export const DELETEITEM = 'DELETEITEM';
+export const ADDITEM = 'ADDITEM';
 
 export const authenticate = (uid, email, isAdmin, isAuth) => { // It will take credentials
     return {
@@ -143,4 +145,28 @@ export const addPackage = (type, data) => { // type should be wedding | birthday
     }
 }
 
+export const deleteItems = (type, id, itemType) => { //type = weddingItems, birthdayItems, corporateItems
+    //itemType = menu | venu
+    return {
+        type: DELETEITEM,
+        payload: {
+            type,
+            id,
+            itemType
+        }
+    }
+}
+
+export const addItems = (type, itemType, item) => { //type = weddingItems, birthdayItems, corporateItems
+    //itemType = menu | venu
+    //item = {id, name, price}
+    return {
+        type: ADDITEM,
+        payload: {
+            type,
+            itemType,
+            item
+        }
+    }
+}
 
