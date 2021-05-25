@@ -7,7 +7,7 @@ import { List } from 'react-native-paper';
 
 const AdminPackageItems = props => {
     const [expanded, setExpanded] = React.useState(true);
-    let menu = []; 
+    let menu = [];
     if (props.menu) {
         menu = [...props.menu]
     }
@@ -16,12 +16,14 @@ const AdminPackageItems = props => {
         <Card style={styles.cardStyle}>
             <View style={styles.cardHeader}>
                 <View style={styles.flex1} />
-                <View style={styles.flex1}>
+                <View style={{flex: 2}}>
                     <Text style={styles.packageName}>{props.name}</Text>
                 </View>
-                <Button mode="text" onPress={props.handleBookPress}>
-                    Delete
-                </Button>
+                <View style={styles.flex1}>
+                    <Button mode="text" onPress={props.handleBookPress}>
+                        Delete
+                    </Button>
+                </View>
             </View>
             <View style={styles.divider}></View>
             <View style={styles.packageDetails}>
@@ -42,7 +44,7 @@ const AdminPackageItems = props => {
                                 if (item.name) {
                                     return (
                                         <View key={key} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginRight: 15 }}>
-                                            <Text><Text style={styles.menuListDecorator}>-</Text>{item.name}</Text>
+                                            <Text><Text style={styles.menuListDecorator}>- </Text>{item.name}</Text>
                                             <Text>{item.price}</Text>
                                         </View>
                                     )
