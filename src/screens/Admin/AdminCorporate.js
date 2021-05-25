@@ -524,6 +524,7 @@ const AdminWedding = props => {
                 <Text style={{ textAlign: 'center', marginBottom: 5, marginTop: 5, fontFamily: 'webfont', fontSize: 40 }}>Manage Packages</Text>
             </View>
             {packages.map((item, map) => {
+                // console.log( '------------------',item.id)
                 return (
                     <AdminPackageItems
                         key={item.id}

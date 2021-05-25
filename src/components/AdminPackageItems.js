@@ -47,7 +47,7 @@ const AdminPackageItems = props => {
                                         </View>
                                     )
                                 } return (
-                                    <Text><Text style={styles.menuListDecorator}>-</Text>{item}</Text>
+                                    <Text key={key}><Text style={styles.menuListDecorator}>-</Text>{item}</Text>
                                 )
                             })}
                         </View>
