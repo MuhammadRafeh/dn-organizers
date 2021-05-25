@@ -7,7 +7,10 @@ import { List } from 'react-native-paper';
 
 const AdminPackageItems = props => {
     const [expanded, setExpanded] = React.useState(true);
-
+    let menu = []; 
+    if (props.menu) {
+        menu = [...props.menu]
+    }
     const handlePress = () => setExpanded(!expanded);
     return (
         <Card style={styles.cardStyle}>
@@ -35,7 +38,7 @@ const AdminPackageItems = props => {
                         onPress={handlePress}>
                         {/* <List.Item title="First item" /> */}
                         <View style={{ marginLeft: 5 }}>
-                            {props.menu.map((item, key) => {
+                            {menu.map((item, key) => {
                                 if (item.name) {
                                     return (
                                         <View key={key} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginRight: 15 }}>

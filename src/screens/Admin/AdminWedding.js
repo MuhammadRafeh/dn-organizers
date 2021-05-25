@@ -97,7 +97,7 @@ const AdminWedding = props => {
         Alert.alert('Fillout Name/Price first', 'Fill in order to continue', [{ text: 'OK', style: 'destructive' }])
     }
 
-    const deletePackage = id => {
+    const deletePackages = id => {
         firebase.database().ref(`events/wedding/packages/${id}`).remove().then(() => {
             dispatch(deletePackage(id, 'wedding'));
             Alert.alert('Successfully deleted', 'No one have access to this package now.', [{ text: 'OK', style: "destructive" }])
@@ -522,7 +522,8 @@ const AdminWedding = props => {
             {packages.map((item, map) => {
                 return (
                     <AdminPackageItems
-                        handleBookPress={deletePackage.bind(null, item.id)}
+                        key={item.id}
+                        handleBookPress={deletePackages.bind(null, item.id)}
                         menu={item.menu}
                         name={item.name}
                         price={item.price}
