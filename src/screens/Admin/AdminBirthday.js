@@ -16,6 +16,7 @@ const AdminWedding = props => {
     const [visible, setVisible] = React.useState(false);
     const hideDialog = () => {
         setSelectedMenu([]);
+        setVenuName('Select Venu')
         setVisible(false);
     }
     const [show, setShow] = useState(false);
@@ -148,7 +149,7 @@ const AdminWedding = props => {
         const pushData = {
             name: packageName,
             price,
-            theme: 'corporate',
+            theme: 'birthday',
             venu: venuName,
             menu,
             occuredDate: date.toString(),
@@ -309,13 +310,13 @@ const AdminWedding = props => {
                                                     }
                                                 </Picker>
                                             </View>
-                                            <View>
+                                            {/* <View>
                                                 <Text style={{ color: 'grey' }}>
                                                     Price:
                                                 </Text>
-                                            </View>
+                                            </View> */}
                                             {/* VENU PRICE------------------------------- */}
-                                            <View style={{ marginLeft: 5, marginVertical: 5 }}>
+                                            {/* <View style={{ marginLeft: 5, marginVertical: 5 }}>
                                                 <Picker
                                                     style={{ width: '100%', height: 20 }}
                                                     selectedValue={venuPrice}
@@ -331,7 +332,7 @@ const AdminWedding = props => {
                                                     ))
                                                     }
                                                 </Picker>
-                                            </View>
+                                            </View> */}
                                         </View>
                                         {/* Occured Date */}
                                         {
