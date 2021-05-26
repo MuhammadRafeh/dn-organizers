@@ -17,14 +17,14 @@ import { setItems, addPendingInvoice } from '../../redux/actions';
 const IndividualService = props => {
     const [value, setValue] = useState('');
     const [selectedMenu, setSelectedMenu] = useState([]);
-    const [peopleCount, setPeopleCount] = useState(1);
+    const [peopleCount, setPeopleCount] = useState('1');
     const [selectedDesigner, setSelectedDesigner] = useState('');
 
     const [price, setPrice] = useState(0);
 
     const [selectedVenu, setSelectedVenu] = useState('');
-    const [venuPrice, setVenuPrice] = useState(0);
-    const [menuPrice, setMenuPrice] = useState(0);
+    const [venuPrice, setVenuPrice] = useState('');
+    const [menuPrice, setMenuPrice] = useState('');
 
     const [date, setDate] = useState(new Date(1598051730000));
     const [mode, setMode] = useState('date');
@@ -73,6 +73,10 @@ const IndividualService = props => {
             }
         })
         // console.log('--------------->', price)
+        if (menu.length == 0 || value == '' || selectedVenu == 'Select Venu' || selectedVenu == '' || date.getTime() < new Date().getTime() || selectedDesigner == 'Select Designer' || selectedDesigner == '') {
+            Alert.alert('Fillout Form First!', 'You are missing some info, plz have a look.', [{ text: 'Ok', style: 'destructive' }])
+            return;
+        }
 
         const invoice = {
             theme: value,
@@ -94,6 +98,12 @@ const IndividualService = props => {
             //success callback
             dispatch(addPendingInvoice({ ...invoice, id: data.key }))
             Alert.alert('Successfully added to Invoices', 'Please go to invoice section to clear first and continue.', [{ text: 'Ok' }])
+            setSelectedMenu([]);
+            setSelectedVenu('Select Venu')
+            setVenuPrice('0')
+            setMenuPrice('0')
+            setPeopleCount('1')
+            setSelectedDesigner('Select Designer')
         }).catch((error) => {
             //error callback
             Alert.alert("Can't book package.", 'Please check your internet connection!', [{ text: 'OK', style: 'destructive' }])
@@ -185,6 +195,7 @@ const IndividualService = props => {
                             //here we want to calculate price
                         }
                         }>
+                        <Picker.Item key={0} label={`Select Venu`} value={{ name: 'Select Venu', price: '0' }} />
                         {value == 'Corporate' && corporateItems.filter(obj => obj['venu'])[0]['venu'].map((item) => (
                             <Picker.Item key={item.id} label={`${item.name} -${item.price} Rs`} value={{ name: item.name, price: item.price }} />
                         ))
@@ -240,6 +251,7 @@ const IndividualService = props => {
                         onValueChange={(itemValue, itemIndex) =>
                             setSelectedDesigner(itemValue)
                         }>
+                        <Picker.Item label="Select Designer" value="Select Designer" />
                         <Picker.Item label="Rafeh" value="Rafeh" />
                         <Picker.Item label="Akif" value="Akif" />
                         <Picker.Item label="Umar" value="Umar" />
@@ -258,7 +270,10 @@ const IndividualService = props => {
                         value={peopleCount}
                         keyboardType={'number-pad'}
                         mode={'flat'}
-                        onChangeText={value => setPeopleCount(value)}
+                        onChangeText={value => {
+                            if (+value) setPeopleCount(value)
+                            else if (value == '') setPeopleCount('')
+                        }}
                     />
                 </View>
 
@@ -266,7 +281,7 @@ const IndividualService = props => {
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
                     <Text style={{ textAlign: 'center', color: 'blue', fontSize: 45, fontFamily: 'webfont', paddingTop: 20 }}>Total:</Text>
-                    <Text style={{ textAlign: 'center', color: 'blue', fontSize: 45, fontFamily: 'headings' }}>{venuPrice + (menuPrice * peopleCount)}</Text>
+                    <Text style={{ textAlign: 'center', color: 'blue', fontSize: 45, fontFamily: 'headings' }}>{+venuPrice + (menuPrice * peopleCount)}</Text>
                 </View>
 
                 {/* Book Event Button-------------------------------------------------------- */}
