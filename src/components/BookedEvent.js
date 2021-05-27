@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { List } from 'react-native-paper';
+import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { List, Button } from 'react-native-paper';
 import Card from './Card';
+import { Rating, AirbnbRating } from 'react-native-ratings';
 
 const BookedEvent = props => {
     const { item } = props;
     const [expanded, setExpanded] = React.useState(true);
+    const [ratingDesc, setRatingDesc] = React.useState('');
     const handlePress = () => setExpanded(!expanded);
 
     return (
@@ -102,13 +104,35 @@ const BookedEvent = props => {
 
                 { //here checking if event has passed/done taking review then;
                     new Date(item.occuredDate).getTime() < new Date().getTime() && (
-                        <View style={{backgroundColor: 'grey', marginTop: 10, padding: 10, borderRadius: 10}}>
-                            <Text style={{textAlign: 'center', color: 'white'}}>Your Event has been Passed!</Text>
+                        <View style={{ backgroundColor: 'grey', marginTop: 10, padding: 10, borderRadius: 10 }}>
+                            <Text style={{ textAlign: 'center', color: 'white' }}>Your Event has been Passed!</Text>
+                            <AirbnbRating
+                                count={5}
+                                reviews={["Terrible", "Bad", "OK", "Good", "Great"]}
+                                defaultRating={3}
+                                size={20}
+                                onFinishRating={rating => {
+                                    // console.log('============================================', a);
+                                }}
+                            />
+                            <TextInput
+                                value={ratingDesc}
+                                onChangeText={(text) => {
+                                    setRatingDesc(text);
+                                }}
+                                placeholder={'Write a Review...'}
+                                numberOfLines={3}
+                                multiline={true}
+                                style={{ backgroundColor: 'white', marginTop: 10, padding: 5 }}
+                            />
+                            <Button style={{marginTop: 10}} mode="text" onPress={() => {}}>
+                                Submit Review
+                            </Button>
                         </View>
                     )
                 }
 
-{/* date.getTime() < new Date().getTime() //it's mean the event has been passed */}
+                {/* date.getTime() < new Date().getTime() //it's mean the event has been passed */}
             </View>
         </Card>
     );
