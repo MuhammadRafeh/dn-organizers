@@ -29,10 +29,12 @@ const VerifySlips = props => {
     }, [])
 
     const verifySlip = (pendingInvoiceId, userClearId, invoiceData) => {
+        const updatedInvoice = {...invoiceData}; // ---|
+        delete updatedInvoice["id"]; // ---------------| Doing this to remove id attribute
         Promise.all([
             firebase.database().ref(`pendingInvoices/${pendingInvoiceId}`).remove(),
             firebase.database().ref(`userClear/${userClearId}`).remove(),
-            firebase.database().ref(`bookedEvents/`).push({ ...invoiceData, status: 'inprogress', ratings: '0' })
+            firebase.database().ref(`bookedEvents/`).push({ ...updatedInvoice, status: 'inprogress', ratings: '0' })
         ]).then((data) => {
             // console.log("Operations Successful", data)
             Alert.alert('Verified Successfully!', 'User registered to this event.', [{ text: 'Ok', style: 'destructive' }])

@@ -5,12 +5,14 @@ import Header from '../../components/Header';
 import firebase from 'firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBookedEvents } from '../../redux/actions';
+import BookedEvent from '../../components/BookedEvent';
+
 
 const BookedEvents = props => {
 
     const dispatch = useDispatch();
     const [events, email] = useSelector(state => [state.bookedEvents.bookedEvents, state.auth.email])
-    
+
     const getData = () => {
         firebase.database().ref('bookedEvents/').once('value', function (snapshot) {
             dispatch(setBookedEvents(snapshot.val(), email));
@@ -26,10 +28,13 @@ const BookedEvents = props => {
 
     return (
         <View style={styles.screen}>
-            {console.log('asdasd',events)}
+            {console.log('asdasd------------------------------', events)}
             <Header navigation={props.navigation} bookedEvents />
-            <FlatList 
-                
+            <FlatList
+                data={events}
+                renderItem={({ item }) => {
+                    return <BookedEvent item={item}/>
+                }}
             />
         </View>
     );
