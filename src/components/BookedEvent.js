@@ -103,7 +103,7 @@ const BookedEvent = props => {
                 }
 
                 { //here checking if event has passed/done taking review then;
-                    new Date(item.occuredDate).getTime() < new Date().getTime() && (
+                    new Date(item.occuredDate).getTime() < new Date().getTime() ? (
                         <View style={{ backgroundColor: 'grey', marginTop: 10, padding: 10, borderRadius: 10 }}>
                             <Text style={{ textAlign: 'center', color: 'white' }}>Your Event has been Passed!</Text>
                             <AirbnbRating
@@ -123,11 +123,15 @@ const BookedEvent = props => {
                                 placeholder={'Write a Review...'}
                                 numberOfLines={3}
                                 multiline={true}
-                                style={{ backgroundColor: 'white', marginTop: 10, padding: 5 }}
+                                style={{ backgroundColor: 'white', marginTop: 10, padding: 5, borderRadius: 10 }}
                             />
-                            <Button style={{marginTop: 10}} mode="text" onPress={() => {}}>
+                            <Button style={{ marginTop: 10 }} mode="text" onPress={() => { }}>
                                 Submit Review
                             </Button>
+                        </View>
+                    ) : (
+                        <View style={{ backgroundColor: 'grey', marginTop: 10, padding: 10, borderRadius: 10 }}>
+                            <Text style={{ textAlign: 'center', color: 'white' }}>We wish you the best for Event!</Text>
                         </View>
                     )
                 }
