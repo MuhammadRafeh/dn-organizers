@@ -143,11 +143,11 @@ const BookedEvent = props => {
                             </Button>
                         </View>
                     ) : item.status != 'usergivedreview' ? (
-                        <View style={{ backgroundColor: 'grey', marginTop: 10, padding: 10, borderRadius: 10 }}>
+                        <View style={{ backgroundColor: 'blue', marginTop: 10, padding: 10, borderRadius: 10 }}>
                             <Text style={{ textAlign: 'center', color: 'white' }}>We wish you the best for Event!</Text>
                         </View>
                     ) : (
-                        <View style={{ backgroundColor: 'grey', marginTop: 10, padding: 10, borderRadius: 10 }}>
+                        <View style={{ backgroundColor: 'black', marginTop: 10, padding: 10, borderRadius: 10 }}>
                             <Text style={{ textAlign: 'center', color: 'white' }}>Thanks for giving Rating! under review now...</Text>
                         </View>
                     )
