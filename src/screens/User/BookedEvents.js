@@ -1,10 +1,10 @@
 // User Side Screen
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
 import Header from '../../components/Header';
 import firebase from 'firebase';
 import { useDispatch, useSelector } from 'react-redux';
-import { setBookedEvents } from '../../redux/actions';
+import { setBookedEvents, updateBookedEvents } from '../../redux/actions';
 import BookedEvent from '../../components/BookedEvent';
 
 
@@ -26,6 +26,23 @@ const BookedEvents = props => {
         getData();
     }, [])
 
+    const onSubmitReview = (id, ratings, desc) => {
+        // console.log(id, ratings, desc)
+        const ratingObj = {
+            ratingNumber: ratings,
+            ratingDesc: desc
+        };
+        firebase.database().ref(`bookedEvents/${id}`).update({
+            status: 'usergivedreview',
+            ratings: ratingObj
+        }).then(() => {
+            Alert.alert('Thanks for giving Review!', 'Your review will appear after Admin Acceptance.', [{ text: 'Ok', style: 'destructive' }])
+            dispatch(updateBookedEvents(id, ratingObj, 'usergivedreview'));
+        }).catch((err) => {
+            Alert.alert('Something went wrong!', err.message, [{ text: 'Ok', style: 'destructive' }])
+        });
+    }
+
     return (
         <View style={styles.screen}>
             {console.log('asdasd------------------------------', events)}
@@ -33,7 +50,7 @@ const BookedEvents = props => {
             <FlatList
                 data={events}
                 renderItem={({ item }) => {
-                    return <BookedEvent item={item}/>
+                    return <BookedEvent item={item} onSubmitReview={onSubmitReview} />
                 }}
             />
         </View>

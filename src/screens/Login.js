@@ -76,7 +76,7 @@ const Login = (props) => {
                 .signInWithEmailAndPassword(email, password)
                 .then((object) => {
                     // console.log(object.user.uid)
-                    dispatch(authenticate(object.user.uid, email, false, false))
+                    dispatch(authenticate(object.user.uid, email.toLowerCase(), false, false))
                 })
                 .catch(error => Alert.alert('Something went wrong', error.message, [{text: 'OK'}]));
         }

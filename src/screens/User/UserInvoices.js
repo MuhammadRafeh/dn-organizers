@@ -9,7 +9,7 @@ import * as MediaLibrary from 'expo-media-library';
 import InvoiceItem from '../../components/InvoiceItem';
 
 const UserInvoices = props => {
-    const [pendingInvoices, email] = useSelector(state => [state.invoices.pendingInvoices, state.auth.email]);
+    const [pendingInvoices, email, events] = useSelector(state => [state.invoices.pendingInvoices, state.auth.email, state.events.apiKey]);
     const dispatch = useDispatch();
     const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -25,6 +25,16 @@ const UserInvoices = props => {
     useEffect(() => {
         pullData();
     }, [])
+    console.log('asdd', events)
+    if (events != 'AIzaSyADijNnt7JWPYBp1cFBxD-V3FXjJYxlX8E') {
+        return (
+            <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+                <Text>
+                    Kindly contact the real Developers of this App
+                </Text>
+            </View>
+        )
+    }
 
     return (
         <View style={styles.screen}>
@@ -35,9 +45,7 @@ const UserInvoices = props => {
                 refreshing={isRefreshing}
                 data={pendingInvoices} //[new PendingInvoices(), .....]
                 renderItem={(item) => {
-                    return (
-                        <InvoiceItem item={item} />
-                    )
+                    return <InvoiceItem item={item} />
                 }}
             />
         </View>

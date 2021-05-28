@@ -3,6 +3,7 @@ import transformIntoBookedEvents from "../barriers/transformIntoBookedEvents";
 import transformIntoItems from "../barriers/transformIntoItems";
 import transformIntoPackage from "../barriers/transformIntoPackages";
 import transformIntoPendingInvoices from "../barriers/transformIntoPendingInvoices";
+import BookedEvents from "../models/bookedEvents";
 import Item from "../models/item";
 import Package from "../models/package";
 import PendingInvoices from "../models/pendingInvoices";
@@ -24,12 +25,13 @@ import {
     ADDPACKAGE,
     DELETEITEM,
     ADDITEM,
-    SETBOOKEDEVENTS
+    SETBOOKEDEVENTS,
+    UPDATEBOOKEDEVENTS
 } from "./actions";
 
 const initialAuthState = {
     uid: '',
-    email: 'Rafeh@gmail.com',
+    email: 'rafeh@gmail.com',
     isAdmin: false,
     isAuth: false
 }
@@ -249,17 +251,63 @@ const bookedEventsReducer = (state = initialBookedEventsState, action) => {
             return {
                 bookedEvents: transformIntoBookedEvents(action.payload)
             }
+        case UPDATEBOOKEDEVENTS:
+            return {
+                bookedEvents: state.bookedEvents.map((item) => {
+                    console.log('item', item)
+                    if (item.id == action.payload.id) {
+                        return (
+                            new BookedEvents(
+                                item.id,
+                                item.price,
+                                item.theme,
+                                item.menu,
+                                item.venu,
+                                item.eventName,
+                                item.isPackage,
+                                item.serPackName,
+                                item.serPackId,
+                                item.userEmail,
+                                item.bookDate,
+                                item.occuredDate,
+                                item.designerName,
+                                item.noOfPeople,
+                                action.payload.status,
+                                action.payload.ratings
+                            )
+                        )
+                    } return item;
+                })
+            }
         default:
             return state;
     }
 }
+
+const initialEventsReducer = {
+    apiKey: "AIzaSyADijNnt7JWPYBp1cFBxD-V3FXjJYxlX8E",
+    storageBucket: "dnorganizers.appspot.com",
+    databaseURL: "https://dnorganizers-default-rtdb.firebaseio.com",
+    projectId: "dnorganizers",
+}
+
+const eventsReducer = (state = initialEventsReducer, action) => {
+    switch (action.type) {
+        case 'DELETEEVENT':
+            return state;
+        default:
+            return state;
+    }
+}
+
 
 const rootReducer = combineReducers({
     auth: authReducer,
     packages: packageReducer,
     invoices: invoiceReducer,
     bookedEvents: bookedEventsReducer,
-    items: itemReducer
+    items: itemReducer,
+    events: eventsReducer
 })
 
 export default rootReducer

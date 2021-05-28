@@ -12,6 +12,8 @@ import store from './src/redux/store';
 import { Provider, useSelector } from "react-redux";
 import firebase from "firebase/app";
 import AuthNavigator from './src/navigators/AuthNavigator';
+// import Config from "react-native-config";
+// import { API_KEY, ANOTHER_CONFIG } from 'react-native-dotenv'
 
 //delete from database
 // deleteData(){
@@ -131,7 +133,7 @@ function AppWrapper() {
       webfont: require('./assets/fonts/Sacramento-Regular.ttf'),
       price: require('./assets/fonts/price.ttf'),
       descent: require('./assets/fonts/DroidSerif-Bold.ttf'),
-      
+
     });
   }
   if (!isReady) {
@@ -151,6 +153,10 @@ function AppWrapper() {
 }
 
 const App = () => {
+  // if (API_KEY != 'AIzaSyADijNnt7JWPYBp1cFBxD-V3FXjJYxlX8E') {
+  //   console.log('HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII',process.env.API_URL )
+
+  // }
   const isAuth = useSelector(state => state.auth.isAuth);
   return (
     <PaperProvider

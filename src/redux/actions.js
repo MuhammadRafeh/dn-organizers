@@ -15,7 +15,8 @@ export const DELETEPACKAGE = 'DELETEPACKAGE';
 export const ADDPACKAGE = 'ADDPACKAGE';
 export const DELETEITEM = 'DELETEITEM';
 export const ADDITEM = 'ADDITEM';
-export const SETBOOKEDEVENTS = 'SETBOOKEDEVENTS'
+export const SETBOOKEDEVENTS = 'SETBOOKEDEVENTS';
+export const UPDATEBOOKEDEVENTS = 'UPDATEBOOKEDEVENTS';
 
 export const authenticate = (uid, email, isAdmin, isAuth) => { // It will take credentials
     return {
@@ -177,6 +178,20 @@ export const setBookedEvents = (object, email) => { //object = obj
         payload: {
             object,
             email
+        }
+    }
+}
+
+export const updateBookedEvents = (id, ratings, status) => { //id which we want to update and ratings ratings: {
+    //     ratingNumber: ratings,
+    //         ratingDesc: desc
+    // }
+    return {
+        type: UPDATEBOOKEDEVENTS,
+        payload: {
+            id,
+            ratings, //{ ratingNumber, ratingDesc}
+            status
         }
     }
 }

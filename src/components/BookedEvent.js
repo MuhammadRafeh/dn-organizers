@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Alert } from 'react-native';
 import { List, Button } from 'react-native-paper';
 import Card from './Card';
 import { Rating, AirbnbRating } from 'react-native-ratings';
@@ -8,7 +8,13 @@ const BookedEvent = props => {
     const { item } = props;
     const [expanded, setExpanded] = React.useState(true);
     const [ratingDesc, setRatingDesc] = React.useState('');
+    const [ratings, setRatings] = React.useState('3');
     const handlePress = () => setExpanded(!expanded);
+
+    // if (new Date(item.occuredDate).getTime() < new Date().getTime() && item.status != 'done'){
+    //     //here we want to update status to done
+
+    // }
 
     return (
         <Card style={{ margin: 10, overflow: 'hidden' }}>
@@ -103,7 +109,7 @@ const BookedEvent = props => {
                 }
 
                 { //here checking if event has passed/done taking review then;
-                    new Date(item.occuredDate).getTime() < new Date().getTime() ? (
+                    (new Date(item.occuredDate).getTime() < new Date().getTime() && item.status == 'inprogress') ? (
                         <View style={{ backgroundColor: 'grey', marginTop: 10, padding: 10, borderRadius: 10 }}>
                             <Text style={{ textAlign: 'center', color: 'white' }}>Your Event has been Passed!</Text>
                             <AirbnbRating
@@ -113,6 +119,7 @@ const BookedEvent = props => {
                                 size={20}
                                 onFinishRating={rating => {
                                     // console.log('============================================', a);
+                                    setRatings(rating)
                                 }}
                             />
                             <TextInput
@@ -125,13 +132,23 @@ const BookedEvent = props => {
                                 multiline={true}
                                 style={{ backgroundColor: 'white', marginTop: 10, padding: 5, borderRadius: 10 }}
                             />
-                            <Button style={{ marginTop: 10 }} mode="text" onPress={() => { }}>
+                            <Button style={{ marginTop: 10 }} mode="text" onPress={() => {
+                                if (ratingDesc.length < 6){
+                                    Alert.alert('Please write a review first!', 'Review must be greater than 5 letters.', [{text: 'Ok', style: 'destructive'}])
+                                    return;
+                                }
+                                props.onSubmitReview(item.id, ratings, ratingDesc);
+                            }}>
                                 Submit Review
                             </Button>
                         </View>
-                    ) : (
+                    ) : item.status != 'usergivedreview' ? (
                         <View style={{ backgroundColor: 'grey', marginTop: 10, padding: 10, borderRadius: 10 }}>
                             <Text style={{ textAlign: 'center', color: 'white' }}>We wish you the best for Event!</Text>
+                        </View>
+                    ) : (
+                        <View style={{ backgroundColor: 'grey', marginTop: 10, padding: 10, borderRadius: 10 }}>
+                            <Text style={{ textAlign: 'center', color: 'white' }}>Thanks for giving Rating! under review now...</Text>
                         </View>
                     )
                 }
