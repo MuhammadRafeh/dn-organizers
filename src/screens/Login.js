@@ -88,7 +88,7 @@ const Login = (props) => {
             //         dispatch(authenticate())
             //     } 
             // });
-            if (email == 'Admin@gmail.com' && password == '123456'){
+            if (email.toLowerCase() == 'admin@gmail.com' && password == '123456'){
                 firebase
                     .auth()
                     .signInWithEmailAndPassword(email, password)

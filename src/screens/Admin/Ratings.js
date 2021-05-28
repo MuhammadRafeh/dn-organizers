@@ -21,6 +21,8 @@ const Ratings = props => {
         });
     }
 
+    const rating = [1, 2, 3, 4, 5]
+
     useEffect(() => {
         getData();
     }, [])
@@ -35,11 +37,18 @@ const Ratings = props => {
                         <View>
                             <Text style={{ textAlign: 'center', fontFamily: 'joining', fontSize: 20 }}>{item.userEmail}</Text>
                             <Text style={{ textAlign: 'center' }}>
+                                {
+                                    // item.ratings.ratingNumber
+                                    rating.map((number, index) => {
+                                        if (index < item.ratings.ratingNumber) {
+                                            return <Ionicons key={index} name={'star'} size={23} color={'red'} />
+                                        } return <Ionicons key={index} name={'star-outline'} size={23} color={'red'} />
+                                    })
+                                }
+                                {/* <Ionicons name={'star'} size={23} color={'red'} />
                                 <Ionicons name={'star'} size={23} color={'red'} />
                                 <Ionicons name={'star'} size={23} color={'red'} />
-                                <Ionicons name={'star'} size={23} color={'red'} />
-                                <Ionicons name={'star-outline'} size={23} color={'red'} />
-                                <Ionicons name={'star-outline'} size={23} color={'red'} />
+                                <Ionicons name={'star-outline'} size={23} color={'red'} /> */}
                             </Text>
                             <Text style={{ marginTop: 5, textAlign: 'center', fontFamily: 'headings' }}>
                                 {item.ratings.ratingDesc}
