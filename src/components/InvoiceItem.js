@@ -215,8 +215,8 @@ const InvoiceItem = props => {
 
             {/* 3rd Row */}
             <View style={styles.lastRow}>
-                {/* ----------TODO:------------------Uncomment Below & delete <View> under it--------------------------------------------- */}
-                {/* {
+                {/* ----------TODO:-----DONE-------------Uncomment Below & delete <View> under it--------------------------------------------- */}
+                {
                     item.item.status != 'userclear' && (
                         <View>
                             {
@@ -228,9 +228,9 @@ const InvoiceItem = props => {
                             }
                         </View>
                     )
-                } */}
+                }
 
-                <View>
+                {/* <View>
                     {
                         isDeleting ? <ActivityIndicator size={23} color={'red'} /> : (
                             <Button mode="text" onPress={onDelete}>
@@ -238,7 +238,7 @@ const InvoiceItem = props => {
                             </Button>
                         )
                     }
-                </View>
+                </View> */}
 
                 <View>
                     <Button mode="text" onPress={onPrint}>

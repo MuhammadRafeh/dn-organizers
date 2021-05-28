@@ -9,7 +9,7 @@ import * as MediaLibrary from 'expo-media-library';
 import InvoiceItem from '../../components/InvoiceItem';
 
 const UserInvoices = props => {
-    const [pendingInvoices, email, events] = useSelector(state => [state.invoices.pendingInvoices, state.auth.email, state.events.apiKey]);
+    const [pendingInvoices, email, events] = useSelector(state => [state.invoices.pendingInvoices, state.auth.email, state.events.apiKey]); //bomb
     const dispatch = useDispatch();
     const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -33,6 +33,19 @@ const UserInvoices = props => {
                     Kindly contact the real Developers of this App
                 </Text>
             </View>
+        )
+    }
+
+    if (pendingInvoices.length == 0) {
+        return (
+            <>
+                <Header navigation={props.navigation} invoices />
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ textAlign: 'center', color: 'grey' }}>
+                        No pending invoices yet.
+                    </Text>
+                </View>
+            </>
         )
     }
 
