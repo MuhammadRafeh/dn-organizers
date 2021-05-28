@@ -12,15 +12,6 @@ const Ratings = props => {
     const events = useSelector(state => state.bookedEvents.bookedEvents)
     const dispatch = useDispatch();
 
-    const getData = () => {
-        firebase.database().ref('bookedEvents/').on('value', function (snapshot) {
-            dispatch(setBookedEventWithRatings(snapshot.val()));
-            console.log('done', snapshot.val())
-        }, function (err) {
-            console.log('failed to fetch', err)
-        });
-    }
-
     const acceptReview = (ratings, eventName, designerName, bookedEventId, userEmail) => {
         // console.log(ratings, eventName, designerName, bookedEventId)
         Promise.all([
@@ -48,7 +39,17 @@ const Ratings = props => {
     const rating = [1, 2, 3, 4, 5];
 
     useEffect(() => {
-        getData();
+        // getData();
+        const ref = firebase.database().ref('bookedEvents/')
+        ref.on('value', function (snapshot) {
+            dispatch(setBookedEventWithRatings(snapshot.val()));
+            console.log('done', snapshot.val())
+        }, function (err) {
+            console.log('failed to fetch', err)
+        });
+
+        //remove listener
+        return () => ref.off('value');
     }, [])
     return (
         <View style={styles.screen}>
