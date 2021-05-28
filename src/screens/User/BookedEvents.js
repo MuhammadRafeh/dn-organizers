@@ -43,6 +43,19 @@ const BookedEvents = props => {
         });
     }
 
+    if (events.length == 0) {
+        return (
+            <>
+                <Header navigation={props.navigation} bookedEvents />
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ textAlign: 'center', color: 'grey' }}>
+                        You have not booked any Event yet!
+                    </Text>
+                </View>
+            </>
+        )
+    }
+
     return (
         <View style={styles.screen}>
             {console.log('asdasd------------------------------', events)}

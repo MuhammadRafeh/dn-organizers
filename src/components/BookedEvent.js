@@ -133,8 +133,8 @@ const BookedEvent = props => {
                                 style={{ backgroundColor: 'white', marginTop: 10, padding: 5, borderRadius: 10 }}
                             />
                             <Button style={{ marginTop: 10 }} mode="text" onPress={() => {
-                                if (ratingDesc.length < 6){
-                                    Alert.alert('Please write a review first!', 'Review must be greater than 5 letters.', [{text: 'Ok', style: 'destructive'}])
+                                if (ratingDesc.length < 6) {
+                                    Alert.alert('Please write a review first!', 'Review must be greater than 5 letters.', [{ text: 'Ok', style: 'destructive' }])
                                     return;
                                 }
                                 props.onSubmitReview(item.id, ratings, ratingDesc);
@@ -142,13 +142,21 @@ const BookedEvent = props => {
                                 Submit Review
                             </Button>
                         </View>
-                    ) : item.status != 'usergivedreview' ? (
-                        <View style={{ backgroundColor: 'blue', marginTop: 10, padding: 10, borderRadius: 10 }}>
-                            <Text style={{ textAlign: 'center', color: 'white' }}>We wish you the best for Event!</Text>
-                        </View>
-                    ) : (
+                    ) : item.status == 'usergivedreview' ? (
                         <View style={{ backgroundColor: 'black', marginTop: 10, padding: 10, borderRadius: 10 }}>
                             <Text style={{ textAlign: 'center', color: 'white' }}>Thanks for giving Rating! under review now...</Text>
+                        </View>
+                    ) : item.status == 'accepted' ? (
+                        <View style={{ backgroundColor: 'green', marginTop: 10, padding: 10, borderRadius: 10 }}>
+                            <Text style={{ textAlign: 'center', color: 'white' }}>Your review has been accepted by Admin!</Text>
+                        </View>
+                    ) : item.status == 'rejected' ? (
+                        <View style={{ backgroundColor: 'red', marginTop: 10, padding: 10, borderRadius: 10 }}>
+                            <Text style={{ textAlign: 'center', color: 'white' }}>Your review is rejected by Admin!</Text>
+                        </View>
+                    ) : item.status == 'inprogress' && (
+                        <View style={{ backgroundColor: 'grey', marginTop: 10, padding: 10, borderRadius: 10 }}>
+                            <Text style={{ textAlign: 'center', color: 'white' }}>We wish you the best for Event!</Text>
                         </View>
                     )
                 }
