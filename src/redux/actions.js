@@ -17,6 +17,7 @@ export const DELETEITEM = 'DELETEITEM';
 export const ADDITEM = 'ADDITEM';
 export const SETBOOKEDEVENTS = 'SETBOOKEDEVENTS';
 export const UPDATEBOOKEDEVENTS = 'UPDATEBOOKEDEVENTS';
+export const SETONLYWITHRATINGS = 'SETONLYWITHRATINGS';
 
 export const authenticate = (uid, email, isAdmin, isAuth) => { // It will take credentials
     return {
@@ -193,6 +194,13 @@ export const updateBookedEvents = (id, ratings, status) => { //id which we want 
             ratings, //{ ratingNumber, ratingDesc}
             status
         }
+    }
+}
+
+export const setBookedEventWithRatings = (object) => { //admin
+    return {
+        type: SETONLYWITHRATINGS,
+        payload: object
     }
 }
 

@@ -3,6 +3,7 @@ import transformIntoBookedEvents from "../barriers/transformIntoBookedEvents";
 import transformIntoItems from "../barriers/transformIntoItems";
 import transformIntoPackage from "../barriers/transformIntoPackages";
 import transformIntoPendingInvoices from "../barriers/transformIntoPendingInvoices";
+import BookedEventRatings from "../barriers/BookedEventRatings";
 import BookedEvents from "../models/bookedEvents";
 import Item from "../models/item";
 import Package from "../models/package";
@@ -26,13 +27,14 @@ import {
     DELETEITEM,
     ADDITEM,
     SETBOOKEDEVENTS,
-    UPDATEBOOKEDEVENTS
+    UPDATEBOOKEDEVENTS,
+    SETONLYWITHRATINGS
 } from "./actions";
 
 const initialAuthState = {
     uid: '',
     email: 'rafeh@gmail.com',
-    isAdmin: false,
+    isAdmin: true,
     isAuth: false
 }
 
@@ -278,6 +280,10 @@ const bookedEventsReducer = (state = initialBookedEventsState, action) => {
                         )
                     } return item;
                 })
+            }
+        case SETONLYWITHRATINGS:
+            return {
+                bookedEvents: BookedEventRatings(action.payload)
             }
         default:
             return state;
