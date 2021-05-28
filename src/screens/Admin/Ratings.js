@@ -9,12 +9,12 @@ import { setBookedEventWithRatings } from '../../redux/actions';
 
 const Ratings = props => {
 
-    const [events, email] = useSelector(state => [state.bookedEvents.bookedEvents, state.auth.email])
+    const events = useSelector(state => state.bookedEvents.bookedEvents)
     const dispatch = useDispatch();
 
     const getData = () => {
         firebase.database().ref('bookedEvents/').on('value', function (snapshot) {
-            dispatch(setBookedEventWithRatings(snapshot.val(), email));
+            dispatch(setBookedEventWithRatings(snapshot.val()));
             console.log('done', snapshot.val())
         }, function (err) {
             console.log('failed to fetch', err)
