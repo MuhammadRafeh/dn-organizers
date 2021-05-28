@@ -51,6 +51,20 @@ const Ratings = props => {
         //remove listener
         return () => ref.off('value');
     }, [])
+
+    if (events.length == 0) {
+        return (
+            <>
+                <AdminHeader navigation={props.navigation} reviews />
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ textAlign: 'center', color: 'grey' }}>
+                        No Reviews to verify Anymore.
+                    </Text>
+                </View>
+            </>
+        )
+    }
+
     return (
         <View style={styles.screen}>
             <AdminHeader navigation={props.navigation} reviews />

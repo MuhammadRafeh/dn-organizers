@@ -29,7 +29,7 @@ const VerifySlips = props => {
     }, [])
 
     const verifySlip = (pendingInvoiceId, userClearId, invoiceData) => {
-        const updatedInvoice = {...invoiceData}; // ---|
+        const updatedInvoice = { ...invoiceData }; // ---|
         delete updatedInvoice["id"]; // ---------------| Doing this to remove id attribute
         Promise.all([
             firebase.database().ref(`pendingInvoices/${pendingInvoiceId}`).remove(),
@@ -53,6 +53,19 @@ const VerifySlips = props => {
         }).catch((e) => {
             Alert.alert('Something went wrong!', 'Check your network.', [{ text: 'Ok', style: 'destructive' }])
         })
+    }
+
+    if (slips.length == 0) {
+        return (
+            <>
+                <AdminHeader navigation={props.navigation} verifySlips />
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ textAlign: 'center', color: 'grey' }}>
+                        No Slips to verify Anymore.
+                    </Text>
+                </View>
+            </>
+        )
     }
 
     return (
