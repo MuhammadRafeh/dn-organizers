@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
 import AdminHeader from '../../components/AdminHeader';
 import { Ionicons } from '@expo/vector-icons';
 import { Button } from 'react-native-paper';
@@ -21,7 +21,31 @@ const Ratings = props => {
         });
     }
 
-    const rating = [1, 2, 3, 4, 5]
+    const acceptReview = (ratings, eventName, designerName, bookedEventId, userEmail) => {
+        // console.log(ratings, eventName, designerName, bookedEventId)
+        Promise.all([
+            firebase.database().ref('acceptedRatings/').push({ userEmail, eventName, ratings, designerName }),
+            firebase.database().ref(`bookedEvents/${bookedEventId}`).update({ status: 'accepted' })
+        ]).then((data) => {
+            // console.log("Operations Successful", data)
+            Alert.alert('Accepted!', 'This is now visible.', [{ text: 'Ok', style: 'destructive' }])
+        }).catch((e) => {
+            Alert.alert('Something went wrong!', 'Check your network.', [{ text: 'Ok', style: 'destructive' }])
+        })
+    }
+
+    const rejectReview = (bookedEventId) => {
+        Promise.all([
+            firebase.database().ref(`bookedEvents/${bookedEventId}`).update({ status: 'rejected' })
+        ]).then((data) => {
+            // console.log("Operations Successful", data)
+            Alert.alert('Accepted!', 'This is now visible.', [{ text: 'Ok', style: 'destructive' }])
+        }).catch((e) => {
+            Alert.alert('Something went wrong!', 'Check your network.', [{ text: 'Ok', style: 'destructive' }])
+        })
+    }
+
+    const rating = [1, 2, 3, 4, 5];
 
     useEffect(() => {
         getData();
@@ -55,10 +79,10 @@ const Ratings = props => {
                             </Text>
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                            <Button mode="text" onPress={() => { }}>
+                            <Button mode="text" onPress={acceptReview.bind(null, item.ratings, item.eventName, item.designerName, item.id, item.userEmail)}>
                                 Accept
                             </Button>
-                            <Button mode="text" onPress={() => { }}>
+                            <Button mode="text" onPress={rejectReview.bind(null, item.id)}>
                                 Reject
                             </Button>
                         </View>
