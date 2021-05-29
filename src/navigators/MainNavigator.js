@@ -81,7 +81,7 @@ function PackagesBottomTab() {
                     tabBarLabel: Platform.OS === 'android' ? <Text style={{ fontFamily: 'headings' }}>Birthday</Text> : 'Birthday'
                 }
             }} />
-            <Tab.Screen name="Coorporate" component={Coorporate} options={() => {
+            <Tab.Screen name="Corporate" component={Coorporate} options={() => {
                 return {
                     tabBarIcon: (tabInfo) => {
                         return <FontAwesome5 name="handshake" size={25} color={tabInfo.color} />

@@ -3,6 +3,8 @@ import { View, StyleSheet, TouchableOpacity, TouchableNativeFeedback, Platform, 
 // import { Avatar, Button, Title, Paragraph } from 'react-native-paper';
 import propTypes from 'prop-types';
 import Card from './Card';
+import { moderateScale } from '../data/scaling';
+
 
 // const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
 
@@ -26,12 +28,25 @@ const EventsItem = props => {
                         <Text style={styles.price}>${props.price}</Text>
                     </View> */}
                     <View style={styles.contentContainer}>
-                        <Text style={styles.title}>{props.title}</Text>
-                        <Text style={styles.description}>{props.description}</Text>
+                        <View>
+                            <Text
+                                numberOfLines={1}
+                                adjustsFontSizeToFit
+                                style={styles.title}>
+                                {props.title}
+                            </Text>
+                        </View>
+                        <View>
+                            <Text
+                                style={styles.description}
+                                numberOfLines={3}
+                                adjustsFontSizeToFit
+                            >{props.description}</Text>
+                        </View>
                     </View>
                 </View>
             </TouchableCmp>
-        </Card>
+        </Card >
     );
 }
 
@@ -64,9 +79,10 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     title: {
-        fontSize: 18,
+        fontSize: moderateScale(18),
         fontWeight: "900",
         color: 'black',
+
         // fontFamily: 'open-sans-bold'
     },
     description: {

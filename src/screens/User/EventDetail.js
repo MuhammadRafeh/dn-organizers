@@ -26,7 +26,7 @@ const EventDetail = props => {
             <Text style={styles.description}>{event.desc}</Text>
             <View style={styles.buttonContainer}>
                 {/* <Button title={'View Packages'} onPress={() => { console.log('packages') }} /> */}
-            <Button icon="receipt" mode="contained" onPress={() => console.log('Pressed')}>
+            <Button icon="receipt" mode="contained" onPress={() => navigation.navigate(route.params?.name)}>
                 View Packages
             </Button>
             </View>
