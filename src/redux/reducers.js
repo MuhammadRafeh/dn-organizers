@@ -35,7 +35,7 @@ const initialAuthState = {
     uid: '',
     email: '',
     isAdmin: false,
-    isAuth: false
+    isAuth: true
 }
 
 const authReducer = (state = initialAuthState, action) => {
