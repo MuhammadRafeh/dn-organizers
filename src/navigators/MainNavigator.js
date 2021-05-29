@@ -99,7 +99,13 @@ function CustomDrawerContent(props) {
     return (
         <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} />
-            <DrawerItem activeTintColor={'blue'} inactiveTintColor={'white'} activeBackgroundColor={'blue'} style={{borderTopWidth: 0.2, borderTopColor: 'yellow'}} label="Logout" onPress={() => dispatch(logout())} />
+            <DrawerItem activeTintColor={'blue'} inactiveTintColor={'white'} activeBackgroundColor={'blue'} style={{ borderTopWidth: 0.2, borderTopColor: 'yellow' }} label="Logout" onPress={() => dispatch(logout())} icon={({ focused, size }) => {
+                return <Ionicons
+                    name="log-out"
+                    size={size}
+                    color={focused ? '#7cc' : '#ccc'}
+                />
+            }} />
         </DrawerContentScrollView>
     );
 }
@@ -119,19 +125,99 @@ function MainNavigator() {
             {
                 isAdmin ? (
                     <>
-                        <Drawer.Screen name="Wedding" component={AdminWedding} />
-                        <Drawer.Screen name="Birthday" component={AdminBirthday} />
-                        <Drawer.Screen name="Coorporate" component={AdminCorporate} />
-                        <Drawer.Screen name="Verify Slips" component={VerifySlips} />
-                        <Drawer.Screen name="Reviews" component={Ratings} />
+                        <Drawer.Screen name="Wedding" component={AdminWedding} options={{
+                            drawerIcon: ({ focused, size }) => (
+                                <Ionicons
+                                    name="heart"
+                                    size={size}
+                                    color={focused ? '#7cc' : '#ccc'}
+                                />
+                            ),
+                        }} />
+                        <Drawer.Screen name="Birthday" component={AdminBirthday} options={{
+                            drawerIcon: ({ focused, size }) => (
+                                <FontAwesome5
+                                    name="birthday-cake"
+                                    size={size}
+                                    color={focused ? '#7cc' : '#ccc'}
+                                />
+                            ),
+                        }} />
+                        <Drawer.Screen name="Coorporate" component={AdminCorporate} options={{
+                            drawerIcon: ({ focused, size }) => (
+                                <FontAwesome5
+                                    name="handshake"
+                                    size={size}
+                                    color={focused ? '#7cc' : '#ccc'}
+                                />
+                            ),
+                        }} />
+                        <Drawer.Screen name="Verify Slips" component={VerifySlips} options={{
+                            drawerIcon: ({ focused, size }) => (
+                                <FontAwesome5
+                                    name="sticky-note"
+                                    size={size}
+                                    color={focused ? '#7cc' : '#ccc'}
+                                />
+                            ),
+                        }} />
+                        <Drawer.Screen name="Reviews" component={Ratings} options={{
+                            drawerIcon: ({ focused, size }) => (
+                                <Ionicons
+                                    name="star"
+                                    size={size}
+                                    color={focused ? '#7cc' : '#ccc'}
+                                />
+                            ),
+                        }} />
                     </>
                 ) : (
                     <>
-                        <Drawer.Screen name="Home" component={HomeNavigator} />
-                        <Drawer.Screen name="Packages" component={PackagesBottomTab} />
-                        <Drawer.Screen name="Individual Services" component={IndividualService} />
-                        <Drawer.Screen name="Invoices" component={UserInvoices} />
-                        <Drawer.Screen name="Booked Events" component={BookedEvents} />
+                        <Drawer.Screen name="Home" component={HomeNavigator} options={{
+                            drawerIcon: ({ focused, size }) => (
+                                <Ionicons
+                                    name="md-home"
+                                    size={size}
+                                    color={focused ? '#7cc' : '#ccc'}
+                                />
+                            ),
+                        }} />
+                        <Drawer.Screen name="Packages" component={PackagesBottomTab} options={{
+                            drawerIcon: ({ focused, size }) => (
+                                <Ionicons
+                                    name="md-checkbox"
+                                    size={size}
+                                    color={focused ? '#7cc' : '#ccc'}
+                                />
+                            ),
+                        }} />
+                        <Drawer.Screen name="Individual Services" component={IndividualService} options={{
+                            drawerIcon: ({ focused, size }) => (
+                                <Ionicons
+                                    name="md-git-network"
+                                    size={size}
+                                    color={focused ? '#7cc' : '#ccc'}
+                                />
+                            ),
+                        }} />
+                        <Drawer.Screen name="Invoices" component={UserInvoices} options={{
+                            drawerIcon: ({ focused, size }) => (
+                                <FontAwesome5
+                                    name="file-invoice"
+                                    size={size}
+                                    color={focused ? '#7cc' : '#ccc'}
+                                />
+                            ),
+                        }} />
+                        <Drawer.Screen name="Booked Events" component={BookedEvents} options={{
+                            drawerIcon: ({ focused, size }) => (
+                                <Ionicons
+                                    name="ios-book"
+                                    size={size}
+                                    color={focused ? '#7cc' : '#ccc'}
+                                />
+                            ),
+                        }} />
                         {/* <Drawer.Screen name="Your Ratings" component={UserRatings} /> */}
                     </>
                 )
