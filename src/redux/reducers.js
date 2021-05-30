@@ -105,6 +105,8 @@ const packageReducer = (state = initialPackageState, action) => {
                     action.payload.package.noOfPeople,
                 )]
             }
+        case LOGOUT:
+            return initialPackageState;
         default:
             return state;
     }
@@ -176,6 +178,8 @@ const invoiceReducer = (state = initialInvoiceState, action) => {
                     } return item;
                 })
             }
+        case LOGOUT:
+            return initialInvoiceState;
         default:
             return state;
     }
@@ -238,6 +242,8 @@ const itemReducer = (state = initialItemState, action) => {
                     } return obj;
                 })
             }
+        case LOGOUT:
+            return initialItemState;
         default:
             return state;
     }
@@ -285,6 +291,8 @@ const bookedEventsReducer = (state = initialBookedEventsState, action) => {
             return {
                 bookedEvents: BookedEventRatings(action.payload)
             }
+        case LOGOUT:
+            return initialBookedEventsState;
         default:
             return state;
     }
