@@ -12,27 +12,22 @@ const BookedEvents = props => {
 
     const dispatch = useDispatch();
     const [events, email] = useSelector(state => [state.bookedEvents.bookedEvents, state.auth.email])
+    const [isRefreshing, setIsRefreshing] = React.useState(false);
 
-    // const getData = () => {
-    //     firebase.database().ref('bookedEvents/').once('value', function (snapshot) {
-    //         dispatch(setBookedEvents(snapshot.val(), email));
-    //         console.log('done', snapshot.val())
-    //     }, function (err) {
-    //         console.log('failed to fetch', err)
-    //     });
-    // }
-
-    useEffect(() => {
-        const ref = firebase.database().ref('bookedEvents/')
-        ref.on('value', function (snapshot) {
+    const getData = () => {
+        setIsRefreshing(true);
+        firebase.database().ref('bookedEvents/').once('value', function (snapshot) {
             dispatch(setBookedEvents(snapshot.val(), email));
             console.log('done', snapshot.val())
+            setIsRefreshing(false);
         }, function (err) {
-            // console.log('failed to fetch', err)
-            Alert.alert('Something went wrong!', 'Please check your network.', [{text: 'Ok', style: 'destructive'}])
+            setIsRefreshing(false);
+            Alert.alert('Something went wrong!', 'Please check your network.', [{ text: 'Ok', style: 'destructive' }])
         });
+    }
 
-        return () => ref.off('value')
+    useEffect(() => {
+        getData();
     }, [])
 
     const onSubmitReview = (id, ratings, desc) => {
@@ -46,7 +41,7 @@ const BookedEvents = props => {
             ratings: ratingObj
         }).then(() => {
             Alert.alert('Thanks for giving Review!', 'Your review will appear after Admin Acceptance.', [{ text: 'Ok', style: 'destructive' }])
-            // dispatch(updateBookedEvents(id, ratingObj, 'usergivedreview'));
+            dispatch(updateBookedEvents(id, ratingObj, 'usergivedreview'));
         }).catch((err) => {
             Alert.alert('Something went wrong!', err.message, [{ text: 'Ok', style: 'destructive' }])
         });
@@ -70,6 +65,8 @@ const BookedEvents = props => {
             {console.log('asdasd------------------------------', events)}
             <Header navigation={props.navigation} bookedEvents />
             <FlatList
+                onRefresh={getData}
+                refreshing={isRefreshing}
                 data={events}
                 renderItem={({ item }) => {
                     return <BookedEvent item={item} onSubmitReview={onSubmitReview} />
