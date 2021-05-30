@@ -19,8 +19,10 @@ const BookedEvent = props => {
     return (
         <Card style={{ margin: 10, overflow: 'hidden' }}>
             <View style={{ height: 80, backgroundColor: 'green', justifyContent: 'center', overflow: 'hidden' }}>
-                <Text style={{ textAlign: 'center', fontFamily: 'headings', color: 'white', fontSize: 20 }}>Event Booked Successfully!</Text>
-                <View style={{ height: 20, width: 110, position: 'absolute', justifyContent: 'center', alignItems: 'center', top: 30, backgroundColor: 'blue', transform: [{ rotate: '-55deg' }] }}>
+                <View style={{ width: '50%', alignSelf: 'center', height: '50%', justifyContent: 'center'}}>
+                    <Text numberOfLines={1} adjustsFontSizeToFit style={{ textAlign: 'center', fontFamily: 'headings', color: 'white', fontSize: 20 }}>Event Booked Successfully!</Text>
+                </View>
+                <View style={{ height: 20, width: 110, position: 'absolute', justifyContent: 'center', alignItems: 'center', left: 0, backgroundColor: 'blue', transform: [{ rotate: '-55deg' }] }}>
                     <View style={{ marginTop: 4 }}>
                         <Text style={{ color: 'white', fontFamily: 'joining', textAlign: 'center', fontSize: 20 }}>{item.isPackage ? 'Package' : 'Custom'}</Text>
                     </View>
@@ -50,8 +52,12 @@ const BookedEvent = props => {
                                     if (item.name) {
                                         return (
                                             <View key={key} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginRight: 15 }}>
-                                                <Text><Text style={styles.menuListDecorator}>-</Text>{item.name}</Text>
-                                                <Text>{item.price}</Text>
+                                                <View style={{ flex: 1 }}>
+                                                    <Text numberOfLines={1} adjustsFontSizeToFit><Text style={styles.menuListDecorator}>-</Text>{item.name}</Text>
+                                                </View>
+                                                <View>
+                                                    <Text>{item.price}</Text>
+                                                </View>
                                             </View>
                                         )
                                     } return (

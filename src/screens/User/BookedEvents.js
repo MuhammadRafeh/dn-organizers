@@ -13,17 +13,26 @@ const BookedEvents = props => {
     const dispatch = useDispatch();
     const [events, email] = useSelector(state => [state.bookedEvents.bookedEvents, state.auth.email])
 
-    const getData = () => {
-        firebase.database().ref('bookedEvents/').once('value', function (snapshot) {
+    // const getData = () => {
+    //     firebase.database().ref('bookedEvents/').once('value', function (snapshot) {
+    //         dispatch(setBookedEvents(snapshot.val(), email));
+    //         console.log('done', snapshot.val())
+    //     }, function (err) {
+    //         console.log('failed to fetch', err)
+    //     });
+    // }
+
+    useEffect(() => {
+        const ref = firebase.database().ref('bookedEvents/')
+        ref.on('value', function (snapshot) {
             dispatch(setBookedEvents(snapshot.val(), email));
             console.log('done', snapshot.val())
         }, function (err) {
-            console.log('failed to fetch', err)
+            // console.log('failed to fetch', err)
+            Alert.alert('Something went wrong!', 'Please check your network.', [{text: 'Ok', style: 'destructive'}])
         });
-    }
 
-    useEffect(() => {
-        getData();
+        return () => ref.off('value')
     }, [])
 
     const onSubmitReview = (id, ratings, desc) => {
@@ -37,24 +46,24 @@ const BookedEvents = props => {
             ratings: ratingObj
         }).then(() => {
             Alert.alert('Thanks for giving Review!', 'Your review will appear after Admin Acceptance.', [{ text: 'Ok', style: 'destructive' }])
-            dispatch(updateBookedEvents(id, ratingObj, 'usergivedreview'));
+            // dispatch(updateBookedEvents(id, ratingObj, 'usergivedreview'));
         }).catch((err) => {
             Alert.alert('Something went wrong!', err.message, [{ text: 'Ok', style: 'destructive' }])
         });
     }
 
-    if (events.length == 0) {
-        return (
-            <>
-                <Header navigation={props.navigation} bookedEvents />
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ textAlign: 'center', color: 'grey' }}>
-                        You have not booked any Event yet!
-                    </Text>
-                </View>
-            </>
-        )
-    }
+    // if (events.length == 0) {
+    //     return (
+    //         <>
+    //             <Header navigation={props.navigation} bookedEvents />
+    //             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    //                 <Text style={{ textAlign: 'center', color: 'grey' }}>
+    //                     You have not booked any Event yet!
+    //                 </Text>
+    //             </View>
+    //         </>
+    //     )
+    // }
 
     return (
         <View style={styles.screen}>
