@@ -1,36 +1,80 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import { Button } from 'react-native-paper';
 import Card from './Card';
 import propTypes from 'prop-types';
 import { List } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-// import Modal from 'react-native-modal';
+import Modal from 'react-native-modal';
+import { Avatar } from 'react-native-paper';
+import { designers } from '../data/Data';
+import { Ionicons } from '@expo/vector-icons';
 
-// const Modals = (props) => {
-//     return (
-//         <View>
-//             <Modal isVisible={isShow}>
-//                 <View style={{ flex: 1 }}>
-//                     <Text>I am the modal content!</Text>
-//                 </View>
-//             </Modal>
-//         </View>
-//     )
-// }
+
+const Modals = props => { //designerName, toggleModal, isShow
+    const rating = [1, 2, 3, 4, 5];
+
+    const designerDetail = designers.filter(item => item.name == props.designerName)[0];
+    console.log(designerDetail)
+    return (
+        <View>
+            <Modal isVisible={props.isShow}>
+                <ScrollView
+                    contentContainerStyle={{ justifyContent: 'center' }}
+                >
+                    <View style={{ backgroundColor: 'white', padding: 10 }}>
+                        <View style={{ alignItems: 'center' }}>
+                            <Avatar.Image size={60} source={designerDetail.pic} />
+                        </View>
+                        <View style={{ alignItems: 'center' }}>
+                            <Text style={{ gallerybackgroundColor: 'white', fontFamily: 'joining' }}>{designerDetail.name}</Text>
+                        </View>
+                        <View style={{ marginTop: 0, padding: 0 }}>
+                            <Text style={{ textAlign: 'center', marginBottom: 0 }}>
+                                {rating.map((number, index) => {
+                                    if (index < designerDetail.rating) {
+                                        return <Ionicons key={index} name={'star'} size={23} color={'red'} />
+                                    } return <Ionicons key={index} name={'star-outline'} size={23} color={'red'} />
+                                })}
+                            </Text>
+                        </View>
+                        <View style={{ marginTop: 15 }}>
+                            <Text style={{ textAlign: 'center' }}>
+                                {designerDetail.desc}
+                            </Text>
+                        </View>
+                        <View style={{ marginTop: 10, marginBottom: 10 }}>
+                            <Text style={{ textAlign: 'center', fontFamily: 'headings', fontSize: 30 }}>Gallery</Text>
+                        </View>
+                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                            {designerDetail.gallery.map(img => (
+                                <Image style={{ width: '100%', height: 150, margin: 10 }} resizeMode={'cover'} source={img} />
+                            ))}
+                        </View>
+                        <View style={{ marginVertical: 10 }}>
+                            <Button mode="text" onPress={props.toggleModal}>
+                                Close
+                            </Button>
+                        </View>
+                    </View>
+                </ScrollView>
+            </Modal>
+        </View>
+    )
+}
 
 const PackagesItem = props => {
     const [expanded, setExpanded] = useState(true);
-    // const [isShowModal, setIsShowModal] = useState(false);
+    const [isShowModal, setIsShowModal] = useState(false);
 
     const onDesignerPress = (setShowModal) => {
-        // setIsShowModal(setShowModal);
+        setIsShowModal(setShowModal);
     }
 
     const handlePress = () => setExpanded(!expanded);
     return (
         <Card style={styles.cardStyle}>
-            {/* <Modals /> */}
+            <Modals isShow={isShowModal} toggleModal={setIsShowModal.bind(null, !isShowModal)} designerName={props.designerName} />
             <View style={styles.cardHeader}>
                 <View style={styles.flex1} />
                 <View style={styles.flex1}>
