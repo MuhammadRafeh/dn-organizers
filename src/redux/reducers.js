@@ -35,7 +35,7 @@ const initialAuthState = {
     uid: '',
     email: '',
     isAdmin: false,
-    isAuth: true
+    isAuth: false
 }
 
 const authReducer = (state = initialAuthState, action) => {
@@ -103,6 +103,7 @@ const packageReducer = (state = initialPackageState, action) => {
                     action.payload.package.venu,
                     action.payload.package.occuredDate,
                     action.payload.package.noOfPeople,
+                    action.payload.package?.noOfPeople,
                 )]
             }
         case LOGOUT:

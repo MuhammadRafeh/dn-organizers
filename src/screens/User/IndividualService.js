@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 import firebase from 'firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { setItems, addPendingInvoice } from '../../redux/actions';
+import { designers } from '../../data/Data';
 
 const IndividualService = props => {
     const [value, setValue] = useState('');
@@ -252,9 +253,9 @@ const IndividualService = props => {
                             setSelectedDesigner(itemValue)
                         }>
                         <Picker.Item label="Select Designer" value="Select Designer" />
-                        <Picker.Item label="Rafeh" value="Rafeh" />
-                        <Picker.Item label="Akif" value="Akif" />
-                        <Picker.Item label="Umar" value="Umar" />
+                        {designers.map(item => (
+                            <Picker.Item label={item.name} value={item.name} />
+                        ))}
                     </Picker>
                 </View>
 

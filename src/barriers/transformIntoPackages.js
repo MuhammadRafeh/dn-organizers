@@ -12,7 +12,8 @@ const transformIntoPackage = (payload) => {
                 response[id].menu, 
                 response[id].venu,
                 response[id].occuredDate,
-                response[id].noOfPeople
+                response[id].noOfPeople,
+                response[id].designerName
             )
         )
     }

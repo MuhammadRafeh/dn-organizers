@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import firebase from 'firebase'
 import DataTable from '../../components/DataTable';
 import AdminPackageItems from '../../components/AdminPackageItems';
+import { designers } from '../../data/Data';
 
 const AdminWedding = props => {
     const [visible, setVisible] = React.useState(false);
@@ -36,6 +37,7 @@ const AdminWedding = props => {
     const [venuPrice, setVenuPrice] = useState('');
     const [noOfPeople, setNoOfPeople] = useState('');
     const [selectedMenu, setSelectedMenu] = useState([]);
+    const [designer, setDesigner] = useState('');
     //take occured Date from date state
 
     //Item Model State
@@ -58,7 +60,7 @@ const AdminWedding = props => {
         venu = items.filter(obj => obj['venu'])[0]['venu'];
         menu = items.filter(obj => obj['menu'])[0]['menu'];
     } catch (error) {
-        
+
     }
     const addMenu = () => {
         if (addMenuName.length >= 1 && +addMenuPrice >= 1) {
@@ -139,10 +141,10 @@ const AdminWedding = props => {
             }
         });
         if (menu.length == 0) {
-            Alert.alert('Select menu first!', 'Please select at least 1 menu item', [{text: 'Ok', style: "destructive"}])
+            Alert.alert('Select menu first!', 'Please select at least 1 menu item', [{ text: 'Ok', style: "destructive" }])
             return;
-        } else if (venuName == 'Select Venu' || +noOfPeople <= 0 || packageName.length < 1 || +price <= 0) {
-            Alert.alert('Please fillout form first!', 'First fillout form to continue.', [{text: 'Ok', style: "destructive"}])
+        } else if (venuName == 'Select Venu' || +noOfPeople <= 0 || packageName.length < 1 || +price <= 0 || designer == 'Select Designer') {
+            Alert.alert('Please fillout form first!', 'First fillout form to continue.', [{ text: 'Ok', style: "destructive" }])
             return;
         }
 
@@ -153,7 +155,8 @@ const AdminWedding = props => {
             venu: venuName,
             menu,
             occuredDate: date.toString(),
-            noOfPeople
+            noOfPeople,
+            designerName: designer
         }
         uploadToFirebase(
             'events/birthday/packages/',
@@ -172,25 +175,25 @@ const AdminWedding = props => {
         // deleteMenuId, deleteVenuId
         if (type == 'venu') {
             if (deleteVenuId == '0') {
-                Alert.alert('Please Select Venu First!', 'Select item to delete.', [{text: 'Ok', style: 'destructive'}])
+                Alert.alert('Please Select Venu First!', 'Select item to delete.', [{ text: 'Ok', style: 'destructive' }])
                 return;
             }
             firebase.database().ref(`events/birthday/items/venu/${deleteVenuId}`).remove().then(() => {
                 dispatch(deleteItems('birthdayItems', deleteVenuId, 'venu'));
-                Alert.alert('Successfully Deleted!', 'This item is no more exists.', [{text: 'Ok', style: 'destructive'}])
+                Alert.alert('Successfully Deleted!', 'This item is no more exists.', [{ text: 'Ok', style: 'destructive' }])
             }).catch(() => {
-                Alert.alert('Something went wrong!', 'Please check your network.', [{text: 'Ok', style: 'destructive'}])
+                Alert.alert('Something went wrong!', 'Please check your network.', [{ text: 'Ok', style: 'destructive' }])
             })
         } else if (type == 'menu') {
             if (deleteMenuId == '0') {
-                Alert.alert('Please Select Menu First!', 'Select item to delete.', [{text: 'Ok', style: 'destructive'}])
+                Alert.alert('Please Select Menu First!', 'Select item to delete.', [{ text: 'Ok', style: 'destructive' }])
                 return
             }
             firebase.database().ref(`events/birthday/items/menu/${deleteMenuId}`).remove().then(() => {
                 dispatch(deleteItems('birthdayItems', deleteMenuId, 'menu'));
-                Alert.alert('Successfully Deleted!', 'This item is no more exists.', [{text: 'Ok', style: 'destructive'}])
+                Alert.alert('Successfully Deleted!', 'This item is no more exists.', [{ text: 'Ok', style: 'destructive' }])
             }).catch(() => {
-                Alert.alert('Something went wrong!', 'Please check your network.', [{text: 'Ok', style: 'destructive'}])
+                Alert.alert('Something went wrong!', 'Please check your network.', [{ text: 'Ok', style: 'destructive' }])
             })
         }
     }
@@ -310,29 +313,35 @@ const AdminWedding = props => {
                                                     }
                                                 </Picker>
                                             </View>
-                                            {/* <View>
+
+                                            <Text style={{ color: 'grey', fontFamily: 'descent', textAlign: 'center', fontSize: 20 }}>
+                                                Designer
+                                            </Text>
+
+                                            <View>
                                                 <Text style={{ color: 'grey' }}>
-                                                    Price:
+                                                    Name:
                                                 </Text>
-                                            </View> */}
+                                            </View>
                                             {/* VENU PRICE------------------------------- */}
-                                            {/* <View style={{ marginLeft: 5, marginVertical: 5 }}>
+                                            <View style={{ marginLeft: 5, marginVertical: 5 }}>
                                                 <Picker
                                                     style={{ width: '100%', height: 20 }}
-                                                    selectedValue={venuPrice}
+                                                    selectedValue={designer}
                                                     mode="dropdown"
                                                     onValueChange={(itemValue, itemIndex) => {
-                                                        setVenuPrice(itemValue?.price);
+                                                        setDesigner(itemValue?.name);
                                                         // setVenuPrice(itemValue.price);
                                                         //here we want to calculate price
                                                     }
                                                     }>
-                                                    {menu.map((item) => (
-                                                        <Picker.Item key={item?.id} label={`${item?.price}`} value={{ price: item?.price }} />
+                                                    <Picker.Item key={0} label={'Select Designer'} value={{ name: 'Select Designer' }} />
+                                                    {designers.map((item, index) => (
+                                                        <Picker.Item key={index} label={`${item.name}`} value={{ name: item.name }} />
                                                     ))
                                                     }
                                                 </Picker>
-                                            </View> */}
+                                            </View>
                                         </View>
                                         {/* Occured Date */}
                                         {
@@ -525,6 +534,7 @@ const AdminWedding = props => {
                         venu={item.venu}
                         noOfPeople={item.noOfPeople}
                         occuredDate={new Date(item.occuredDate).toUTCString()}
+                        designerName={item.designerName}
                     />
                 )
             })}

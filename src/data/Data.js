@@ -20,7 +20,7 @@ export const dummyData =
                 description: "Dakh tera baap aaya, Shikari.",
                 id: 3
         }
-]
+        ]
 
 export const events = [
         {
@@ -32,11 +32,20 @@ export const events = [
         {
                 source: require('../../assets/images/birthday.jpeg'),
                 title: 'Birthday',
-                desc: 'Make your new days as you desire. We provide best services and all new & Astonishing themes to make your special days more special & memorable'       
+                desc: 'Make your new days as you desire. We provide best services and all new & Astonishing themes to make your special days more special & memorable'
         },
         {
                 source: require('../../assets/images/corporate1.jpeg'),
                 title: 'Corporate',
-                desc: 'We provide Destination Coorporate and make your precious days one to never forget. Best services, cattering, Photoshoot and many more. '      
+                desc: 'We provide Destination Coorporate and make your precious days one to never forget. Best services, cattering, Photoshoot and many more. '
         }
+]
+
+export const designers = [
+        { name: 'Ramish Ali', pic: require('../../assets/designers/boy4.jpeg'), desc: 'Good Wedding Designer', rating: 3 },
+        { name: 'Muhammad Rafeh', pic: require('../../assets/designers/boy3.jpeg'), desc: 'Good Corporate Designer', rating: 4 },
+        { name: 'Rabia Imtiyaz', pic: require('../../assets/designers/girl1.jpeg'), desc: 'Good Birthday Designer', rating: 3 },
+        { name: 'Aleshba Asif', pic: require('../../assets/designers/girl2.jpeg'), desc: 'Good Wedding Designer', rating: 4 },
+        { name: 'Muhammad Akif', pic: require('../../assets/designers/boy2.jpeg'), desc: 'Good Birthday Designer', rating: 5 },
+        { name: 'Halima Sultan', pic: require('../../assets/designers/boy1.jpeg'), desc: 'Good Corporate Designer', rating: 3 }
 ]

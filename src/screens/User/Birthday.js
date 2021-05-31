@@ -28,7 +28,7 @@ const Birthday = props => {
     const handleBookPress = (id, name, theme, menu, venu, price, occuredDate, noOfPeople) => {
         // pendingInvoices.forEach(invoice => {
         //     if (invoice.id == id){
-                
+
         //     }
         // })
         const invoice = {
@@ -49,7 +49,7 @@ const Birthday = props => {
         }
         firebase.database().ref('pendingInvoices/').push(invoice).then((data) => {
             //success callback
-            dispatch(addPendingInvoice({...invoice, id: data.key}))
+            dispatch(addPendingInvoice({ ...invoice, id: data.key }))
             Alert.alert('Successfully added to Invoices', 'Please go to invoice section to clear first and continue.', [{ text: 'Ok' }])
         }).catch((error) => {
             //error callback
@@ -74,6 +74,9 @@ const Birthday = props => {
                         theme={item.item.theme}
                         venu={item.item.venu}
                         menu={item.item.menu}
+                        occuredDate={item.item.occuredDate}
+                        noOfPeople={item.item.noOfPeople}
+                        designerName={item.item.designerName}
                         handleBookPress={() => {
                             handleBookPress(
                                 item.item.id,

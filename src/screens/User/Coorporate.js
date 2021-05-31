@@ -73,6 +73,9 @@ const Coorporate = props => {
                         theme={item.item.theme}
                         venu={item.item.venu}
                         menu={item.item.menu}
+                        occuredDate={item.item.occuredDate}
+                        noOfPeople={item.item.noOfPeople}
+                        designerName={item.item.designerName}
                         handleBookPress={() => {
                             handleBookPress(
                                 item.item.id,

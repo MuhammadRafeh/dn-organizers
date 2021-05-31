@@ -33,6 +33,7 @@ const AdminPackageItems = props => {
                     <Text><Text style={styles.labelStyle}>Venu:</Text> {props.venu}</Text>
                     <Text><Text style={styles.labelStyle}>No of people:</Text> {props.noOfPeople}</Text>
                     <Text><Text style={styles.labelStyle}>Date:</Text> {props.occuredDate}</Text>
+                    <Text><Text style={styles.labelStyle}>Designer:</Text> {props.designerName}</Text>
                 </View>
                 <List.Section>
                     <List.Accordion

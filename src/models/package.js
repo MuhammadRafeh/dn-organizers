@@ -1,5 +1,5 @@
 class Package {
-    constructor(id, name, price, theme, menu, venu, occuredDate, noOfPeople) {
+    constructor(id, name, price, theme, menu, venu, occuredDate, noOfPeople, designerName) {
         this.id = id //This is a firebase assigned id;
         this.name = name;
         this.price = price;
@@ -8,6 +8,7 @@ class Package {
         this.venu = venu; //[{id, name, price}, ....]
         this.occuredDate = occuredDate;
         this.noOfPeople = noOfPeople;
+        this.designerName = designerName;
     }
 }
 
