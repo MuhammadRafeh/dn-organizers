@@ -24,7 +24,7 @@ const PackagesItem = props => {
     // const [isShowModal, setIsShowModal] = useState(false);
 
     const onDesignerPress = (setShowModal) => {
-        setIsShowModal(setShowModal);
+        // setIsShowModal(setShowModal);
     }
 
     const handlePress = () => setExpanded(!expanded);
