@@ -48,9 +48,30 @@ const Login = (props) => {
         }
     };
 
+    const forgotPassword = () => {
+        if (!isEmailValid) {
+            Alert.alert('Enter valid email first!', 'Provide your email first.', [{text: 'Ok', style: 'destructive'}])
+            return;
+        }
+        firebase.auth().sendPasswordResetEmail(email)
+            .then(function (user) {
+                // alert('Please check your email...')
+                Alert.alert('Check your email!', 'Check email in order to set new password', [{text: 'Ok', style: 'destructive'}])
+                setEmail('')
+            }).catch(function (e) {
+                // console.log(e)
+                Alert.alert('Something went wrong!', e.message, [{text: 'Ok', style: 'destructive'}])
+            })
+    }
+
     const handleLastRowButton = (type) => {
         if (type === 'create') {
             props.navigation.push('login', { signup: 'signup' }) //only user can create
+            return;
+        }
+        if (type === 'forget') {
+            forgotPassword();
+            return;
         }
         // forget (user and admin)
     }
@@ -78,7 +99,7 @@ const Login = (props) => {
                     // console.log(object.user.uid)
                     dispatch(authenticate(object.user.uid, email.toLowerCase(), false, false))
                 })
-                .catch(error => Alert.alert('Something went wrong', error.message, [{text: 'OK'}]));
+                .catch(error => Alert.alert('Something went wrong', error.message, [{ text: 'OK' }]));
         }
         else if (loginBy === 'admin') {
             //here we are signing the admin
@@ -88,16 +109,16 @@ const Login = (props) => {
             //         dispatch(authenticate())
             //     } 
             // });
-            if (email.toLowerCase() == 'admin@gmail.com' && password == '123456'){
+            if (email.toLowerCase() == 'admin@gmail.com' && password == '123456') {
                 firebase
                     .auth()
                     .signInWithEmailAndPassword(email, password)
                     .then((object) => {
                         dispatch(authenticate(object.user.uid, email, true, false))
                     })
-                    .catch(error => Alert.alert('Something went wrong', error.message, [{text: 'OK'}]));
+                    .catch(error => Alert.alert('Something went wrong', error.message, [{ text: 'OK' }]));
             } else {
-                Alert.alert('Wrong Credentials', 'Invalid email/password', [{text: 'Ok'}])
+                Alert.alert('Wrong Credentials', 'Invalid email/password', [{ text: 'Ok' }])
             }
         }
     }
@@ -169,8 +190,8 @@ const Login = (props) => {
                         >
                             <Text style={styles.lastRowText}>Create Account</Text>
                         </TouchableOpacity>) : (
-                                <View />
-                            )}
+                            <View />
+                        )}
                         <TouchableOpacity
                             onPress={handleLastRowButton.bind(null, 'forget')}
                         >
