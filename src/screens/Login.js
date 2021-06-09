@@ -50,17 +50,17 @@ const Login = (props) => {
 
     const forgotPassword = () => {
         if (!isEmailValid) {
-            Alert.alert('Enter valid email first!', 'Provide your email first.', [{text: 'Ok', style: 'destructive'}])
+            Alert.alert('Enter valid email first!', 'Provide your email first.', [{ text: 'Ok', style: 'destructive' }])
             return;
         }
         firebase.auth().sendPasswordResetEmail(email)
             .then(function (user) {
                 // alert('Please check your email...')
-                Alert.alert('Check your email!', 'Check email in order to set new password', [{text: 'Ok', style: 'destructive'}])
+                Alert.alert('Check your email!', 'Check email in order to set new password', [{ text: 'Ok', style: 'destructive' }])
                 setEmail('')
             }).catch(function (e) {
                 // console.log(e)
-                Alert.alert('Something went wrong!', e.message, [{text: 'Ok', style: 'destructive'}])
+                Alert.alert('Something went wrong!', e.message, [{ text: 'Ok', style: 'destructive' }])
             })
     }
 
@@ -81,13 +81,18 @@ const Login = (props) => {
             //here we are creating the user
             if (password === confirmPassword) {
                 firebase.auth().createUserWithEmailAndPassword(email, password).then((object) => {
-                    dispatch(authenticate(object.user.uid, email, false, false));
+                    // dispatch(authenticate(object.user.uid, email, false, false));
+                    object.user.sendEmailVerification();
+                    // console.log(object.user.sendEmailVerification())
+                    firebase.auth().signOut();
+                    Alert.alert('Check your email!', 'Verify your email in order to login.', [{text: 'Ok', style: 'destructive'}])
+                    props.navigation.goBack();
                 }).catch(err => {
                     Alert.alert('Something went wrong', err.message, [{ text: 'Ok' }])
                 })
                 // firebase.auth().
             } else {
-                Alert.alert('Password Error', 'Passwords not match with each other', [{ text: 'Ok' }])
+                Alert.alert('Password Error', 'Passwords not match with each other', [{ text: 'Ok', style: 'destructive' }])
             }
         }
         else if (loginBy === 'user' && isEmailValid && password >= 6) {
@@ -99,7 +104,7 @@ const Login = (props) => {
                     // console.log(object.user.uid)
                     dispatch(authenticate(object.user.uid, email.toLowerCase(), false, false))
                 })
-                .catch(error => Alert.alert('Something went wrong', error.message, [{ text: 'OK' }]));
+                .catch(error => Alert.alert('Something went wrong', error.message, [{ text: 'OK', style: 'destructive' }]));
         }
         else if (loginBy === 'admin') {
             //here we are signing the admin
@@ -118,7 +123,7 @@ const Login = (props) => {
                     })
                     .catch(error => Alert.alert('Something went wrong', error.message, [{ text: 'OK' }]));
             } else {
-                Alert.alert('Wrong Credentials', 'Invalid email/password', [{ text: 'Ok' }])
+                Alert.alert('Wrong Credentials', 'Invalid email/password', [{ text: 'Ok', style: 'destructive' }])
             }
         }
     }
