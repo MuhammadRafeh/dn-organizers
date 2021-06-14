@@ -37,7 +37,9 @@ const Header = props => {
                 onPress={_goBack}
             />
             {props.invoices ? <Appbar.Content title="Invoices" subtitle="Packages" /> : props.custom ? <Appbar.Content title="Custom" subtitle="Events" /> : (
-                props.bookedEvent ? <Appbar.Content title="Booked" subtitle="Events" /> : props.bookedEvents ? <Appbar.Content title="Booked" subtitle="Events" />: <Appbar.Content title="Packages" subtitle="Events" />
+                props.bookedEvent ? <Appbar.Content title="Booked" subtitle="Events" /> :
+                    props.bookedEvents ? <Appbar.Content title="Booked" subtitle="Events" /> :
+                        props.cvUpload ? <Appbar.Content title="Upload" subtitle="CV" /> : <Appbar.Content title="Packages" subtitle="Events" />
             )}
             {/* <Appbar.Action icon="save" onPress={_handleMore} /> */}
             {/* {props.custom && <Appbar.Content title="Custom" subtitle="Events" />} */}
