@@ -31,6 +31,9 @@ import AdminBirthday from '../screens/Admin/AdminBirthday';
 import VerifySlips from '../screens/Admin/VerifySlips';
 import Ratings from '../screens/Admin/Ratings';
 
+import firebase from 'firebase';
+import UploadCv from '../screens/User/UploadCv';
+
 const Stack = createStackNavigator();
 
 function HomeNavigator() {
@@ -99,7 +102,13 @@ function CustomDrawerContent(props) {
     return (
         <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} />
-            <DrawerItem activeTintColor={'blue'} inactiveTintColor={'white'} activeBackgroundColor={'blue'} style={{ borderTopWidth: 0.2, borderTopColor: 'yellow' }} label="Logout" onPress={() => dispatch(logout())} icon={({ focused, size }) => {
+            <DrawerItem activeTintColor={'blue'} inactiveTintColor={'white'} activeBackgroundColor={'blue'} style={{ borderTopWidth: 0.2, borderTopColor: 'yellow' }} label="Logout" onPress={() => {
+                try {
+                    firebase.auth().signOut();
+                } catch(e){
+                }
+                dispatch(logout())
+            }} icon={({ focused, size }) => {
                 return <Ionicons
                     name="log-out"
                     size={size}
@@ -213,6 +222,15 @@ function MainNavigator() {
                             drawerIcon: ({ focused, size }) => (
                                 <Ionicons
                                     name="ios-book"
+                                    size={size}
+                                    color={focused ? '#7cc' : '#ccc'}
+                                />
+                            ),
+                        }} />
+                        <Drawer.Screen name="Upload CV" component={UploadCv} options={{
+                            drawerIcon: ({ focused, size }) => (
+                                <Ionicons
+                                    name="cloud-upload"
                                     size={size}
                                     color={focused ? '#7cc' : '#ccc'}
                                 />

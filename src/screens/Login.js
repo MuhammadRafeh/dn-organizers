@@ -102,6 +102,11 @@ const Login = (props) => {
                 .signInWithEmailAndPassword(email, password)
                 .then((object) => {
                     // console.log(object.user.uid)
+                    if (!object.user.emailVerified){
+                        Alert.alert('Please verify your email!', 'Your email is not verified yet.', [{text: 'OK', style: 'destructive'}])
+                        firebase.auth().signOut();
+                        return
+                    }
                     dispatch(authenticate(object.user.uid, email.toLowerCase(), false, false))
                 })
                 .catch(error => Alert.alert('Something went wrong', error.message, [{ text: 'OK', style: 'destructive' }]));
