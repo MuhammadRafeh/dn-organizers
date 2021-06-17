@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import AdminHeader from '../../components/AdminHeader';
 
 const Cv = props => {
     return (
-        <View style={{flex: 1}}>
+        <View>
+            <AdminHeader navigation={props.navigation} cv />
             <Text>
                 Cv screen
             </Text>

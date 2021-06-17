@@ -41,7 +41,9 @@ const AdminHeader = props => {
                 props.birthday ? <Appbar.Content title="Birthday" subtitle="Event" /> : 
                 props.corporate ? <Appbar.Content title="Corporate" subtitle="Event" /> : 
                 props.verifySlips ? <Appbar.Content title="Invoices" subtitle="Review" />: 
-                props.reviews && (<Appbar.Content title="Reviews" subtitle="Filter" />)
+                props.reviews ? <Appbar.Content title="Reviews" subtitle="Filter" />:
+                props.cv ? <Appbar.Content title="CV" subtitle="Submitted" />:
+                props.email && (<Appbar.Content title="Emails" subtitle="Submitted" />)
             }
             
             {/* <Appbar.Action icon="save" onPress={_handleMore} /> */}
