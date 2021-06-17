@@ -40,7 +40,7 @@ const Cv = props => {
                             <View style={{ height: 1, backgroundColor: 'grey', width: '90%', alignSelf: 'center', marginBottom: 10 }} />
                             <View style={styles.infoRow}>
                                 <View>
-                                    <Text>
+                                    <Text style={styles.labelColor}>
                                         Phone Num:
                                     </Text>
                                 </View>
@@ -52,7 +52,7 @@ const Cv = props => {
                             </View>
                             <View style={styles.infoRow}>
                                 <View>
-                                    <Text>
+                                    <Text style={styles.labelColor}>
                                         Work As:
                                     </Text>
                                 </View>
@@ -64,7 +64,7 @@ const Cv = props => {
                             </View>
                             <View style={styles.infoRow}>
                                 <View>
-                                    <Text>
+                                    <Text style={styles.labelColor}>
                                         Event:
                                     </Text>
                                 </View>
@@ -76,7 +76,7 @@ const Cv = props => {
                             </View>
                             <View style={styles.infoRow}>
                                 <View>
-                                    <Text>
+                                    <Text style={styles.labelColor}>
                                         CNIC:
                                     </Text>
                                 </View>
@@ -88,7 +88,7 @@ const Cv = props => {
                             </View>
                             <View style={styles.infoRow}>
                                 <View>
-                                    <Text>
+                                    <Text style={styles.labelColor}>
                                         Email:
                                     </Text>
                                 </View>
@@ -130,5 +130,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginVertical: 1,
         justifyContent: 'space-between'
+    },
+    labelColor: {
+        color: 'grey',
+        fontWeight: 'bold'
     }
 });
