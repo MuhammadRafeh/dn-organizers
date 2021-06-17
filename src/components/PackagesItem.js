@@ -16,6 +16,34 @@ const Modals = props => { //designerName, toggleModal, isShow
 
     const designerDetail = designers.filter(item => item.name == props.designerName)[0];
     console.log(designerDetail)
+    if (props.card) {
+        return (
+            <View>
+                <Modal isVisible={props.isShow}>
+                    <ScrollView
+                        contentContainerStyle={{ justifyContent: 'center' }}
+                    >
+                        <View style={{ backgroundColor: 'white', paddingHorizontal: 2 }}>
+                            
+                            <View style={{ marginTop: 10, marginBottom: 10 }}>
+                                <Text style={{ textAlign: 'center', fontFamily: 'headings', fontSize: 30 }}>Cards</Text>
+                            </View>
+                            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                {designerDetail.gallery.map(img => (
+                                    <Image style={{ width: '100%', height: 150, margin: 10 }} resizeMode={'cover'} source={img} />
+                                ))}
+                            </View>
+                            <View style={{ marginVertical: 10 }}>
+                                <Button mode="text" onPress={props.toggleModal}>
+                                    Close
+                            </Button>
+                            </View>
+                        </View>
+                    </ScrollView>
+                </Modal>
+            </View>
+        )
+    }
     return (
         <View>
             <Modal isVisible={props.isShow}>
@@ -66,15 +94,17 @@ const Modals = props => { //designerName, toggleModal, isShow
 const PackagesItem = props => {
     const [expanded, setExpanded] = useState(true);
     const [isShowModal, setIsShowModal] = useState(false);
+    const [isShowCard, setIsShowCard] = useState(false);
 
-    const onDesignerPress = (setShowModal) => {
+    const onDesignerPress = (setShowModal, cardShowState) => {
         setIsShowModal(setShowModal);
+        setIsShowCard(cardShowState);
     }
 
     const handlePress = () => setExpanded(!expanded);
     return (
         <Card style={styles.cardStyle}>
-            <Modals isShow={isShowModal} toggleModal={setIsShowModal.bind(null, !isShowModal)} designerName={props.designerName} />
+            <Modals isShow={isShowModal} card={isShowCard} toggleModal={setIsShowModal.bind(null, !isShowModal)} designerName={props.designerName} />
             <View style={styles.cardHeader}>
                 <View style={styles.flex1} />
                 <View style={styles.flex1}>
@@ -95,8 +125,17 @@ const PackagesItem = props => {
                             <Text style={styles.labelStyle}>Designer: </Text>
                         </View>
 
-                        <TouchableOpacity onPress={onDesignerPress.bind(null, true)}>
+                        <TouchableOpacity onPress={onDesignerPress.bind(null, true, false)}>
                             <Text style={{ color: 'blue' }}>{props.designerName}</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View>
+                            <Text style={styles.labelStyle}>Card: </Text>
+                        </View>
+
+                        <TouchableOpacity onPress={onDesignerPress.bind(null, true, true)}>
+                            <Text style={{ color: 'blue' }}>View Details</Text>
                         </TouchableOpacity>
                     </View>
                     <Text><Text style={styles.labelStyle}>Date:</Text> {props.occuredDate}</Text>
