@@ -33,6 +33,8 @@ import Ratings from '../screens/Admin/Ratings';
 
 import firebase from 'firebase';
 import UploadCv from '../screens/User/UploadCv';
+import Cv from '../screens/Admin/Cv';
+import Email from '../screens/Admin/Email';
 
 const Stack = createStackNavigator();
 
@@ -105,7 +107,7 @@ function CustomDrawerContent(props) {
             <DrawerItem activeTintColor={'blue'} inactiveTintColor={'white'} activeBackgroundColor={'blue'} style={{ borderTopWidth: 0.2, borderTopColor: 'yellow' }} label="Logout" onPress={() => {
                 try {
                     firebase.auth().signOut();
-                } catch(e){
+                } catch (e) {
                 }
                 dispatch(logout())
             }} icon={({ focused, size }) => {
@@ -116,6 +118,33 @@ function CustomDrawerContent(props) {
                 />
             }} />
         </DrawerContentScrollView>
+    );
+}
+
+const EmailTab = createMaterialBottomTabNavigator();
+
+function EmailBottomTab() {
+    return (
+        <EmailTab.Navigator activeColor='#eff542' >
+            <EmailTab.Screen name="Cv" component={Cv} options={() => {
+                return {
+                    tabBarIcon: (tabInfo) => {
+                        return <Ionicons name="document-outline" size={25} color={tabInfo.color} />
+                    },
+                    tabBarColor: '#000080',
+                    tabBarLabel: Platform.OS === 'android' ? <Text style={{ fontFamily: 'headings' }}>CV</Text> : 'CV'
+                }
+            }} />
+            <EmailTab.Screen name="Email" component={Email} options={() => {
+                return {
+                    tabBarIcon: (tabInfo) => {
+                        return <Ionicons name="mail-outline" size={25} color={tabInfo.color} />
+                    },
+                    tabBarColor: '#808080',
+                    tabBarLabel: Platform.OS === 'android' ? <Text style={{ fontFamily: 'headings' }}>Email</Text> : 'Email'
+                }
+            }} />
+        </EmailTab.Navigator>
     );
 }
 
@@ -174,6 +203,15 @@ function MainNavigator() {
                             drawerIcon: ({ focused, size }) => (
                                 <Ionicons
                                     name="star"
+                                    size={size}
+                                    color={focused ? '#7cc' : '#ccc'}
+                                />
+                            ),
+                        }} />
+                        <Drawer.Screen name="CV/Emails" component={EmailBottomTab} options={{
+                            drawerIcon: ({ focused, size }) => (
+                                <Ionicons
+                                    name="mail"
                                     size={size}
                                     color={focused ? '#7cc' : '#ccc'}
                                 />
