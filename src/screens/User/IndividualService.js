@@ -254,7 +254,7 @@ const IndividualService = props => {
                         }>
                         <Picker.Item label="Select Designer" value="Select Designer" />
                         {designers.map(item => (
-                            <Picker.Item label={item.name} value={item.name} />
+                            <Picker.Item key={item.name} label={item.name} value={item.name} />
                         ))}
                     </Picker>
                 </View>

@@ -1,12 +1,13 @@
 // User Side Screen
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Alert, Dimensions } from 'react-native';
 import Header from '../../components/Header';
 import firebase from 'firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBookedEvents, updateBookedEvents } from '../../redux/actions';
 import BookedEvent from '../../components/BookedEvent';
 
+const { width, height } = Dimensions.get('window');
 
 const BookedEvents = props => {
 
@@ -47,19 +48,6 @@ const BookedEvents = props => {
         });
     }
 
-    // if (events.length == 0) {
-    //     return (
-    //         <>
-    //             <Header navigation={props.navigation} bookedEvents />
-    //             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    //                 <Text style={{ textAlign: 'center', color: 'grey' }}>
-    //                     You have not booked any Event yet!
-    //                 </Text>
-    //             </View>
-    //         </>
-    //     )
-    // }
-
     return (
         <View style={styles.screen}>
             {console.log('asdasd------------------------------', events)}
@@ -70,6 +58,18 @@ const BookedEvents = props => {
                 data={events}
                 renderItem={({ item }) => {
                     return <BookedEvent item={item} onSubmitReview={onSubmitReview} />
+                }}
+                ListEmptyComponent={() => {
+                    if (!isRefreshing) {
+                        return (
+                            <View style={{ flex: 1, justifyContent: 'center', height: height - 50 }}>
+                                <Text style={{ textAlign: 'center', color: 'grey' }}>
+                                    You have not booked any Event yet!
+                                </Text>
+                            </View>
+                        )
+                    }
+                    return <View />
                 }}
             />
         </View>

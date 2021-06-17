@@ -29,8 +29,8 @@ const Modals = props => { //designerName, toggleModal, isShow
                                 <Text style={{ textAlign: 'center', fontFamily: 'headings', fontSize: 30 }}>Cards</Text>
                             </View>
                             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                {designerDetail.gallery.map(img => (
-                                    <Image style={{ width: '100%', height: 150, margin: 10 }} resizeMode={'cover'} source={img} />
+                                {designerDetail.gallery.map((img, index) => (
+                                    <Image key={index.toString()} style={{ width: '100%', height: 150, margin: 10 }} resizeMode={'cover'} source={img} />
                                 ))}
                             </View>
                             <View style={{ marginVertical: 10 }}>
@@ -55,7 +55,7 @@ const Modals = props => { //designerName, toggleModal, isShow
                             <Avatar.Image size={60} source={designerDetail.pic} />
                         </View>
                         <View style={{ alignItems: 'center' }}>
-                            <Text style={{ gallerybackgroundColor: 'white', fontFamily: 'joining' }}>{designerDetail.name}</Text>
+                            <Text style={{ backgroundColor: 'white', fontFamily: 'joining' }}>{designerDetail.name}</Text>
                         </View>
                         <View style={{ marginTop: 0, padding: 0 }}>
                             <Text style={{ textAlign: 'center', marginBottom: 0 }}>
@@ -75,8 +75,8 @@ const Modals = props => { //designerName, toggleModal, isShow
                             <Text style={{ textAlign: 'center', fontFamily: 'headings', fontSize: 30 }}>Gallery</Text>
                         </View>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            {designerDetail.gallery.map(img => (
-                                <Image style={{ width: '100%', height: 150, margin: 10 }} resizeMode={'cover'} source={img} />
+                            {designerDetail.gallery.map((img, index) => (
+                                <Image key={index.toString()} style={{ width: '100%', height: 150, margin: 10 }} resizeMode={'cover'} source={img} />
                             ))}
                         </View>
                         <View style={{ marginVertical: 10 }}>
