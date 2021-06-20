@@ -84,10 +84,6 @@ const Ratings = props => {
                                         } return <Ionicons key={index} name={'star-outline'} size={23} color={'red'} />
                                     })
                                 }
-                                {/* <Ionicons name={'star'} size={23} color={'red'} />
-                                <Ionicons name={'star'} size={23} color={'red'} />
-                                <Ionicons name={'star'} size={23} color={'red'} />
-                                <Ionicons name={'star-outline'} size={23} color={'red'} /> */}
                             </Text>
                             <Text style={{ marginTop: 5, textAlign: 'center', fontFamily: 'headings' }}>
                                 {item.ratings.ratingDesc}

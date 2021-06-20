@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from 'react-native-paper';
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import { events } from '../../data/Data';
 import firebase from 'firebase';
-import Card from '../../components/Card';
 import { Ionicons } from '@expo/vector-icons';
 
 const EventDetail = props => {

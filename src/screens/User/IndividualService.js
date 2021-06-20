@@ -5,7 +5,6 @@ import { Button } from 'react-native-paper';
 import Header from '../../components/Header';
 import { ToggleButton } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
-import { Checkbox } from 'react-native-paper';
 import DataTable from '../../components/DataTable';
 import { TextInput } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';

@@ -9,7 +9,6 @@ import {
     Alert,
 } from "react-native";
 import { TextInput, Button } from "react-native-paper";
-// import { Ionicons } from '@expo/vector-icons';
 import { useHeaderHeight } from "@react-navigation/stack";
 import BackgroundImage from "../components/BackgroundImage";
 import firebase from "firebase";

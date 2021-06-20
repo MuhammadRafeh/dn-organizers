@@ -1,11 +1,10 @@
 // User Side Screen
-import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, FlatList, Image, Alert, Dimensions } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, FlatList, Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../components/Header';
 import firebase from 'firebase';
-import { deletePendingInvoice, setPendingInvoices } from '../../redux/actions';
-import * as MediaLibrary from 'expo-media-library';
+import { setPendingInvoices } from '../../redux/actions';
 import InvoiceItem from '../../components/InvoiceItem';
 
 const { width, height } = Dimensions.get('window');

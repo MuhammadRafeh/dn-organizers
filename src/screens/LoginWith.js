@@ -1,6 +1,5 @@
-import { LinearGradient } from 'expo-linear-gradient';
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, ImageBackground } from 'react-native';
+import React from 'react';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import BackgroundImage from '../components/BackgroundImage';
 import { useHeaderHeight } from "@react-navigation/stack";
 import { Button } from 'react-native-paper';
