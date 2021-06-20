@@ -34,8 +34,8 @@ import {
 const initialAuthState = {
     uid: '',
     email: '',
-    isAdmin: true,
-    isAuth: true
+    isAdmin: false,
+    isAuth: false
 }
 
 const authReducer = (state = initialAuthState, action) => {

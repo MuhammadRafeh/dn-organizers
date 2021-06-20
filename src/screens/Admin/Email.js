@@ -7,7 +7,7 @@ import {Ionicons} from '@expo/vector-icons';
 
 const Email = props => {
 
-    const [emails, setEmails] = useState([]); //[{email, message}, ...]
+    const [emails, setEmails] = useState([]); //[{id, email, message}, ...]
 
     useEffect(() => {
         const ref = firebase.database().ref('viewInfo/joinUs')
@@ -17,7 +17,7 @@ const Email = props => {
             for (let id in snapshot.val()) {
                 const obj = snapshot.val()[id];
                 transformedData.push(
-                    { email: obj.email, message: obj.message }
+                    { id, email: obj.email, message: obj.message }
                 )
             }
             setEmails([...transformedData])
@@ -30,7 +30,7 @@ const Email = props => {
         <View>
             <AdminHeader navigation={props.navigation} email />
             <FlatList
-                keyExtractor={item => item.phone}
+                keyExtractor={item => item.id}
                 data={emails}
                 renderItem={({ item }) => {
                     return (

@@ -107,8 +107,8 @@ const PackagesItem = props => {
             <Modals isShow={isShowModal} card={isShowCard} toggleModal={setIsShowModal.bind(null, !isShowModal)} designerName={props.designerName} />
             <View style={styles.cardHeader}>
                 <View style={styles.flex1} />
-                <View style={styles.flex1}>
-                    <Text style={styles.packageName}>{props.name}</Text>
+                <View style={{flex: 2}}>
+                    <Text style={styles.packageName} numberOfLines={1} adjustsFontSizeToFit={true}>{props.name}</Text>
                 </View>
                 <Button mode="text" onPress={props.handleBookPress}>
                     Book Now

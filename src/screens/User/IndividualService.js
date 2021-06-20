@@ -73,8 +73,13 @@ const IndividualService = props => {
             }
         })
         // console.log('--------------->', price)
-        if (menu.length == 0 || value == '' || selectedVenu == 'Select Venu' || selectedVenu == '' || date.getTime() < new Date().getTime() || selectedDesigner == 'Select Designer' || selectedDesigner == '') {
+        if (menu.length == 0 || value == '' || selectedVenu == 'Select Venu' || selectedVenu == '' || selectedDesigner == 'Select Designer' || selectedDesigner == '') {
             Alert.alert('Fillout Form First!', 'You are missing some info, plz have a look.', [{ text: 'Ok', style: 'destructive' }])
+            return;
+        }
+
+        if ( date.getTime() < new Date().getTime()) {
+            Alert.alert('Date must be Greater!', 'Event date must be greater than current date.', [{ text: 'Ok', style: 'destructive' }])
             return;
         }
 

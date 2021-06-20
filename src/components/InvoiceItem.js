@@ -113,8 +113,8 @@ const InvoiceItem = props => {
                     }
                 </View>
 
-                <View style={styles.flex1}>
-                    <Text style={styles.packageNameLabel}>
+                <View style={{flex: 2}}>
+                    <Text style={styles.packageNameLabel} numberOfLines={1} adjustsFontSizeToFit={true}>
                         {
                             item.item.isPackage && item.item.serPackName.toUpperCase()
                         }
