@@ -158,6 +158,11 @@ const AdminWedding = props => {
             return;
         }
 
+        if (date.getTime() < new Date().getTime()) {
+            Alert.alert('Date must be Greater!', 'Event date must be greater than current date.', [{ text: 'Ok', style: 'destructive' }])
+            return;
+        }
+
         const pushData = {
             name: packageName,
             price,
@@ -294,11 +299,16 @@ const AdminWedding = props => {
                                             />
                                         </View>
                                         {/* Venu Row */}
-                                        <View style={{ marginBottom: 5, marginTop: 15 }}>
-                                            <Text style={{ color: 'grey', fontFamily: 'descent', textAlign: 'center', fontSize: 20 }}>
+                                        <View style={{ width: '40%', alignSelf: 'center' }}>
+                                            <Text
+                                                style={{ color: 'grey', fontFamily: 'descent', textAlign: 'center', fontSize: 20 }}
+                                                numberOfLines={1}
+                                                adjustsFontSizeToFit={true}
+                                            >
                                                 Venu
                                             </Text>
                                         </View>
+                                        <View style={{ width: '50%', alignSelf: 'center', height: 1, backgroundColor: 'grey' }} />
                                         <View style={styles.menuRow}>
                                             <View>
                                                 <Text style={{ color: 'grey' }}>
@@ -307,7 +317,7 @@ const AdminWedding = props => {
                                             </View>
                                             {/* VENU NAME----------------------------------- */}
 
-                                            <View style={{ marginLeft: 5, marginVertical: 5 }}>
+                                            <View style={{ marginLeft: 5, marginTop: 5, marginBottom: 25 }}>
                                                 <Picker
                                                     style={{ width: '100%', height: 20 }}
                                                     selectedValue={venuName}
@@ -325,9 +335,16 @@ const AdminWedding = props => {
                                                     }
                                                 </Picker>
                                             </View>
-                                            <Text style={{ color: 'grey', fontFamily: 'descent', textAlign: 'center', fontSize: 20 }}>
-                                                Designer
-                                            </Text>
+                                            <View style={{ width: '40%', alignSelf: 'center' }}>
+                                                <Text
+                                                    style={{ color: 'grey', fontFamily: 'descent', textAlign: 'center', fontSize: 20 }}
+                                                    numberOfLines={1}
+                                                    adjustsFontSizeToFit={true}
+                                                >
+                                                    Designer
+                                                </Text>
+                                            </View>
+                                            <View style={{ width: '50%', alignSelf: 'center', height: 1, backgroundColor: 'grey' }} />
 
                                             <View>
                                                 <Text style={{ color: 'grey' }}>
@@ -335,7 +352,7 @@ const AdminWedding = props => {
                                                 </Text>
                                             </View>
                                             {/* VENU PRICE------------------------------- */}
-                                            <View style={{ marginLeft: 5, marginVertical: 5 }}>
+                                            <View style={{ marginLeft: 5, marginTop: 5, marginBottom: 25 }}>
                                                 <Picker
                                                     style={{ width: '100%', height: 20 }}
                                                     selectedValue={designer}
@@ -373,7 +390,7 @@ const AdminWedding = props => {
                                 </Button>
                                         </View>
 
-                                        <View style={{ marginTop: 5 }}>
+                                        <View style={{ marginTop: 5, marginVertical: 10}}>
                                             <Button mode="text" onPress={onSubmitForm}>
                                                 Add Package
                                             </Button>
@@ -457,7 +474,7 @@ const AdminWedding = props => {
             {/* DELETE MENU-------------------------------------------------- */}
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginHorizontal: 10, marginTop: 10, marginBottom: 5 }}>
                 <View />
-                <View style={{ width: 125 }}>
+                <View>
                     <Button icon="trash-outline" mode="outlined" onPress={deleteItem.bind(null, 'menu')}>
                         DELETE MENU
                     </Button>
@@ -522,7 +539,7 @@ const AdminWedding = props => {
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginHorizontal: 10, marginTop: 10, marginBottom: 20 }}>
                 <View />
-                <View style={{ width: 124 }}>
+                <View>
                     <Button icon="trash-outline" mode="outlined" onPress={deleteItem.bind(null, 'venu')}>
                         DELETE VENU
                     </Button>

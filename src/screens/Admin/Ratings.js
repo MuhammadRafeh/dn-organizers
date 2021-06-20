@@ -30,7 +30,7 @@ const Ratings = props => {
             firebase.database().ref(`bookedEvents/${bookedEventId}`).update({ status: 'rejected' })
         ]).then((data) => {
             // console.log("Operations Successful", data)
-            Alert.alert('Accepted!', 'This is now visible.', [{ text: 'Ok', style: 'destructive' }])
+            Alert.alert('Rejected Successfully!', 'This will not visible.', [{ text: 'Ok', style: 'destructive' }])
         }).catch((e) => {
             Alert.alert('Something went wrong!', 'Check your network.', [{ text: 'Ok', style: 'destructive' }])
         })

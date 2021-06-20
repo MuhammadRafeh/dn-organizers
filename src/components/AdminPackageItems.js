@@ -15,11 +15,10 @@ const AdminPackageItems = props => {
     return (
         <Card style={styles.cardStyle}>
             <View style={styles.cardHeader}>
-                <View style={styles.flex1} />
                 <View style={{flex: 2}}>
-                    <Text style={styles.packageName}>{props.name}</Text>
+                    <Text style={styles.packageName} numberOfLines={1} adjustsFontSizeToFit={true}>{props.name}</Text>
                 </View>
-                <View style={styles.flex1}>
+                <View style={{flex: 2}}>
                     <Button mode="text" onPress={props.handleBookPress}>
                         Delete
                     </Button>
@@ -82,9 +81,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'grey'
     },
     packageName: {
-        textAlign: 'center',
+        textAlign: 'right',
         fontFamily: 'webfont',
-        fontSize: 30
+        fontSize: 30,
     },
     flex1: {
         flex: 1
@@ -97,7 +96,8 @@ const styles = StyleSheet.create({
     cardHeader: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingVertical: 10
     },
     packageDetails: {
         padding: 6

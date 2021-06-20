@@ -65,6 +65,11 @@ const InvoiceItem = props => {
     }
 
     const onSubmitForm = () => {
+        if (branchCode.trim().length <= 1 || bankAddress.trim().length <= 3 ){
+            Alert.alert('Fillout Form First!', 'Fill full form in order to submit.', [{text: 'Ok', style: 'destructive'}])
+            return;
+        }
+        
         hideDialog();
         const userClear = {
             invoiceData: item.item,
@@ -294,7 +299,7 @@ const InvoiceItem = props => {
                                 </Button>
                             </View>
 
-                            <View style={{ marginTop: 5 }}>
+                            <View style={{ marginTop: 5, marginBottom: 10 }}>
                                 <Button mode="text" onPress={onSubmitForm}>
                                     Submit
                                 </Button>
