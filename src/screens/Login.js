@@ -78,7 +78,7 @@ const Login = (props) => {
     const buttonHandler = () => {
         if (isSignup) {
             //here we are creating the user
-            if (password === confirmPassword) {
+            if (password === confirmPassword && password.length >= 6) {
                 firebase.auth().createUserWithEmailAndPassword(email, password).then((object) => {
                     // dispatch(authenticate(object.user.uid, email, false, false));
                     object.user.sendEmailVerification();
@@ -91,7 +91,7 @@ const Login = (props) => {
                 })
                 // firebase.auth().
             } else {
-                Alert.alert('Password Error', 'Passwords not match with each other', [{ text: 'Ok', style: 'destructive' }])
+                Alert.alert('Provided Info Is Not Valid!', 'Passwords not match with each other / Password must be at least 6 characters.', [{ text: 'Ok', style: 'destructive' }])
             }
         }
         else if (loginBy === 'user' && isEmailValid && password >= 6) {
