@@ -210,7 +210,7 @@ const Login = (props) => {
                 }
             </ScrollView>
             <BackgroundImage
-                source={require("../../assets/images/login-background.jpg")}
+                source={require("../../assets/images/login1.jpeg")}
                 headerHeight={headerHeight}
             />
         </View>

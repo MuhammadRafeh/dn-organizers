@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     },
     itemTitle: {
         color: 'white',
-        fontSize: 30,
+        fontSize: 25,
         shadowColor: '#000',
         shadowOffset: { width: 0.8, height: 0.8 },
         shadowOpacity: 1,
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         // fontWeight: "bold",
         elevation: 5,
-        fontFamily: 'webfont'
+        fontFamily: 'headings'
     },
     itemDescription: {
         color: 'white',
