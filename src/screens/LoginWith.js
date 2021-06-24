@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, Text } from 'react-native';
+import { StyleSheet, View, Dimensions, Text, Image } from 'react-native';
 import BackgroundImage from '../components/BackgroundImage';
 import { useHeaderHeight } from "@react-navigation/stack";
 import { Button } from 'react-native-paper';
@@ -21,7 +21,14 @@ const LoginWith = props => {
 
     return (
         <View style={styles.container}>
-            <View style={{ marginTop: height / 9 }}>
+            <View style={{marginLeft: 40, flex: 1, marginTop: 60}}>
+                <Image
+                    source={require('../../assets/images/logo.png')}
+                    resizeMode={'contain'}
+                    style={{width: 200, height: 200}}
+                />
+            </View>
+            <View style={{ marginTop: height / 6, flex: 2 }}>
                 <View style={{ marginBottom: 20, width: 150 }}>
                     <LinearGradient colors={['#00dbde', '#fc00ff']}>
                         <Button icon="people" color='white' mode="outlined" onPress={handleLogin.bind(null, 'user')}>
@@ -39,7 +46,7 @@ const LoginWith = props => {
                 </View>
             </View>
             <BackgroundImage
-                source={require('../../assets/images/login8.jpeg')}
+                source={require('../../assets/images/login1.jpeg')}
                 headerHeight={headerHeight}
             />
         </View>
@@ -66,7 +73,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         // backgroundColor: 'blue',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         alignItems: 'center'
     },
     label: {
